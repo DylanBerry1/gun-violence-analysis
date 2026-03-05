@@ -8,12 +8,12 @@ Outputs:
 - hex_csv_outputs/chicago_hex_time_season_counts.csv
 
 Run:
-    python3 generate_chicago_maps.py
+    python3 scripts/03_build_maps.py
 """
 
-import os
 import sys
 import math
+from pathlib import Path
 
 import branca.colormap as cm
 import folium
@@ -22,12 +22,13 @@ import numpy as np
 import pandas as pd
 from shapely.geometry import Polygon
 
-CSV_PATH = "chicago_violence_homicides.csv"
-OUT_HEX_MAP = "chicago_homicides_hex_map.html"
-CSV_OUT_DIR = "hex_csv_outputs"
-OUT_HEX_COUNTS = os.path.join(CSV_OUT_DIR, "chicago_hex_counts.csv")
-OUT_INCIDENTS = os.path.join(CSV_OUT_DIR, "chicago_homicides_with_hex.csv")
-OUT_TIME_SEASON = os.path.join(CSV_OUT_DIR, "chicago_hex_time_season_counts.csv")
+ROOT_DIR = Path(__file__).resolve().parents[1]
+CSV_PATH = ROOT_DIR / "data" / "raw" / "chicago_violence_homicides.csv"
+OUT_HEX_MAP = ROOT_DIR / "reports" / "maps" / "chicago_homicides_hex_map.html"
+CSV_OUT_DIR = ROOT_DIR / "data" / "processed" / "hex"
+OUT_HEX_COUNTS = CSV_OUT_DIR / "chicago_hex_counts.csv"
+OUT_INCIDENTS = CSV_OUT_DIR / "chicago_homicides_with_hex.csv"
+OUT_TIME_SEASON = CSV_OUT_DIR / "chicago_hex_time_season_counts.csv"
 
 CHICAGO_BOUNDS = {
     "lat_min": 41.5,
@@ -153,12 +154,13 @@ def time_bin_from_hour(hour: pd.Series) -> pd.Series:
 
 
 def main() -> int:
-    if not os.path.exists(CSV_PATH):
+    if not CSV_PATH.exists():
         print(
             f"ERROR: CSV not found at {CSV_PATH}. Run from the directory containing the CSV."
         )
         return 1
-    os.makedirs(CSV_OUT_DIR, exist_ok=True)
+    CSV_OUT_DIR.mkdir(parents=True, exist_ok=True)
+    OUT_HEX_MAP.parent.mkdir(parents=True, exist_ok=True)
 
     print(f"Reading {CSV_PATH}")
     df = pd.read_csv(CSV_PATH)

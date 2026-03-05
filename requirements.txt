@@ -1,0 +1,10 @@
+pandas
+numpy
+geopandas
+folium
+branca
+shapely
+pyproj
+fiona
+jupyter
+matplotlib
