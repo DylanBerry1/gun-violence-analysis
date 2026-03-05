@@ -3,12 +3,12 @@ Generate Chicago homicide visualization and reusable hex IDs.
 
 Outputs:
 - chicago_homicides_hex_map.html
-- hex_csv_outputs/chicago_hex_counts.csv
-- hex_csv_outputs/chicago_homicides_with_hex.csv 
-- hex_csv_outputs/chicago_hex_time_season_counts.csv
+- data/processed/hex/chicago_hex_counts.csv
+- data/processed/hex/chicago_homicides_with_hex.csv
+- data/processed/hex/chicago_hex_time_season_counts.csv
 
 Run:
-    python3 scripts/03_build_maps.py
+    python3 src/build_maps.py
 """
 
 import sys
@@ -36,6 +36,20 @@ CHICAGO_BOUNDS = {
     "lon_min": -88.0,
     "lon_max": -87.5,
 }
+
+# Analysis-focused map viewport controls
+CHICAGO_VIEW_BOUNDS = [[41.63, -87.94], [42.03, -87.30]]
+CHICAGO_NAV_BOUNDS = {
+    "min_lat": 41.55,
+    "max_lat": 42.10,
+    "min_lon": -88.05,
+    "max_lon": -87.10,
+}
+MAP_MIN_ZOOM = 10
+MAP_MAX_ZOOM = 14
+MAP_ZOOM_DELTA = 0.5
+MAP_ZOOM_SNAP = 0.5
+MAP_WHEEL_PX_PER_ZOOM_LEVEL = 100
 
 
 def detect_lat_lon_columns(df: pd.DataFrame) -> tuple[str, str]:
@@ -257,7 +271,7 @@ def main() -> int:
         ]
         if c in gdf_hex.columns
     ]
-    
+
     gdf_hex_out = gdf_hex.copy()
     gdf_hex_out["latitude"] = gdf_hex_out.geometry.y
     gdf_hex_out["longitude"] = gdf_hex_out.geometry.x
@@ -278,7 +292,26 @@ def main() -> int:
     center_lat = float(df[lat_col].median())
     center_lon = float(df[lon_col].median())
     hex_map = folium.Map(
-        location=[center_lat, center_lon], zoom_start=11, tiles="CartoDB dark_matter"
+        location=[center_lat, center_lon],
+        zoom_start=11,
+        tiles="CartoDB dark_matter",
+        width="100%",
+        height="100%",
+        min_zoom=MAP_MIN_ZOOM,
+        max_zoom=MAP_MAX_ZOOM,
+        zoom_animation=True,
+        fade_animation=False,
+        marker_zoom_animation=True,
+        zoom_delta=MAP_ZOOM_DELTA,
+        zoom_snap=MAP_ZOOM_SNAP,
+        wheel_px_per_zoom_level=MAP_WHEEL_PX_PER_ZOOM_LEVEL,
+        min_lat=CHICAGO_NAV_BOUNDS["min_lat"],
+        max_lat=CHICAGO_NAV_BOUNDS["max_lat"],
+        min_lon=CHICAGO_NAV_BOUNDS["min_lon"],
+        max_lon=CHICAGO_NAV_BOUNDS["max_lon"],
+        max_bounds=True,
+        max_bounds_viscosity=1.0,
+        prefer_canvas=True,
     )
 
     vmax = int(hex_gdf_wgs["count"].max())
@@ -311,6 +344,7 @@ def main() -> int:
     colormap.caption = "Homicides per occupied hex"
     hex_map.add_child(colormap)
     folium.LayerControl().add_to(hex_map)
+    hex_map.fit_bounds(CHICAGO_VIEW_BOUNDS)
     hex_map.save(OUT_HEX_MAP)
 
     print(f"Saved {OUT_HEX_MAP}")
