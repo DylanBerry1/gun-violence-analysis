@@ -6,11 +6,36 @@ So far, we have gotten a basic understanding of the crime data. In addition to t
 We are also working out the technical aspects of plotting the data in hexagons. By partitioning the city into uniform hex cells, we believe we can better isolate and analyze specific neighborhoods/areas.
 
 **Data**  
-Our main dataset is the dataset of all Chicago crime from 2001 to the present, but filtered for the primary type of crime to only include homicides. This effectively reduced the dataset from \~8M rows originally to only \~14K rows. The data consists of demographic information, the approximate location of the incident, and more details regarding the crime (first-degree murder, second-degree murder, etc.).   
+Our main dataset is the dataset of all Chicago crime from 2001 to the present, but filtered for the primary type of crime to only include homicides. This effectively reduced the dataset from eight million rows originally to only fourteen thousand rows. The data consists of demographic information, the approximate location of the incident, and more details regarding the crime (first-degree murder, second-degree murder, etc.).   
 We also have access to a few more supplemental datasets related to social infrastructure (Boeing, 2025\) and socioeconomic factors (Bureau, 2013\) to complement the crime data and provide helpful context. We want to continue working on integrating these more and mapping them onto their respective hex areas.
 
+| Column Title | Data Type | Use |
+| :---- | :---- | :---- |
+| ID | Int | Id of the crime. Unique identifier. |
+| Case number | String | Another type of identifier. |
+| Date | String | When the crime occured |
+| Block | String | Approximate location of incident |
+| IUCR | Int | Illinois uniform crime reporting code, each number represents a different crime |
+| Primary Type | String | Category of crime committed |
+| Description | String | Specificity in regards to the crime committed, category of crime committed |
+| Location Description | String | Where crime occured, categorically (street, house, parking lot etc) |
+| Arrest | Boolean | Whether or not an arrest was made |
+| Domestic | Boolean | Whether or not the incident was domestic or not |
+| Beat | Int | Police station identifier |
+| District | Int | District identifier |
+| Ward | Float | Ward identifier |
+| Community Area | Float | Community Area identifier |
+| FBI Code | String | Identifier used by FBI to determine what crime was committed |
+| X coordinate | Float | Approximate X coordinate of crime |
+| Y coordinate | Float | Approximate Y coordinate of crime |
+| Year | Int | What year crime occurred in |
+| Updated On | String | When this piece of data was added |
+| Latitude | Float | Approximate latitude of where crime was committed |
+| Longitude | Float | Approximate longitude of where crime was committed |
+| Location | Tuple | Column that combines latitude and longitude into one column with both values |
+
 **Tools**  
-Currently, we are using *Pandas/NumPy* to process the data and *Folium* to map it. We also plan to find more advanced libraries for the hexagonal map-making and other purposes as well.
+Currently, we are using Pandas and NumPy to process the data and Folium to map it. We also plan to find more advanced libraries for the hexagonal map-making and other purposes as well.
 
 **Assigned Tasks**  
 Dylan Berry \- Worked on writing the report, managed the GitHub repository  
