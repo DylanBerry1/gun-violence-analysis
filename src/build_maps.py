@@ -50,6 +50,14 @@ MAP_MAX_ZOOM = 14
 MAP_ZOOM_DELTA = 0.5
 MAP_ZOOM_SNAP = 0.5
 MAP_WHEEL_PX_PER_ZOOM_LEVEL = 100
+SEASON_ORDER = ["Winter", "Spring", "Summer", "Fall"]
+TIME_BIN_BINS = [-1, 5, 11, 17, 23]
+TIME_BIN_LABELS = [
+    "Night (00-05)",
+    "Morning (06-11)",
+    "Afternoon (12-17)",
+    "Evening (18-23)",
+]
 
 
 def detect_lat_lon_columns(df: pd.DataFrame) -> tuple[str, str]:
@@ -153,18 +161,14 @@ def season_from_month(month: pd.Series) -> pd.Series:
         10: "Fall",
         11: "Fall",
     }
-    return month.map(mapping)
+    season = month.map(mapping)
+    return pd.Series(
+        pd.Categorical(season, categories=SEASON_ORDER, ordered=True), index=month.index
+    )
 
 
 def time_bin_from_hour(hour: pd.Series) -> pd.Series:
-    bins = [-1, 5, 11, 17, 23]
-    labels = [
-        "Night (00-05)",
-        "Morning (06-11)",
-        "Afternoon (12-17)",
-        "Evening (18-23)",
-    ]
-    return pd.cut(hour, bins=bins, labels=labels)
+    return pd.cut(hour, bins=TIME_BIN_BINS, labels=TIME_BIN_LABELS, ordered=True)
 
 
 def main() -> int:
@@ -203,7 +207,9 @@ def main() -> int:
 
     date_col = "Date" if "Date" in df.columns else None
     if date_col is not None:
-        df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+        df[date_col] = pd.to_datetime(
+            df[date_col], format="%m/%d/%Y %I:%M:%S %p", errors="coerce"
+        )
         df["year"] = df[date_col].dt.year
         df["month"] = df[date_col].dt.month
         df["hour"] = df[date_col].dt.hour
@@ -281,7 +287,12 @@ def main() -> int:
     ].to_csv(OUT_INCIDENTS, index=False)
 
     hex_time_season = (
-        gdf_hex.groupby(["hex_id", "time_bin", "season"], dropna=False, as_index=False)
+        gdf_hex.groupby(
+            ["hex_id", "time_bin", "season"],
+            dropna=False,
+            observed=False,
+            as_index=False,
+        )
         .size()
         .rename(columns={"size": "count"})
         .sort_values(["hex_id", "time_bin", "season"])
@@ -319,7 +330,7 @@ def main() -> int:
     colormap = cm.linear.YlOrRd_09.scale(vmin, max(vmax, 1))
 
     render_cols = ["hex_id", "count", "centroid_lat", "centroid_lon", "geometry"]
-    render_geojson = hex_gdf_wgs[render_cols].to_json()
+    render_geojson = hex_gdf_wgs[render_cols].to_json(drop_id=True, to_wgs84=True)
 
     def style_function(feature: dict) -> dict:
         c = feature["properties"].get("count", 0)
@@ -342,7 +353,7 @@ def main() -> int:
     ).add_to(hex_map)
 
     colormap.caption = "Homicides per occupied hex"
-    hex_map.add_child(colormap)
+    colormap.add_to(hex_map)
     folium.LayerControl().add_to(hex_map)
     hex_map.fit_bounds(CHICAGO_VIEW_BOUNDS)
     hex_map.save(OUT_HEX_MAP)
