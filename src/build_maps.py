@@ -12,8 +12,9 @@ Run:
 """
 
 import json
-import sys
 import math
+import re
+import sys
 from pathlib import Path
 
 import branca.colormap as cm
@@ -58,7 +59,9 @@ HEX_SIZE_STEP_M = 100
 DEFAULT_HEX_SIZE_M = 500
 HEX_SIZE_OPTIONS = tuple(range(HEX_SIZE_MIN_M, HEX_SIZE_MAX_M + 1, HEX_SIZE_STEP_M))
 LAYER_CACHE_LIMIT = 4
-GEOJSON_COORD_PRECISION = 6
+GEOJSON_COORD_PRECISION = 4
+FINE_DETAIL_SIZES = (100, 200)
+FINE_DETAIL_ZOOM_THRESHOLD = 12.5
 SEASON_ORDER = ["Winter", "Spring", "Summer", "Fall"]
 TIME_BIN_BINS = [-1, 5, 11, 17, 23]
 TIME_BIN_LABELS = [
@@ -67,6 +70,22 @@ TIME_BIN_LABELS = [
     "Afternoon (12-17)",
     "Evening (18-23)",
 ]
+MAP_TITLE = "Chicago Homicides Hex Map"
+MAP_DESCRIPTION = (
+    "Interactive Chicago homicide hex map with adjustable hex size and "
+    "per-hex homicide counts."
+)
+COLOR_RAMP = tuple(cm.linear.YlOrRd_09.scale(0, 1)(i / 8) for i in range(9))
+UNUSED_FOLIUM_ASSETS = (
+    '<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>',
+    '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>',
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>',
+    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>',
+    '<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>',
+    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>',
+    '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>',
+    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>',
+)
 
 
 def detect_lat_lon_columns(df: pd.DataFrame) -> tuple[str, str]:
@@ -208,22 +227,6 @@ def build_hex_layer(
     return gdf_hex, hex_gdf_wgs
 
 
-def build_legend_ticks(vmin: int, vmax: int, tick_count: int = 5) -> list[int]:
-    if vmax <= vmin:
-        return [vmin]
-
-    raw_ticks = np.linspace(vmin, vmax, tick_count)
-    rounded_ticks = [int(round(value)) for value in raw_ticks]
-    rounded_ticks[0] = vmin
-    rounded_ticks[-1] = vmax
-
-    ticks: list[int] = []
-    for tick in rounded_ticks:
-        if not ticks or tick != ticks[-1]:
-            ticks.append(tick)
-    return ticks
-
-
 def round_geojson_coordinates(value, precision: int = GEOJSON_COORD_PRECISION):
     if isinstance(value, float):
         return round(value, precision)
@@ -240,17 +243,19 @@ def round_geojson_coordinates(value, precision: int = GEOJSON_COORD_PRECISION):
 def build_layer_payload(hex_gdf_wgs: gpd.GeoDataFrame) -> dict:
     vmin = int(hex_gdf_wgs["count"].min())
     vmax = int(hex_gdf_wgs["count"].max())
-    colormap = cm.linear.YlOrRd_09.scale(vmin, max(vmax, 1))
-
     render_frame = hex_gdf_wgs[["hex_id", "count", "geometry"]].copy()
-    render_frame["fillColor"] = render_frame["count"].apply(colormap)
     geojson = json.loads(render_frame.to_json(drop_id=True, to_wgs84=True))
+    for feature in geojson["features"]:
+        props = feature["properties"]
+        feature["properties"] = {
+            "h": props["hex_id"],
+            "c": int(props["count"]),
+        }
 
     return {
-        "geojson": round_geojson_coordinates(geojson),
-        "vmin": vmin,
-        "vmax": vmax,
-        "legend_ticks": build_legend_ticks(vmin, vmax),
+        "g": round_geojson_coordinates(geojson),
+        "n": vmin,
+        "x": vmax,
     }
 
 
@@ -260,12 +265,45 @@ def finalize_map_html(html_path: Path) -> None:
     if not html.lstrip().lower().startswith("<!doctype html>"):
         html = "<!DOCTYPE html>\n" + html.lstrip()
 
+    html = re.sub(r"<html(?![^>]*\blang=)", '<html lang="en"', html, count=1)
+
     if '<link rel="icon"' not in html:
         html = html.replace(
             "<head>",
             '<head>\n    <link rel="icon" href="data:,">',
             1,
         )
+
+    if "<title>" not in html:
+        html = html.replace(
+            '<meta http-equiv="content-type" content="text/html; charset=UTF-8" />',
+            (
+                '<meta http-equiv="content-type" content="text/html; charset=UTF-8" />\n'
+                f"    <title>{MAP_TITLE}</title>"
+            ),
+            1,
+        )
+
+    if 'name="description"' not in html:
+        html = html.replace(
+            f"<title>{MAP_TITLE}</title>",
+            (
+                f"<title>{MAP_TITLE}</title>\n"
+                f'    <meta name="description" content="{MAP_DESCRIPTION}" />'
+            ),
+            1,
+        )
+
+    html = re.sub(
+        r'<meta name="viewport" content="[^"]*" ?/>',
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0" />',
+        html,
+        count=1,
+    )
+
+    for asset_tag in UNUSED_FOLIUM_ASSETS:
+        html = html.replace(f"    {asset_tag}\n", "")
+        html = html.replace(f"{asset_tag}\n", "")
 
     html_path.write_text(html, encoding="utf-8")
 
@@ -276,7 +314,8 @@ class HexSizeSliderControl(MacroElement):
         {% macro header(this, kwargs) %}
         <style>
             .hex-size-control {
-                min-width: 240px;
+                width: min(280px, calc(100vw - 20px));
+                max-width: calc(100vw - 20px);
                 padding: 12px 14px;
                 border-radius: 10px;
                 background: rgba(13, 13, 13, 0.92);
@@ -284,6 +323,7 @@ class HexSizeSliderControl(MacroElement):
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
                 border: 1px solid rgba(255, 255, 255, 0.12);
                 font-family: "Helvetica Neue", Arial, sans-serif;
+                backdrop-filter: blur(6px);
             }
 
             .hex-size-title,
@@ -301,6 +341,17 @@ class HexSizeSliderControl(MacroElement):
                 line-height: 1;
             }
 
+            .hex-size-status {
+                margin-top: 6px;
+                font-size: 11px;
+                min-height: 1.2em;
+                color: rgba(244, 239, 226, 0.78);
+            }
+
+            .hex-size-status[data-state="error"] {
+                color: #ff9f80;
+            }
+
             .hex-size-slider {
                 width: 100%;
                 margin: 12px 0 10px;
@@ -316,7 +367,8 @@ class HexSizeSliderControl(MacroElement):
             }
 
             .hex-legend-control {
-                min-width: 300px;
+                width: min(260px, calc(100vw - 20px));
+                max-width: calc(100vw - 20px);
                 padding: 12px 14px;
                 border-radius: 10px;
                 background: rgba(13, 13, 13, 0.9);
@@ -324,6 +376,7 @@ class HexSizeSliderControl(MacroElement):
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
                 border: 1px solid rgba(255, 255, 255, 0.12);
                 font-family: "Helvetica Neue", Arial, sans-serif;
+                backdrop-filter: blur(6px);
             }
 
             .hex-legend-bar {
@@ -340,6 +393,40 @@ class HexSizeSliderControl(MacroElement):
                 font-size: 11px;
                 color: rgba(244, 239, 226, 0.84);
             }
+
+            .hex-legend-note {
+                margin-top: 8px;
+                font-size: 11px;
+                color: rgba(244, 239, 226, 0.72);
+            }
+
+            @media (max-width: 640px) {
+                .hex-size-control,
+                .hex-legend-control {
+                    padding: 10px 12px;
+                    border-radius: 8px;
+                }
+
+                .hex-size-value {
+                    font-size: 18px;
+                }
+
+                .hex-size-title,
+                .hex-legend-title {
+                    font-size: 11px;
+                }
+
+                .hex-legend-bar {
+                    height: 14px;
+                }
+
+                .hex-legend-ticks,
+                .hex-size-endpoints,
+                .hex-legend-note,
+                .hex-size-status {
+                    font-size: 10px;
+                }
+            }
         </style>
         {% endmacro %}
         {% macro script(this, kwargs) %}
@@ -348,7 +435,11 @@ class HexSizeSliderControl(MacroElement):
             const defaultSize = {{ this.default_size }};
             const sizeOptions = {{ this.size_options_json | safe }};
             const layerPayloads = {{ this.layer_payloads_json | safe }};
+            const colorRamp = {{ this.color_ramp_json | safe }};
             const legendGradientCss = {{ this.legend_gradient_css_json | safe }};
+            const fineDetailSizes = new Set({{ this.fine_detail_sizes_json | safe }});
+            const fineDetailZoomThreshold = {{ this.fine_detail_zoom_threshold }};
+            const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
             const layerCache = new Map();
             const layerCacheLimit = {{ this.layer_cache_limit }};
             let activeLayer = null;
@@ -357,22 +448,173 @@ class HexSizeSliderControl(MacroElement):
             let scheduledFrame = null;
             let sliderValueEl = null;
             let legendTicksEl = null;
+            let sliderStatusEl = null;
+            let activePopupLayer = null;
 
-            function styleFeature(feature) {
+            function buildLegendTicks(vmin, vmax, tickCount = 5) {
+                if (vmax <= vmin) {
+                    return [vmin];
+                }
+                const ticks = [];
+                for (let index = 0; index < tickCount; index += 1) {
+                    const ratio = index / (tickCount - 1);
+                    const tick = Math.round(vmin + ((vmax - vmin) * ratio));
+                    if (!ticks.length || tick !== ticks[ticks.length - 1]) {
+                        ticks.push(tick);
+                    }
+                }
+                ticks[0] = vmin;
+                ticks[ticks.length - 1] = vmax;
+                return ticks;
+            }
+
+            function getFillColor(count, payload) {
+                if (!payload || payload.x <= payload.n) {
+                    return colorRamp[colorRamp.length - 1];
+                }
+                const normalized = (count - payload.n) / (payload.x - payload.n);
+                const clamped = Math.min(1, Math.max(0, normalized));
+                const rampIndex = Math.min(
+                    colorRamp.length - 1,
+                    Math.round(clamped * (colorRamp.length - 1))
+                );
+                return colorRamp[rampIndex];
+            }
+
+            function buildDetailHtml(props) {
+                return `<strong>Hex ID</strong>: ${props.h}<br><strong>Homicides</strong>: ${props.c}`;
+            }
+
+            function shouldShowFineDetailHint(size) {
+                return fineDetailSizes.has(Number(size)) && map.getZoom() < fineDetailZoomThreshold;
+            }
+
+            function buildReadyStatus(size) {
+                const base = `${size} m hexes loaded`;
+                return shouldShowFineDetailHint(size)
+                    ? `${base}. Zoom in for neighborhood detail.`
+                    : base;
+            }
+
+            function styleFeature(feature, payload, size) {
+                const fineResolutionWideView = fineDetailSizes.has(Number(size))
+                    && map.getZoom() < fineDetailZoomThreshold;
                 return {
-                    fillColor: feature.properties.fillColor,
-                    color: "#8d8d8d",
-                    weight: 0.5,
-                    fillOpacity: 0.65
+                    fillColor: getFillColor(feature.properties.c, payload),
+                    color: "#fff3d3",
+                    weight: fineResolutionWideView ? 0.45 : 0.75,
+                    opacity: fineResolutionWideView ? 0.14 : 0.28,
+                    fillOpacity: fineResolutionWideView ? 0.52 : 0.72
                 };
             }
 
-            function onEachFeature(feature, layer) {
+            function hoverStyle(feature, payload) {
+                return {
+                    fillColor: getFillColor(feature.properties.c, payload),
+                    color: "#fff7e4",
+                    weight: 1.45,
+                    opacity: 0.68,
+                    fillOpacity: 0.9
+                };
+            }
+
+            function popupStyle(feature, payload) {
+                return {
+                    fillColor: getFillColor(feature.properties.c, payload),
+                    color: "#ffffff",
+                    weight: 1.8,
+                    opacity: 0.82,
+                    fillOpacity: 0.93
+                };
+            }
+
+            function resetLayerStyle(layer, feature, payload, size) {
+                layer.setStyle(styleFeature(feature, payload, size));
+            }
+
+            function closeDetailSurfaces() {
+                if (activePopupLayer) {
+                    activePopupLayer.closePopup();
+                    activePopupLayer = null;
+                }
+                map.closePopup();
+            }
+
+            function onEachFeature(feature, layer, payload, size) {
                 const props = feature.properties;
-                layer.bindTooltip(
-                    `<strong>Hex ID</strong>: ${props.hex_id}<br><strong>Homicides</strong>: ${props.count}`,
-                    {sticky: true}
-                );
+                const detailHtml = buildDetailHtml(props);
+                if (!isCoarsePointer) {
+                    layer.bindTooltip(detailHtml, {
+                        sticky: true,
+                        direction: "auto",
+                        className: "hex-detail-tooltip"
+                    });
+                }
+                layer.bindPopup(detailHtml);
+                layer.on("mouseover", () => {
+                    if (isCoarsePointer || activePopupLayer === layer) {
+                        return;
+                    }
+                    layer.setStyle(hoverStyle(feature, payload));
+                    if (layer.getTooltip() && !layer.isPopupOpen()) {
+                        layer.openTooltip();
+                    }
+                });
+                layer.on("mouseout", () => {
+                    if (isCoarsePointer || activePopupLayer === layer) {
+                        return;
+                    }
+                    if (layer.getTooltip()) {
+                        layer.closeTooltip();
+                    }
+                    resetLayerStyle(layer, feature, payload, size);
+                });
+                layer.on("click", () => {
+                    if (layer.getTooltip()) {
+                        layer.closeTooltip();
+                    }
+                });
+                layer.on("popupopen", () => {
+                    if (activePopupLayer && activePopupLayer !== layer) {
+                        activePopupLayer.closePopup();
+                    }
+                    if (layer.getTooltip()) {
+                        layer.closeTooltip();
+                    }
+                    activePopupLayer = layer;
+                    layer.setStyle(popupStyle(feature, payload));
+                });
+                layer.on("popupclose", () => {
+                    if (activePopupLayer === layer) {
+                        activePopupLayer = null;
+                    }
+                    resetLayerStyle(layer, feature, payload, size);
+                });
+            }
+
+            function updateStatus(message, state = "idle") {
+                if (!sliderStatusEl) {
+                    return;
+                }
+                sliderStatusEl.textContent = message;
+                sliderStatusEl.dataset.state = state;
+            }
+
+            function getPayload(size) {
+                const key = String(size);
+                return layerPayloads[key] || null;
+            }
+
+            function refreshActiveLayerStyle() {
+                if (!activeLayer) {
+                    return;
+                }
+                const payload = getPayload(activeSize);
+                activeLayer.setStyle((feature) => styleFeature(feature, payload, activeSize));
+                if (activePopupLayer) {
+                    activePopupLayer.setStyle(popupStyle(activePopupLayer.feature, payload));
+                }
+                updateStatus(buildReadyStatus(activeSize), "ready");
             }
 
             function getLayer(size) {
@@ -384,10 +626,15 @@ class HexSizeSliderControl(MacroElement):
                     return cached;
                 }
 
-                const layer = L.geoJSON(layerPayloads[key].geojson, {
-                        style: styleFeature,
-                        onEachFeature: onEachFeature
-                    });
+                const payload = getPayload(key);
+                if (!payload) {
+                    throw new Error(`Missing payload for hex size ${key}`);
+                }
+                const layer = L.geoJSON(payload.g, {
+                    style: (feature) => styleFeature(feature, payload, key),
+                    onEachFeature: (feature, featureLayer) =>
+                        onEachFeature(feature, featureLayer, payload, key)
+                });
                 layerCache.set(key, layer);
 
                 while (layerCache.size > layerCacheLimit) {
@@ -405,38 +652,45 @@ class HexSizeSliderControl(MacroElement):
             }
 
             function updateLegend(size) {
-                const key = String(size);
-                const payload = layerPayloads[key];
+                const payload = getPayload(size);
                 if (!legendTicksEl || !payload) {
                     return;
                 }
-                legendTicksEl.innerHTML = payload.legend_ticks
+                legendTicksEl.innerHTML = buildLegendTicks(payload.n, payload.x)
                     .map((tick) => `<span>${tick}</span>`)
                     .join("");
             }
 
             function setActiveSize(size) {
                 const key = String(size);
-                if (!layerPayloads[key]) {
+                if (!getPayload(key)) {
                     return;
                 }
                 if (Number(size) === activeSize && activeLayer) {
                     return;
                 }
 
-                if (activeLayer) {
-                    map.removeLayer(activeLayer);
+                updateLegend(key);
+                updateStatus(`Rendering ${key} m hexes...`, "loading");
+                try {
+                    const nextLayer = getLayer(key);
+                    closeDetailSurfaces();
+                    if (activeLayer) {
+                        map.removeLayer(activeLayer);
+                    }
+                    activeLayer = nextLayer;
+                    activeLayer.addTo(map);
+                    activeSize = Number(size);
+
+                    if (sliderValueEl) {
+                        sliderValueEl.textContent = `${activeSize} m`;
+                    }
+
+                    updateStatus(buildReadyStatus(key), "ready");
+                } catch (error) {
+                    console.error("Failed to load hex layer", key, error);
+                    updateStatus(`Unable to render ${key} m layer`, "error");
                 }
-
-                activeLayer = getLayer(key);
-                activeLayer.addTo(map);
-                activeSize = Number(size);
-
-                if (sliderValueEl) {
-                    sliderValueEl.textContent = `${activeSize} m`;
-                }
-
-                updateLegend(activeSize);
             }
 
             function scheduleActiveSize(size) {
@@ -462,6 +716,10 @@ class HexSizeSliderControl(MacroElement):
 
                     sliderValueEl = L.DomUtil.create("div", "hex-size-value", container);
                     sliderValueEl.textContent = `${defaultSize} m`;
+
+                    sliderStatusEl = L.DomUtil.create("div", "hex-size-status", container);
+                    sliderStatusEl.textContent = "Ready";
+                    sliderStatusEl.dataset.state = "ready";
 
                     const slider = L.DomUtil.create("input", "hex-size-slider", container);
                     slider.type = "range";
@@ -490,6 +748,8 @@ class HexSizeSliderControl(MacroElement):
                 options: { position: "topright" },
                 onAdd() {
                     const container = L.DomUtil.create("div", "hex-legend-control leaflet-control");
+                    L.DomEvent.disableClickPropagation(container);
+                    L.DomEvent.disableScrollPropagation(container);
                     const title = L.DomUtil.create("div", "hex-legend-title", container);
                     title.textContent = "Homicides Per Occupied Hex";
 
@@ -497,6 +757,8 @@ class HexSizeSliderControl(MacroElement):
                     bar.style.background = legendGradientCss;
 
                     legendTicksEl = L.DomUtil.create("div", "hex-legend-ticks", container);
+                    const note = L.DomUtil.create("div", "hex-legend-note", container);
+                    note.textContent = "Legend rescales to the selected hex size.";
                     updateLegend(defaultSize);
 
                     return container;
@@ -505,6 +767,7 @@ class HexSizeSliderControl(MacroElement):
 
             new LegendControl().addTo(map);
             new SliderControl().addTo(map);
+            map.on("zoomend", refreshActiveLayerStyle);
             setActiveSize(defaultSize);
         })();
         {% endmacro %}
@@ -524,6 +787,11 @@ class HexSizeSliderControl(MacroElement):
         self.size_options_json = json.dumps(list(size_options), separators=(",", ":"))
         self.default_size = default_size
         self.layer_cache_limit = LAYER_CACHE_LIMIT
+        self.color_ramp_json = json.dumps(list(COLOR_RAMP), separators=(",", ":"))
+        self.fine_detail_sizes_json = json.dumps(
+            list(FINE_DETAIL_SIZES), separators=(",", ":")
+        )
+        self.fine_detail_zoom_threshold = FINE_DETAIL_ZOOM_THRESHOLD
         self.legend_gradient_css_json = json.dumps(
             legend_gradient_css, separators=(",", ":")
         )
@@ -565,9 +833,18 @@ def main() -> int:
 
     date_col = "Date" if "Date" in df.columns else None
     if date_col is not None:
-        df[date_col] = pd.to_datetime(
+        parsed_dates = pd.to_datetime(
             df[date_col], format="%m/%d/%Y %I:%M:%S %p", errors="coerce"
         )
+        if parsed_dates.isna().any():
+            fallback_mask = parsed_dates.isna()
+            fallback_dates = pd.to_datetime(
+                df.loc[fallback_mask, date_col], errors="coerce"
+            )
+            parsed_dates.loc[fallback_mask] = fallback_dates
+            print(f"Date parse fallbacks used: {int(fallback_dates.notna().sum())}")
+        print(f"Rows with unparsed dates: {int(parsed_dates.isna().sum())}")
+        df[date_col] = parsed_dates
         df["year"] = df[date_col].dt.year
         df["month"] = df[date_col].dt.month
         df["hour"] = df[date_col].dt.hour
@@ -593,7 +870,8 @@ def main() -> int:
 
     for hex_size_m in HEX_SIZE_OPTIONS:
         layer_gdf_hex, layer_hex_gdf_wgs = build_hex_layer(gdf_m, hex_size_m)
-        slider_layer_payloads[str(hex_size_m)] = build_layer_payload(layer_hex_gdf_wgs)
+        layer_payload = build_layer_payload(layer_hex_gdf_wgs)
+        slider_layer_payloads[str(hex_size_m)] = layer_payload
 
         if hex_size_m == DEFAULT_HEX_SIZE_M:
             gdf_hex = layer_gdf_hex
@@ -676,12 +954,7 @@ def main() -> int:
         prefer_canvas=True,
     )
 
-    legend_scale = cm.linear.YlOrRd_09.scale(0, 1)
-    legend_gradient_css = (
-        "linear-gradient(90deg, "
-        + ", ".join(legend_scale(i / 8) for i in range(9))
-        + ")"
-    )
+    legend_gradient_css = "linear-gradient(90deg, " + ", ".join(COLOR_RAMP) + ")"
     hex_map.add_child(
         HexSizeSliderControl(
             layer_payloads=slider_layer_payloads,
