@@ -11,6 +11,7 @@ Run:
     python3 src/build_maps.py
 """
 
+import json
 import sys
 import math
 from pathlib import Path
@@ -20,6 +21,7 @@ import folium
 import geopandas as gpd
 import numpy as np
 import pandas as pd
+from branca.element import MacroElement, Template
 from shapely.geometry import Polygon
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -50,6 +52,13 @@ MAP_MAX_ZOOM = 14
 MAP_ZOOM_DELTA = 0.5
 MAP_ZOOM_SNAP = 0.5
 MAP_WHEEL_PX_PER_ZOOM_LEVEL = 100
+HEX_SIZE_MIN_M = 100
+HEX_SIZE_MAX_M = 2000
+HEX_SIZE_STEP_M = 100
+DEFAULT_HEX_SIZE_M = 500
+HEX_SIZE_OPTIONS = tuple(range(HEX_SIZE_MIN_M, HEX_SIZE_MAX_M + 1, HEX_SIZE_STEP_M))
+LAYER_CACHE_LIMIT = 4
+GEOJSON_COORD_PRECISION = 6
 SEASON_ORDER = ["Winter", "Spring", "Summer", "Fall"]
 TIME_BIN_BINS = [-1, 5, 11, 17, 23]
 TIME_BIN_LABELS = [
@@ -171,6 +180,355 @@ def time_bin_from_hour(hour: pd.Series) -> pd.Series:
     return pd.cut(hour, bins=TIME_BIN_BINS, labels=TIME_BIN_LABELS, ordered=True)
 
 
+def build_hex_layer(
+    gdf_m: gpd.GeoDataFrame, hex_size_m: float
+) -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
+    gdf_hex = assign_hex_ids(gdf_m, hex_size_m)
+
+    hex_counts = (
+        gdf_hex.groupby(["hex_id", "hex_q", "hex_r"], as_index=False)
+        .size()
+        .rename(columns={"size": "count"})
+        .sort_values("count", ascending=False)
+    )
+
+    hex_polys = []
+    for _, row in hex_counts.iterrows():
+        cx, cy = axial_to_center_xy(int(row["hex_q"]), int(row["hex_r"]), hex_size_m)
+        hex_polys.append(hex_polygon_from_center(cx, cy, hex_size_m))
+
+    hex_gdf_m = gpd.GeoDataFrame(hex_counts.copy(), geometry=hex_polys, crs="EPSG:3857")
+    centroids = hex_gdf_m.copy()
+    centroids["geometry"] = centroids.geometry.centroid
+    centroids_wgs = centroids.to_crs(epsg=4326)
+    hex_gdf_wgs = hex_gdf_m.to_crs(epsg=4326)
+
+    hex_gdf_wgs["centroid_lat"] = centroids_wgs.geometry.y
+    hex_gdf_wgs["centroid_lon"] = centroids_wgs.geometry.x
+    return gdf_hex, hex_gdf_wgs
+
+
+def build_legend_ticks(vmin: int, vmax: int, tick_count: int = 5) -> list[int]:
+    if vmax <= vmin:
+        return [vmin]
+
+    raw_ticks = np.linspace(vmin, vmax, tick_count)
+    rounded_ticks = [int(round(value)) for value in raw_ticks]
+    rounded_ticks[0] = vmin
+    rounded_ticks[-1] = vmax
+
+    ticks: list[int] = []
+    for tick in rounded_ticks:
+        if not ticks or tick != ticks[-1]:
+            ticks.append(tick)
+    return ticks
+
+
+def round_geojson_coordinates(value, precision: int = GEOJSON_COORD_PRECISION):
+    if isinstance(value, float):
+        return round(value, precision)
+    if isinstance(value, list):
+        return [round_geojson_coordinates(item, precision) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: round_geojson_coordinates(item, precision)
+            for key, item in value.items()
+        }
+    return value
+
+
+def build_layer_payload(hex_gdf_wgs: gpd.GeoDataFrame) -> dict:
+    vmin = int(hex_gdf_wgs["count"].min())
+    vmax = int(hex_gdf_wgs["count"].max())
+    colormap = cm.linear.YlOrRd_09.scale(vmin, max(vmax, 1))
+
+    render_frame = hex_gdf_wgs[["hex_id", "count", "geometry"]].copy()
+    render_frame["fillColor"] = render_frame["count"].apply(colormap)
+    geojson = json.loads(render_frame.to_json(drop_id=True, to_wgs84=True))
+
+    return {
+        "geojson": round_geojson_coordinates(geojson),
+        "vmin": vmin,
+        "vmax": vmax,
+        "legend_ticks": build_legend_ticks(vmin, vmax),
+    }
+
+
+def finalize_map_html(html_path: Path) -> None:
+    html = html_path.read_text(encoding="utf-8")
+
+    if not html.lstrip().lower().startswith("<!doctype html>"):
+        html = "<!DOCTYPE html>\n" + html.lstrip()
+
+    if '<link rel="icon"' not in html:
+        html = html.replace(
+            "<head>",
+            '<head>\n    <link rel="icon" href="data:,">',
+            1,
+        )
+
+    html_path.write_text(html, encoding="utf-8")
+
+
+class HexSizeSliderControl(MacroElement):
+    _template = Template(
+        """
+        {% macro header(this, kwargs) %}
+        <style>
+            .hex-size-control {
+                min-width: 240px;
+                padding: 12px 14px;
+                border-radius: 10px;
+                background: rgba(13, 13, 13, 0.92);
+                color: #f4efe2;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                font-family: "Helvetica Neue", Arial, sans-serif;
+            }
+
+            .hex-size-title,
+            .hex-legend-title {
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .hex-size-value {
+                margin-top: 6px;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1;
+            }
+
+            .hex-size-slider {
+                width: 100%;
+                margin: 12px 0 10px;
+                accent-color: #f16913;
+                cursor: pointer;
+            }
+
+            .hex-size-endpoints {
+                display: flex;
+                justify-content: space-between;
+                font-size: 11px;
+                color: rgba(244, 239, 226, 0.72);
+            }
+
+            .hex-legend-control {
+                min-width: 300px;
+                padding: 12px 14px;
+                border-radius: 10px;
+                background: rgba(13, 13, 13, 0.9);
+                color: #f4efe2;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                font-family: "Helvetica Neue", Arial, sans-serif;
+            }
+
+            .hex-legend-bar {
+                height: 18px;
+                margin-top: 10px;
+                border-radius: 999px;
+            }
+
+            .hex-legend-ticks {
+                display: flex;
+                justify-content: space-between;
+                gap: 8px;
+                margin-top: 8px;
+                font-size: 11px;
+                color: rgba(244, 239, 226, 0.84);
+            }
+        </style>
+        {% endmacro %}
+        {% macro script(this, kwargs) %}
+        (function() {
+            const map = {{ this._parent.get_name() }};
+            const defaultSize = {{ this.default_size }};
+            const sizeOptions = {{ this.size_options_json | safe }};
+            const layerPayloads = {{ this.layer_payloads_json | safe }};
+            const legendGradientCss = {{ this.legend_gradient_css_json | safe }};
+            const layerCache = new Map();
+            const layerCacheLimit = {{ this.layer_cache_limit }};
+            let activeLayer = null;
+            let activeSize = defaultSize;
+            let pendingSize = defaultSize;
+            let scheduledFrame = null;
+            let sliderValueEl = null;
+            let legendTicksEl = null;
+
+            function styleFeature(feature) {
+                return {
+                    fillColor: feature.properties.fillColor,
+                    color: "#8d8d8d",
+                    weight: 0.5,
+                    fillOpacity: 0.65
+                };
+            }
+
+            function onEachFeature(feature, layer) {
+                const props = feature.properties;
+                layer.bindTooltip(
+                    `<strong>Hex ID</strong>: ${props.hex_id}<br><strong>Homicides</strong>: ${props.count}`,
+                    {sticky: true}
+                );
+            }
+
+            function getLayer(size) {
+                const key = String(size);
+                if (layerCache.has(key)) {
+                    const cached = layerCache.get(key);
+                    layerCache.delete(key);
+                    layerCache.set(key, cached);
+                    return cached;
+                }
+
+                const layer = L.geoJSON(layerPayloads[key].geojson, {
+                        style: styleFeature,
+                        onEachFeature: onEachFeature
+                    });
+                layerCache.set(key, layer);
+
+                while (layerCache.size > layerCacheLimit) {
+                    const oldestKey = layerCache.keys().next().value;
+                    if (oldestKey === String(activeSize)) {
+                        const activeEntry = layerCache.get(oldestKey);
+                        layerCache.delete(oldestKey);
+                        layerCache.set(oldestKey, activeEntry);
+                        continue;
+                    }
+                    layerCache.delete(oldestKey);
+                }
+
+                return layer;
+            }
+
+            function updateLegend(size) {
+                const key = String(size);
+                const payload = layerPayloads[key];
+                if (!legendTicksEl || !payload) {
+                    return;
+                }
+                legendTicksEl.innerHTML = payload.legend_ticks
+                    .map((tick) => `<span>${tick}</span>`)
+                    .join("");
+            }
+
+            function setActiveSize(size) {
+                const key = String(size);
+                if (!layerPayloads[key]) {
+                    return;
+                }
+                if (Number(size) === activeSize && activeLayer) {
+                    return;
+                }
+
+                if (activeLayer) {
+                    map.removeLayer(activeLayer);
+                }
+
+                activeLayer = getLayer(key);
+                activeLayer.addTo(map);
+                activeSize = Number(size);
+
+                if (sliderValueEl) {
+                    sliderValueEl.textContent = `${activeSize} m`;
+                }
+
+                updateLegend(activeSize);
+            }
+
+            function scheduleActiveSize(size) {
+                pendingSize = Number(size);
+                if (scheduledFrame !== null) {
+                    return;
+                }
+                scheduledFrame = window.requestAnimationFrame(() => {
+                    scheduledFrame = null;
+                    setActiveSize(pendingSize);
+                });
+            }
+
+            const SliderControl = L.Control.extend({
+                options: { position: "bottomleft" },
+                onAdd() {
+                    const container = L.DomUtil.create("div", "hex-size-control leaflet-control");
+                    L.DomEvent.disableClickPropagation(container);
+                    L.DomEvent.disableScrollPropagation(container);
+
+                    const title = L.DomUtil.create("div", "hex-size-title", container);
+                    title.textContent = "Hex Size";
+
+                    sliderValueEl = L.DomUtil.create("div", "hex-size-value", container);
+                    sliderValueEl.textContent = `${defaultSize} m`;
+
+                    const slider = L.DomUtil.create("input", "hex-size-slider", container);
+                    slider.type = "range";
+                    slider.min = String(sizeOptions[0]);
+                    slider.max = String(sizeOptions[sizeOptions.length - 1]);
+                    slider.step = String(sizeOptions.length > 1 ? sizeOptions[1] - sizeOptions[0] : 1);
+                    slider.value = String(defaultSize);
+                    slider.setAttribute("aria-label", "Hex size");
+                    slider.setAttribute("aria-valuetext", `${defaultSize} meters`);
+
+                    slider.addEventListener("input", (event) => {
+                        const nextSize = Number(event.target.value);
+                        sliderValueEl.textContent = `${nextSize} m`;
+                        slider.setAttribute("aria-valuetext", `${nextSize} meters`);
+                        scheduleActiveSize(nextSize);
+                    });
+
+                    const endpoints = L.DomUtil.create("div", "hex-size-endpoints", container);
+                    endpoints.innerHTML = `<span>${sizeOptions[0]} m</span><span>${sizeOptions[sizeOptions.length - 1]} m</span>`;
+
+                    return container;
+                }
+            });
+
+            const LegendControl = L.Control.extend({
+                options: { position: "topright" },
+                onAdd() {
+                    const container = L.DomUtil.create("div", "hex-legend-control leaflet-control");
+                    const title = L.DomUtil.create("div", "hex-legend-title", container);
+                    title.textContent = "Homicides Per Occupied Hex";
+
+                    const bar = L.DomUtil.create("div", "hex-legend-bar", container);
+                    bar.style.background = legendGradientCss;
+
+                    legendTicksEl = L.DomUtil.create("div", "hex-legend-ticks", container);
+                    updateLegend(defaultSize);
+
+                    return container;
+                }
+            });
+
+            new LegendControl().addTo(map);
+            new SliderControl().addTo(map);
+            setActiveSize(defaultSize);
+        })();
+        {% endmacro %}
+        """
+    )
+
+    def __init__(
+        self,
+        layer_payloads: dict[str, dict],
+        size_options: tuple[int, ...],
+        default_size: int,
+        legend_gradient_css: str,
+    ) -> None:
+        super().__init__()
+        self._name = "HexSizeSliderControl"
+        self.layer_payloads_json = json.dumps(layer_payloads, separators=(",", ":"))
+        self.size_options_json = json.dumps(list(size_options), separators=(",", ":"))
+        self.default_size = default_size
+        self.layer_cache_limit = LAYER_CACHE_LIMIT
+        self.legend_gradient_css_json = json.dumps(
+            legend_gradient_css, separators=(",", ":")
+        )
+
+
 def main() -> int:
     if not CSV_PATH.exists():
         print(
@@ -229,34 +587,27 @@ def main() -> int:
     )
     gdf_m = gdf.to_crs(epsg=3857)
 
-    # Doesn't create too many bins.
-    hex_size_m = 1000.0
-    gdf_hex = assign_hex_ids(gdf_m, hex_size_m)
+    slider_layer_payloads: dict[str, dict] = {}
+    gdf_hex: gpd.GeoDataFrame | None = None
+    hex_gdf_wgs: gpd.GeoDataFrame | None = None
 
-    hex_counts = (
-        gdf_hex.groupby(["hex_id", "hex_q", "hex_r"], as_index=False)
-        .size()
-        .rename(columns={"size": "count"})
-        .sort_values("count", ascending=False)
-    )
+    for hex_size_m in HEX_SIZE_OPTIONS:
+        layer_gdf_hex, layer_hex_gdf_wgs = build_hex_layer(gdf_m, hex_size_m)
+        slider_layer_payloads[str(hex_size_m)] = build_layer_payload(layer_hex_gdf_wgs)
+
+        if hex_size_m == DEFAULT_HEX_SIZE_M:
+            gdf_hex = layer_gdf_hex
+            hex_gdf_wgs = layer_hex_gdf_wgs
+
+    if gdf_hex is None or hex_gdf_wgs is None:
+        raise RuntimeError(f"Default hex size {DEFAULT_HEX_SIZE_M}m was not generated.")
+
     print(f"Incidents kept: {len(gdf_hex)}")
-    print(f"Occupied hexes: {len(hex_counts)}")
-    print(f"Count integrity check (sum hex counts): {int(hex_counts['count'].sum())}")
-
-    # Build geometry for occupied hexes only
-    hex_polys = []
-    for _, row in hex_counts.iterrows():
-        cx, cy = axial_to_center_xy(int(row["hex_q"]), int(row["hex_r"]), hex_size_m)
-        hex_polys.append(hex_polygon_from_center(cx, cy, hex_size_m))
-
-    hex_gdf_m = gpd.GeoDataFrame(hex_counts.copy(), geometry=hex_polys, crs="EPSG:3857")
-    centroids = hex_gdf_m.copy()
-    centroids["geometry"] = centroids.geometry.centroid
-    centroids_wgs = centroids.to_crs(epsg=4326)
-    hex_gdf_wgs = hex_gdf_m.to_crs(epsg=4326)
-
-    hex_gdf_wgs["centroid_lat"] = centroids_wgs.geometry.y
-    hex_gdf_wgs["centroid_lon"] = centroids_wgs.geometry.x
+    print(f"Occupied hexes at {DEFAULT_HEX_SIZE_M}m: {len(hex_gdf_wgs)}")
+    print(
+        f"Count integrity check (sum hex counts at {DEFAULT_HEX_SIZE_M}m): "
+        f"{int(hex_gdf_wgs['count'].sum())}"
+    )
 
     # Save team-facing tables.
     hex_gdf_wgs[
@@ -325,43 +676,32 @@ def main() -> int:
         prefer_canvas=True,
     )
 
-    vmax = int(hex_gdf_wgs["count"].max())
-    vmin = int(hex_gdf_wgs["count"].min())
-    colormap = cm.linear.YlOrRd_09.scale(vmin, max(vmax, 1))
-
-    render_cols = ["hex_id", "count", "centroid_lat", "centroid_lon", "geometry"]
-    render_geojson = hex_gdf_wgs[render_cols].to_json(drop_id=True, to_wgs84=True)
-
-    def style_function(feature: dict) -> dict:
-        c = feature["properties"].get("count", 0)
-        return {
-            "fillColor": colormap(c),
-            "color": "#8d8d8d",
-            "weight": 0.5,
-            "fillOpacity": 0.65,
-        }
-
-    folium.GeoJson(
-        render_geojson,
-        name="hex_grid",
-        style_function=style_function,
-        tooltip=folium.GeoJsonTooltip(
-            fields=["hex_id", "count"],
-            aliases=["Hex ID", "Homicides"],
-            localize=True,
-        ),
-    ).add_to(hex_map)
-
-    colormap.caption = "Homicides per occupied hex"
-    colormap.add_to(hex_map)
-    folium.LayerControl().add_to(hex_map)
+    legend_scale = cm.linear.YlOrRd_09.scale(0, 1)
+    legend_gradient_css = (
+        "linear-gradient(90deg, "
+        + ", ".join(legend_scale(i / 8) for i in range(9))
+        + ")"
+    )
+    hex_map.add_child(
+        HexSizeSliderControl(
+            layer_payloads=slider_layer_payloads,
+            size_options=HEX_SIZE_OPTIONS,
+            default_size=DEFAULT_HEX_SIZE_M,
+            legend_gradient_css=legend_gradient_css,
+        )
+    )
     hex_map.fit_bounds(CHICAGO_VIEW_BOUNDS)
     hex_map.save(OUT_HEX_MAP)
+    finalize_map_html(OUT_HEX_MAP)
 
     print(f"Saved {OUT_HEX_MAP}")
     print(f"Saved {OUT_HEX_COUNTS}")
     print(f"Saved {OUT_INCIDENTS}")
     print(f"Saved {OUT_TIME_SEASON}")
+    print(
+        f"Built slider-controlled map with sizes {HEX_SIZE_MIN_M}m to {HEX_SIZE_MAX_M}m "
+        f"in {HEX_SIZE_STEP_M}m increments"
+    )
     return 0
 
 
