@@ -8,3 +8,7 @@ pyproj
 fiona
 jupyter
 matplotlib
+osmnx
+plotly
+powerlaw
+seaborn
