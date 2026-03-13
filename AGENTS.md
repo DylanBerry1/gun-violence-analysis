@@ -91,6 +91,14 @@ There is no automated test suite. Verify work by running the affected script and
 - For modeling changes, run `python3 src/train_xgboost_hex_model.py` and inspect the regenerated metrics, holdout predictions, and feature importance outputs.
 - For data-pipeline changes, confirm the raw input columns still match code expectations and the generated tables still contain key fields such as `hex_id`, coordinates, counts, and derived features.
 
+## CONTINUITY.md (REQUIRED)
+
+Maintain a single continuity file for the current workspace: `CONTINUITY.md`.
+
+- `CONTINUITY.md` is a living document and canonical briefing designed to survive compaction; do not rely on earlier chat/tool output unless it's reflected there.
+
+- At the start of each assistant turn: read `CONTINUITY.md` before acting.
+
 ## Known Sharp Edges
 - `README.md` and some script docstrings lag the current output layout. Trust the code over top-level prose when they conflict.
 - `src/build_infrastructure_data.py` depends on live OpenStreetMap access through `osmnx`.
