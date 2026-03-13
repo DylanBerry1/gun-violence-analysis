@@ -1,6 +1,13 @@
 # gun-violence-analysis
 
-Class project analyzing possible causes and patterns of gun violence in Chicago.
+Class project for analyzing gun violence trends and related crime patterns in Chicago.
+
+The repository focuses on spatial analysis of Chicago homicides and related crime data using hex-based aggregation, interactive maps, and XGBoost models.
+
+Primary source dataset:
+- Chicago Crimes, 2001 to Present: https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data
+
+The operational source of truth is the code in `src/`. Generated artifacts under `data/processed/` and `reports/` should usually be regenerated from the scripts instead of edited manually.
 
 ## Map Builders
 
@@ -17,9 +24,6 @@ python3 src/build_drug_hex_map.py
 ```
 
 Outputs are written to `reports/maps/` and `data/processed/hex/`.
-
-Chicago dataset:
-- https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data
 
 Social infrastructure library:
 - `osmnx`
@@ -51,3 +55,9 @@ Primary modeling outputs:
 - `reports/modeling/count/xgboost_feature_importance.csv`
 - `reports/modeling/count/xgboost_feature_groups.csv`
 - `reports/modeling/count/xgboost_metrics.json`
+
+## Notes
+
+- The project assumes the large Chicago crime dataset has already been filtered into the raw CSVs stored in `data/raw/`.
+- If you change shared map-generation behavior, check all map-builder scripts in `src/` because there is duplicated logic.
+- If a task produces temporary debug files or stale generated outputs, remove them before considering the task finished.
