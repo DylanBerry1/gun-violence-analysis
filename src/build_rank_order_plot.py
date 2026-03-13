@@ -36,7 +36,7 @@ def plot_real_crime_rank_order():
         markersize=5,
         alpha=0.7,
         color="#f16913",
-    )  # matching your map's orange/red
+    )
     plt.title("Log-Log Rank Order Graph of Chicago Homicides (500m Hexes)")
     plt.xlabel("# of Homicides in Hex (Log)")
     plt.ylabel(r"$\mathbb{P}$(Hex Having > X Homicides) (Log)")
