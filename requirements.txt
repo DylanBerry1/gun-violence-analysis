@@ -12,3 +12,5 @@ osmnx
 plotly
 powerlaw
 seaborn
+scikit-learn
+xgboost

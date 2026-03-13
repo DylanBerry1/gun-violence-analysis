@@ -26,3 +26,26 @@ Social infrastructure library:
 
 Slides:
 - https://docs.google.com/presentation/d/1r3yGWe5nyEBj4HpeNcQ_DzlclLKmw4AoyAubE0k-A0w/edit?usp=sharing
+
+## XGBoost Modeling
+
+Train hex-level XGBoost models for:
+- homicide hotspot classification
+- homicide count regression
+
+```bash
+python3 src/train_xgboost_hex_model.py
+```
+
+The script builds one row per 500m hex cell using:
+- homicide counts as the target
+- drug crime density, timing, and location mix as features
+- infrastructure counts by type as features
+- socioeconomic indicators mapped by the dominant community area in each hex
+
+Primary modeling outputs:
+- `data/processed/modeling/chicago_hex_modeling_table.csv`
+- `reports/modeling/xgboost_hotspot_feature_importance.csv`
+- `reports/modeling/xgboost_count_feature_importance.csv`
+- `reports/modeling/xgboost_hotspot_feature_groups.csv`
+- `reports/modeling/xgboost_count_feature_groups.csv`

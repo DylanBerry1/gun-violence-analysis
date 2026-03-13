@@ -1,0 +1,15 @@
+{
+  "rows": 1525,
+  "feature_count": 64,
+  "hex_size_m": 500,
+  "hotspot_quantile": 0.75,
+  "hotspot_threshold": 16,
+  "task": "hotspot",
+  "positive_rate": 0.20655737704918034,
+  "roc_auc": 0.9567614989347036,
+  "average_precision": 0.8375370277200185,
+  "accuracy": 0.9057591623036649,
+  "precision": 0.7654320987654321,
+  "recall": 0.7848101265822784,
+  "f1": 0.775
+}

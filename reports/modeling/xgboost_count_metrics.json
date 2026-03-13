@@ -1,0 +1,12 @@
+{
+  "rows": 1525,
+  "feature_count": 64,
+  "hex_size_m": 500,
+  "hotspot_quantile": 0.75,
+  "hotspot_threshold": 16,
+  "task": "count",
+  "rmse": 5.779849994623126,
+  "mae": 3.491036176164659,
+  "r2": 0.7671297499396129,
+  "mean_poisson_deviance": 2.5166776344686927
+}
