@@ -432,13 +432,19 @@ def build_importance_frame(model, feature_names: list[str]) -> pd.DataFrame:
     )
 
 
+def task_reports_dir(task_name: str) -> Path:
+    return REPORTS_DIR / task_name
+
+
 def save_importance_outputs(
     importance: pd.DataFrame,
     task_name: str,
 ) -> None:
     plt = configure_matplotlib()
+    report_dir = task_reports_dir(task_name)
+    report_dir.mkdir(parents=True, exist_ok=True)
 
-    csv_path = REPORTS_DIR / f"xgboost_{task_name}_feature_importance.csv"
+    csv_path = report_dir / "xgboost_feature_importance.csv"
     importance.to_csv(csv_path, index=False)
 
     group_summary = (
@@ -447,7 +453,7 @@ def save_importance_outputs(
         .sort_values("gain", ascending=False)
     )
     group_summary.to_csv(
-        REPORTS_DIR / f"xgboost_{task_name}_feature_groups.csv",
+        report_dir / "xgboost_feature_groups.csv",
         index=False,
     )
 
@@ -459,7 +465,7 @@ def save_importance_outputs(
     ax.set_ylabel("Feature")
     fig.tight_layout()
     fig.savefig(
-        REPORTS_DIR / f"xgboost_{task_name}_feature_importance.png",
+        report_dir / "xgboost_feature_importance.png",
         dpi=200,
         bbox_inches="tight",
     )
@@ -633,6 +639,8 @@ def main() -> None:
     }
 
     if args.task in {"all", "hotspot"}:
+        hotspot_report_dir = task_reports_dir("hotspot")
+        hotspot_report_dir.mkdir(parents=True, exist_ok=True)
         hotspot_result = train_hotspot_model(
             feature_table,
             feature_columns,
@@ -646,11 +654,11 @@ def main() -> None:
         )
         save_importance_outputs(hotspot_importance, "hotspot")
         hotspot_result["holdout"].to_csv(
-            REPORTS_DIR / "xgboost_hotspot_holdout_predictions.csv",
+            hotspot_report_dir / "xgboost_holdout_predictions.csv",
             index=False,
         )
         write_json(
-            REPORTS_DIR / "xgboost_hotspot_metrics.json",
+            hotspot_report_dir / "xgboost_metrics.json",
             {**metadata, **hotspot_result["metrics"]},
         )
         print(
@@ -661,6 +669,8 @@ def main() -> None:
         )
 
     if args.task in {"all", "count"}:
+        count_report_dir = task_reports_dir("count")
+        count_report_dir.mkdir(parents=True, exist_ok=True)
         count_result = train_count_model(
             feature_table,
             feature_columns,
@@ -673,11 +683,11 @@ def main() -> None:
         )
         save_importance_outputs(count_importance, "count")
         count_result["holdout"].to_csv(
-            REPORTS_DIR / "xgboost_count_holdout_predictions.csv",
+            count_report_dir / "xgboost_holdout_predictions.csv",
             index=False,
         )
         write_json(
-            REPORTS_DIR / "xgboost_count_metrics.json",
+            count_report_dir / "xgboost_metrics.json",
             {**metadata, **count_result["metrics"]},
         )
         print(

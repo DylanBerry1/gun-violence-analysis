@@ -45,7 +45,9 @@ The script builds one row per 500m hex cell using:
 
 Primary modeling outputs:
 - `data/processed/modeling/chicago_hex_modeling_table.csv`
-- `reports/modeling/xgboost_hotspot_feature_importance.csv`
-- `reports/modeling/xgboost_count_feature_importance.csv`
-- `reports/modeling/xgboost_hotspot_feature_groups.csv`
-- `reports/modeling/xgboost_count_feature_groups.csv`
+- `reports/modeling/hotspot/xgboost_feature_importance.csv`
+- `reports/modeling/hotspot/xgboost_feature_groups.csv`
+- `reports/modeling/hotspot/xgboost_metrics.json`
+- `reports/modeling/count/xgboost_feature_importance.csv`
+- `reports/modeling/count/xgboost_feature_groups.csv`
+- `reports/modeling/count/xgboost_metrics.json`
