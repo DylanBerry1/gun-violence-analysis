@@ -28,13 +28,13 @@ from branca.element import MacroElement, Template
 from shapely.geometry import Polygon
 
 #--------
-CRIME_TYPE = ''
+CRIME_TYPE = 'motor_vehicle_theft'
 #--------
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 CSV_PATH = ROOT_DIR / "data" / "raw" / f"chicago_{CRIME_TYPE}_crimes.csv"
-OUT_HEX_MAP = ROOT_DIR / "reports" / "maps" / f"chicago_{CRIME_TYPE}_hex_map.html"
+OUT_HEX_MAP = ROOT_DIR / "reports" / "maps" / "crime_hex_maps" / f"chicago_{CRIME_TYPE}_hex_map.html"
 CSV_OUT_DIR = ROOT_DIR / "data" / "processed" / "hex"
 OUT_HEX_COUNTS = CSV_OUT_DIR / f"chicago_{CRIME_TYPE}_hex_counts.csv"
 OUT_INCIDENTS = CSV_OUT_DIR / f"chicago_{CRIME_TYPE}_with_hex.csv"
