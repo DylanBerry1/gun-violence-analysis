@@ -21,9 +21,7 @@ Run scripts from the repository root.
 1. Refresh infrastructure data only when needed:
    - `python3 src/build_infrastructure_data.py`
 2. Build hex outputs from raw crime data:
-   - `python3 src/build_homicides_hex_map.py`
-   - `python3 src/build_drug_hex_map.py`
-   - optionally `python3 src/build_generic_hex_map.py` after intentionally changing the hard-coded `CRIME_TYPE`
+   - `python3 src/build_hex_maps.py`
 3. Train the XGBoost models after raw inputs and hex-derived tables are available:
    - `python3 src/train_xgboost_hex_model.py`
 4. Build rank-order plots after homicide hex counts exist:
@@ -45,10 +43,11 @@ Notes:
 - Do not treat generated files in `reports/` or `data/processed/` as authoritative design docs; they are artifacts of the current scripts.
 
 ## Map Builder Conventions
-- `src/build_homicides_hex_map.py` and `src/build_drug_hex_map.py` are parallel scripts with duplicated logic. If changing shared hex math, filtering, slider behavior, or HTML post-processing, update both files unless the divergence is intentional.
-- `src/build_generic_hex_map.py` is also largely duplicated and depends on a hard-coded `CRIME_TYPE` constant. Change that value deliberately and verify the expected input and output filenames before running it.
+- `src/build_hex_maps.py` is the single source of truth for hex-map generation.
+- The script prefers a full Chicago crimes dataset in `data/raw/` and will auto-discover crime types from `Primary Type` when that file is present.
+- If no full dataset is present, the script falls back to auto-discovering the per-crime CSV files already stored in `data/raw/`.
 - The map scripts auto-detect latitude and longitude columns, coerce them to numeric, drop null coordinates, and filter rows to a fixed Chicago bounding box.
-- The interactive maps render multiple hex sizes, but the persisted CSV outputs are based on the default `500m` hex size.
+- The interactive combined map renders multiple hex sizes and crime types, but the persisted CSV outputs are based on the default `500m` hex size.
 
 ## Modeling Conventions
 - `src/train_xgboost_hex_model.py` is the canonical modeling entrypoint.
@@ -62,16 +61,13 @@ Notes:
 - Keep the default `--hex-size-m 500` unless the user explicitly wants downstream outputs regenerated at another scale.
 
 ## Artifact Ownership
-- `src/build_homicides_hex_map.py` writes the homicide map HTML plus the three homicide hex CSV outputs in `data/processed/hex/`.
-- `src/build_drug_hex_map.py` writes the drug map HTML plus the three drug hex CSV outputs in `data/processed/hex/`.
-- `src/build_generic_hex_map.py` writes crime-specific HTML and hex CSV outputs under `reports/maps/crime_hex_maps/` and `data/processed/hex/`.
+- `src/build_hex_maps.py` writes the combined crime-selector map HTML under `reports/maps/crime_hex_maps/` and the per-crime hex CSV outputs in `data/processed/hex/`.
 - `src/train_xgboost_hex_model.py` writes the modeling table plus task-specific outputs under `reports/modeling/hotspot/` and `reports/modeling/count/`.
 - `src/build_rank_order_plot.py` writes the homicide rank-order PNG and interactive HTML outputs in `reports/figures/`.
 
 ## Editing Rules For Agents
 - Prefer changing source scripts and regenerating outputs rather than hand-editing generated CSV, JSON, PNG, or HTML artifacts.
-- If a task changes shared behavior across homicide, drug, and generic map generation, check all three scripts for duplicated code before finishing.
-- Be careful with output-path changes. Some older generated files live under `reports/maps/crime_hex_maps/` while the current homicide and drug scripts write directly under `reports/maps/`.
+- Be careful with output-path changes. The combined map HTML lives under `reports/maps/crime_hex_maps/`, while downstream modeling still depends on per-crime CSV outputs in `data/processed/hex/`.
 - If you add a Python package dependency, add it to `requirements.txt` in the same change.
 - Avoid broad cleanup changes unless asked. This repository contains generated artifacts and some stale outputs that are useful for comparison.
 - If your work creates temporary debug files or obviously stale generated outputs that are no longer part of the intended result, delete them before marking the task finished.
@@ -97,3 +93,4 @@ There is no automated test suite. Verify work by running the affected script and
 ## Known Sharp Edges
 - `README.md` and some script docstrings lag the current output layout. Trust the code over top-level prose when they conflict.
 - `src/build_infrastructure_data.py` depends on live OpenStreetMap access through `osmnx`.
+- `src/build_hex_maps.py` can produce a very large HTML file if many crime types are embedded from a full source dataset.

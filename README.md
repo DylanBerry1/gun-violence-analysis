@@ -11,19 +11,14 @@ The operational source of truth is the code in `src/`. Generated artifacts under
 
 ## Map Builders
 
-Generate the homicide hex map and homicide hex CSV outputs:
+Generate the combined crime-selector hex map and per-crime hex CSV outputs:
 
 ```bash
-python3 src/build_homicides_hex_map.py
+python3 src/build_hex_maps.py
 ```
 
-Generate the drug crime hex map and drug hex CSV outputs:
-
-```bash
-python3 src/build_drug_hex_map.py
-```
-
-Outputs are written to `reports/maps/` and `data/processed/hex/`.
+The script writes the combined interactive HTML map to `reports/maps/crime_hex_maps/` and writes per-crime hex tables to `data/processed/hex/`.
+If a full Chicago crimes dataset CSV is added to `data/raw/`, the script will automatically discover available `Primary Type` values and add them to the selector. Otherwise it falls back to auto-discovering the per-crime CSV files already present in `data/raw/`.
 
 Social infrastructure library:
 - `osmnx`
@@ -59,5 +54,5 @@ Primary modeling outputs:
 ## Notes
 
 - The project assumes the large Chicago crime dataset has already been filtered into the raw CSVs stored in `data/raw/`.
-- If you change shared map-generation behavior, check all map-builder scripts in `src/` because there is duplicated logic.
+- The combined hex-map builder lives in `src/build_hex_maps.py` and is the map-generation source of truth.
 - If a task produces temporary debug files or stale generated outputs, remove them before considering the task finished.
