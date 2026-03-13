@@ -12,3 +12,6 @@ venv/
 # OS/editor
 .DS_Store
 tmp/
+
+# Agents
+CONTINUITY.md
