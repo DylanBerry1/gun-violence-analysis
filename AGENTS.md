@@ -35,6 +35,7 @@ Expected raw inputs in `data/raw/`:
 - `chicago_socioeconomic_neighborhoods.csv`
 
 Notes:
+- For map generation, the preferred optional input is `data/raw/chicago_crimes_2001_to_present.csv`. When present, `src/build_hex_maps.py` auto-discovers crime types from `Primary Type`.
 - The crime CSVs are expected to contain Chicago-style columns such as `Date`, `Latitude`, `Longitude`, `Community Area`, `Block`, `Location Description`, `Arrest`, and `Domestic`.
 
 ## Operational Source Of Truth
