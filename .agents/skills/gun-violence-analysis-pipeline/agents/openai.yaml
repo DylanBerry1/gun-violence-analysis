@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gun Violence Analysis Pipeline"
+  short_description: "Run and verify the Chicago hex map and modeling workflow"
+  default_prompt: "Use this skill when working on the data pipeline, map generation, or model artifacts in this repository."
