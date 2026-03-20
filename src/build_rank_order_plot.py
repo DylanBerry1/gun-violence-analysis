@@ -8,12 +8,24 @@ The log-log is the log of rank, and the log of probability
 Slope of the line gives the shape (xmin)
 """
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+import os
+import tempfile
 from pathlib import Path
-import powerlaw
+
+os.environ.setdefault(
+    "MPLCONFIGDIR",
+    str(Path(tempfile.gettempdir()) / "gun-violence-analysis-rank-order-mplconfig"),
+)
+
+import numpy as np
+import pandas as pd
 import plotly.express as px
+import powerlaw
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 
 def plot_real_crime_rank_order():
@@ -43,7 +55,8 @@ def plot_real_crime_rank_order():
     plt.grid(True, which="both", ls="--", alpha=0.4)
     out_path = Path("reports/figures/homicide_rank_order_plot.png")
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    plt.show()
+    plt.savefig(out_path, dpi=200, bbox_inches="tight")
+    plt.close()
 
 
 def analyze_and_plot_heavy_tail():
@@ -96,7 +109,6 @@ def analyze_and_plot_heavy_tail():
     out_path = Path("reports/figures/interactive_rank_order.html")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.write_html(out_path)
-    fig.show()
 
 
 if __name__ == "__main__":
