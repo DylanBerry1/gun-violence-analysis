@@ -10,7 +10,6 @@ Assumption School,school,41.7850334,-87.6653289
 Bethany School,school,41.9111512,-87.7843416
 Saint Agnes of Bohemia School,school,41.8430881,-87.7144476
 Campbell Park,park,41.8725818,-87.6825384
-Christ School,school,41.907254,-87.75978
 Concordia School,school,41.938676,-87.6942903
 Ebenezer School,school,41.8645053,-87.7243804
 Gloria Dei School,school,41.7968326,-87.7644284
@@ -41,7 +40,6 @@ CICS Prairie School,school,41.6844788,-87.6169915
 Saint Joachims School,school,41.7300239,-87.6066475
 Saint Gall School,school,41.7928096,-87.7041328
 Saint Felicitas School,school,41.7428905,-87.5873661
-Saint Benedict High School,school,41.9530876,-87.684223
 Saint Benedict School,school,41.7750338,-87.6339386
 Saint Bronislava School,school,41.7369885,-87.5614991
 Saint Bonaventure School,school,41.9319766,-87.6706109
@@ -102,7 +100,6 @@ Original Greater Rock Missionary Baptist Church,place_of_worship,41.8519054,-87.
 The Old Rugged Cross Missionary Baptist Church,place_of_worship,41.9018893,-87.772213
 Old Ship of Zion Missionary Baptist Church,place_of_worship,41.8950319,-87.7522794
 Olivet United Methodist Church,place_of_worship,41.8758655,-87.7253335
-Paradise Missionary Baptist Church,place_of_worship,41.8880875,-87.7570016
 Original Rising Star Missionary Baptist Church,place_of_worship,41.8950319,-87.7520016
 Nichiren Buddhist Temple,place_of_worship,41.9584493,-87.6710968
 Northside Calvary Baptist Church,place_of_worship,41.9512839,-87.6548684
@@ -221,7 +218,6 @@ Community Faith Baptist Church,place_of_worship,41.7507184,-87.6518072
 Christs Temple Church of God in Christ Baptist Church,place_of_worship,41.7555896,-87.6331048
 Community Missionary Baptist Church,place_of_worship,41.8539444,-87.7087251
 Douglas Park Baptist Church,place_of_worship,41.8558848,-87.7056208
-Christ Tabernacle Missionary Baptist Church of Austin,place_of_worship,41.8965145,-87.7657545
 Central Spanish Baptist Church,place_of_worship,41.9060585,-87.6964834
 Christian Covenant Baptist Church,place_of_worship,41.6858676,-87.6272696
 Christian Greater Rock Baptist Church,place_of_worship,41.8765562,-87.6943323
@@ -306,7 +302,6 @@ ICCI Academy,school,41.937915,-87.7879555
 Camelot School,school,41.983363,-87.7135194
 Camelot School,school,42.0167549,-87.6646181
 Boosters for Christ Revival Center,place_of_worship,41.76435,-87.6640816
-Broadway United Methodist Church,place_of_worship,41.9430912,-87.6450569
 Bridgeport Academy West,school,41.8353786,-87.6528298
 Bricklayers Apprentice School,school,41.8853103,-87.6819988
 Debbies School of Beauty Culture,school,41.69309,-87.6211585
@@ -314,7 +309,6 @@ Debbies School of Beauty Culture,school,41.88031,-87.7295004
 Discovery Center,school,41.9350323,-87.6625551
 Douglas - Tubman Christian Center,place_of_worship,41.7947559,-87.6269944
 New Life Community Church in Bridgeport,place_of_worship,41.8388551,-87.6387627
-Divine Saint Paul Missionary Baptist Church,place_of_worship,41.8866143,-87.7212979
 Ecumenical Institute,school,41.9686431,-87.6553335
 Ebenezer House of Prayer,place_of_worship,41.8005893,-87.6214389
 Walter H. Dyett High School,school,41.801143,-87.6122775
@@ -322,7 +316,6 @@ Emanuel Church of God in Christ,place_of_worship,41.8761435,-87.7033882
 Emmanuel Community Church,place_of_worship,41.764492,-87.6130869
 Eightyseventh Street Church of Christ,place_of_worship,41.7354539,-87.6717357
 Chicago Graphic Arts Institute,school,41.878366,-87.6669981
-Christ Lutheran Church,place_of_worship,41.936976,-87.7672811
 Christ Temple Apostolic Church,place_of_worship,41.7819778,-87.6647732
 Christ Haven Center,place_of_worship,41.7761429,-87.664287
 Christ Temple Pentecostal Church,place_of_worship,41.7262442,-87.6048169
@@ -437,7 +430,6 @@ Freeman Evangelical Lutheran Church of Chicago,place_of_worship,41.9236427,-87.7
 Franciscan Sisters School,school,41.8151973,-87.697119
 Free Pentecostal Church of the Living God,place_of_worship,41.9158652,-87.747002
 Church of Today,place_of_worship,41.6974489,-87.6210526
-Church of the Valley,place_of_worship,41.93824,-87.6561798
 Church of the Lord Jesus Christ of the Apostolic Faith,place_of_worship,41.8581944,-87.7057008
 Church of the Living God Temple 93,place_of_worship,41.8650324,-87.7175551
 Circle Evangelical Free Church,place_of_worship,41.8939206,-87.7747802
@@ -474,7 +466,6 @@ Saint Lukes United Church of Christ,place_of_worship,41.9103788,-87.7000578
 Progressive Beulah Pentecostal Church,place_of_worship,41.735669,-87.6560937
 Prince of Peace Church of God in Christ,place_of_worship,41.8722545,-87.7258889
 Prince of Peace Lutheran School,school,41.9187587,-87.7331012
-Saint John Syrian Orthodox Church,place_of_worship,41.9487318,-87.800054
 Saint Joseph Catholic Church,place_of_worship,41.7351591,-87.5591319
 Saint Jude Spiritual Church,place_of_worship,41.880032,-87.7586681
 Saint Jude Church of God in Christ,place_of_worship,41.8805876,-87.752279
@@ -502,23 +493,19 @@ House of Prayer Church of God in Christ,place_of_worship,41.8660844,-87.7143733
 House of Prayer for All People,place_of_worship,41.8000335,-87.6450508
 House of Inspiration Church of God in Christ,place_of_worship,41.6883657,-87.6217664
 Saint Francis Cabrini Learning Center,school,41.871284,-87.700587
-Saint Fidelis School,school,41.9069753,-87.6941147
 Saint Fidelis Roman Catholic Church,place_of_worship,41.9070336,-87.6947069
 Saint Elizabeth School,school,41.8202871,-87.6242291
 Saint Clotildes School,school,41.7416791,-87.6168003
 Saint Bronislava Catholic Church,place_of_worship,41.7364238,-87.5614351
 Saint Carthage School,school,41.7610625,-87.630638
-Saint Benedict Grade School,school,41.9533653,-87.6839452
 Our Lady of Sorrows School,school,41.8770774,-87.7050982
 Our Lady of Perpetual Help School,school,41.8986255,-87.736602
 Our Lady of Vilna Roman Catholic Church,place_of_worship,41.8489217,-87.6833868
 Oxford Community Center for Academics,school,41.739757,-87.5689354
-Philadelphia Romanian Pentecostal Church of God,place_of_worship,41.9489197,-87.6650555
 Pilgrim Church of God in Christ,place_of_worship,41.6818039,-87.6223548
 Pilgrim Lutheran Church,place_of_worship,41.9598671,-87.6777005
 Pillar of Fire Church,place_of_worship,41.9378101,-87.6572771
 Pine Avenue United Church,place_of_worship,41.9044762,-87.763669
-Pleasant Valley Baptist Church,place_of_worship,41.9038396,-87.7563294
 Paxton Avenue Church of Christ,place_of_worship,41.7442539,-87.5714012
 Pentecostal House of Prayer,place_of_worship,41.88031,-87.730056
 Philadelphia Church of God in Christ School,school,41.7850414,-87.6658079
@@ -602,8 +589,6 @@ Way of Truth Church of God in Christ,place_of_worship,41.8589212,-87.7331111
 Wesley Chapel Community Spiritual Church,place_of_worship,41.8530881,-87.7178326
 Wesleyan Missionary Academy,school,41.7764214,-87.7636654
 West End Baptist Church,place_of_worship,41.881421,-87.7420009
-United Faith Tabernacle Baptist Church,place_of_worship,41.8873841,-87.7555322
-United for Christ Missionary Baptist Church,place_of_worship,41.8875319,-87.756446
 United Church of Holiness,place_of_worship,41.7780972,-87.654652
 Universal Temple of Truth Spiritual Church,place_of_worship,41.8518126,-87.7171501
 Unity of Love Baptist Church,place_of_worship,41.8023343,-87.6450523
@@ -667,7 +652,6 @@ Trinity All Nations Church,place_of_worship,41.7041675,-87.6203546
 Theatre Shoppe Backstage,school,41.9297546,-87.6553325
 Temple of Spiritual Truth,place_of_worship,41.8947873,-87.753587
 Templo Voces Espiritules,place_of_worship,41.903921,-87.7200563
-Tenrikyo West Chicago Church,place_of_worship,41.9501079,-87.6583136
 Telshe Yeshiva,school,41.9754561,-87.7174883
 Saint Peter All Nation Pentecostal Church of God,place_of_worship,41.8539214,-87.70561
 Progressive True-Vine MB Church,place_of_worship,41.8911618,-87.7520666
@@ -724,7 +708,7 @@ Ephraim Bajar Cultural Center,arts_centre,41.7644926,-87.6867486
 Cook County Courthouse,courthouse,41.8839576,-87.6304433
 Northwestern University Law Library,library,41.8965181,-87.6173152
 Saint Rita Parish Sisters Convent,place_of_worship,41.7800212,-87.6918523
-Queen of Angels Guild Hall,place_of_worship,41.9617874,-87.6891134
+Old Town Triangle Association,arts_centre,41.9146648,-87.6365585
 Brunos Lounge,bar,42.0019761,-87.6611679
 Lawrence Hall,social_facility,41.9695415,-87.700118
 Bird's Nest,pub,41.927166,-87.6636019
@@ -749,7 +733,7 @@ Skylark,bar,41.8528159,-87.6462733
 J&M Tap,bar,41.8993137,-87.6818666
 Whole Foods Market,supermarket,41.9483162,-87.6498096
 Osco Drug,pharmacy,41.9468184,-87.6464054
-Center on Halsted,community_centre,41.9488651,-87.6498854
+Center on Halsted,community_centre,41.9488597,-87.6499439
 Rock's,pub,41.9450605,-87.645679
 Rogers Park Social,bar,42.0073549,-87.6662451
 Charlie's Chicago,bar,41.9499295,-87.6490719
@@ -821,14 +805,14 @@ Jewel-Osco,supermarket,41.9612944,-87.6534799
 Electronic Visualization Laboratory,research_institute,41.8699435,-87.6478783
 Morse Fresh Market,supermarket,42.0080973,-87.6670593
 Cermak Fresh Market,supermarket,41.831001,-87.6761045
-Granville Anvil,bar,41.9943286,-87.6598092
+Granville Anvil,bar,41.9944308,-87.6598155
 Unknown,laundry,41.993663,-87.6698539
 Will's Northwoods Inn,bar,41.9372356,-87.6590804
 O'Leary's Public House,pub,41.8920269,-87.6339103
 Jewel-Osco,supermarket,41.8921706,-87.6285729
 Immediate MD,clinic,41.9190655,-87.6601906
 Unknown,atm,41.961584,-87.6757437
-SoFo Tap,pub,41.9724359,-87.6677551
+SoFo Tap,pub,41.9724462,-87.6677594
 Beer Temple,alcohol,41.9386662,-87.6970303
 Jewel-Osco,supermarket,41.6802481,-87.664606
 UP Comedy Club,bar,41.9113354,-87.6356269
@@ -1071,7 +1055,7 @@ Milano Cafe & Bar,bar,41.9410645,-87.7262185
 Aldi,supermarket,41.8968224,-87.7082676
 Cook County Municipal Court,courthouse,41.8730641,-87.70555
 Double Bubble,bar,41.9920166,-87.6606609
-Independent Wine & Spirits,alcohol,41.9903683,-87.6600409
+Independent Wine & Spirits,alcohol,41.9904486,-87.6600501
 Moody's Pub,bar,41.9894323,-87.6605743
 Pete's Market,supermarket,41.6821117,-87.5389213
 Bockwinkel's,supermarket,41.8927815,-87.6189694
@@ -1356,7 +1340,6 @@ Avondale Tap,bar,41.9394421,-87.718779
 Babe’s On Milwaukee,bar,41.9611391,-87.7550894
 Bar 106,bar,41.6989754,-87.7203955
 Bar Louie,bar,41.9818797,-87.8355974
-Bar Roma,bar,41.9745124,-87.6680529
 Barney Callaghan’s Pub,bar,41.7002691,-87.6817638
 Beauty Bar,bar,41.8963937,-87.6641441
 Begyle Brewing,bar,41.9553987,-87.6745486
@@ -1670,7 +1653,7 @@ Martini Bar,bar,41.8998248,-87.6226204
 Marz Community Brewing,pub,41.8277727,-87.6595159
 Matisse Tavern & Grill,bar,41.9330575,-87.6465042
 Max’s Place,bar,41.9659387,-87.6667289
-Replay - Andersonville,bar,41.9797374,-87.6684429
+Replay,bar,41.9797374,-87.6684429
 Rex Tavern,bar,41.9705803,-87.7628638
 BMO,atm,41.9766605,-87.9054582
 Rory Lake’s Karaoke Dreams,bar,41.9162275,-87.6737745
@@ -1680,7 +1663,7 @@ Sky-Ride Tap,bar,41.8767738,-87.6311033
 Tavern Club at 333,bar,41.887808,-87.624171
 MCM Pub and Eatery,bar,41.9517836,-87.7475295
 McNamara’s,bar,41.9537514,-87.7366287
-Meeting House Tavern,bar,41.9732654,-87.667929
+Meeting House Tavern,bar,41.9732471,-87.6679128
 Mesler Kitchen | Bar | Lounge,bar,41.7992767,-87.5915431
 Metropolitan Brewing Taproom,bar,41.9376325,-87.6912237
 Michael’s Sport Lounge,bar,41.8114791,-87.7080881
@@ -1827,7 +1810,7 @@ Lis Food-Liquor,alcohol,41.9679787,-87.760232
 A & G Laundromat,laundry,41.7116574,-87.5354691
 Chicago by Night,bar,41.9387972,-87.7667318
 CVS Pharmacy,pharmacy,41.8781513,-87.6246204
-Saint Columba Church,place_of_worship,41.6521272,-87.5408483
+Saint Columba Roman Catholic Church,place_of_worship,41.6521272,-87.5408483
 Lizzie McNeill‘s Irish Pub,pub,41.8890383,-87.6183979
 Moreno's Liquors,alcohol,41.8444872,-87.7182207
 Cara Cara Club,bar,41.9277489,-87.7068068
@@ -1888,7 +1871,7 @@ Laundromat,laundry,41.9981042,-87.6854612
 Dino's Bar,bar,41.9982075,-87.6709405
 Rahmat Grocery and Zabiha Halal Meat,supermarket,41.997948,-87.684829
 Whiskey Girl Tavern,bar,41.9970416,-87.6706498
-NorthShore Immediate Care,clinic,41.9720998,-87.6680727
+NorthShore Immediate Care,clinic,41.9720739,-87.6680619
 Spirits and Liquor,alcohol,41.9853805,-87.6633911
 Unknown,atm,41.7953014,-87.5968501
 Unknown,atm,41.7914033,-87.5895277
@@ -2041,7 +2024,6 @@ Eataly,restaurant,41.892164,-87.6263766
 Bally's,casino,41.8929616,-87.6269776
 Sky Liquors,alcohol,41.9964403,-87.7866658
 Superior Wine & Liquor,alcohol,41.8963776,-87.6314507
-Unknown,atm,41.9109488,-87.653262
 Westside Community Triage & Wellness Center,clinic,41.8804673,-87.7296073
 Walgreens,pharmacy,41.8849402,-87.6276035
 Spincycle Laundromat,laundry,41.9943144,-87.6902688
@@ -2102,7 +2084,6 @@ Giant Penny Whistle,bar,41.8565237,-87.6625356
 AllCareX Discount Pharmacy,pharmacy,41.9104409,-87.6965926
 CVS Pharmacy,pharmacy,41.9037335,-87.6311146
 Valley of Jordan,supermarket,41.7992762,-87.6008134
-Trellus,community_centre,41.9907646,-87.6905295
 Interfaith Room,place_of_worship,41.9738948,-87.8861905
 Supermarket Martins,supermarket,41.9459054,-87.7566085
 Quality Time,bar,41.9322097,-87.7014727
@@ -2147,8 +2128,8 @@ Reid Bar,bar,41.8879093,-87.6322786
 Gary Comer College Prep Middle School,school,41.7645788,-87.5997968
 Rebel & Rye,bar,41.8913528,-87.6470553
 CVS Pharmacy,pharmacy,41.8857188,-87.6536105
-Konak Pizza and Grill,bar,41.9758816,-87.6685245
-Unknown,atm,41.9759905,-87.6682755
+Konak Pizza and Grill,pub,41.9758816,-87.6685245
+Unknown,atm,41.9760037,-87.6682853
 Unknown,atm,41.9754172,-87.6684789
 KIPP Bloom School,school,41.7932147,-87.6410984
 Christ the King Jesuit College Prep,school,41.8770539,-87.7528428
@@ -2251,7 +2232,7 @@ New Foundation Of Hope Inc,social_facility,41.7447067,-87.7024676
 West Loop Wine & Spirits,alcohol,41.8855206,-87.64706
 Unknown,atm,41.8822351,-87.6413755
 Enrich Market,alcohol,41.8967738,-87.6324285
-Marti's,bar,41.9732739,-87.6676806
+Marty's Martini Bar,bar,41.9732632,-87.6676529
 Iglesia del Evangelio de Cristo,place_of_worship,41.8011758,-87.6895941
 Iglesia Christina Alcance Victoria,place_of_worship,41.8011693,-87.6900489
 Unknown,laundry,41.8013562,-87.6895032
@@ -2379,7 +2360,7 @@ Infinity High School,school,41.8352981,-87.7351132
 St. Makarios Orthodox Mission,place_of_worship,41.7998828,-87.5902474
 Unknown,atm,41.791372,-87.5942155
 City Pool Hall,bar,41.8902678,-87.6447471
-KIPP One School,school,41.8939179,-87.7263907
+KIPP,school,41.8939179,-87.7263907
 LEARN South Chicago Campus,school,41.7331764,-87.5448024
 LEARN Charles and Dorothy Campbell Campus,school,41.8777205,-87.6988953
 LEARN Romano Butler Campus,school,41.867158,-87.7108178
@@ -2443,9 +2424,24 @@ Som Laundry Todo,laundry,42.0193383,-87.6879498
 Ridge Medical Center,clinic,42.0122703,-87.6826108
 McDonald's PlayPlace,playground,41.7923617,-87.7901395
 The Salvation Army Northside Adult Rehabilitation Center,social_facility,41.9228283,-87.6664223
-Rocket Plumbing,supermarket,41.9755394,-87.7155809
+Community Assistance Programs,social_facility,41.6813365,-87.6416421
+Iglesia Evangelica Emanuel,place_of_worship,41.9170169,-87.7515032
+Segundo Ruiz Belvis Cultural Centertr,community_centre,41.917264,-87.7288157
+Chicago Northside New Hope Church,place_of_worship,41.9024044,-87.7335013
+New Greater True Light MB Church,place_of_worship,41.8947345,-87.7609036
+Bethel New Life,social_facility,41.9016145,-87.748806
+Central West Regional Senior Center,social_facility,41.8711845,-87.6788622
+Mayor's Office for People woith Disabilites,social_facility,41.871012,-87.6790728
+Silvie's,pub,41.9543733,-87.6765161
+Unknown,atm,41.8816648,-87.6373034
+In Fine Spirits,alcohol,41.98039,-87.6684845
+The Nook,bar,41.9797333,-87.6687439
+Elixir,bar,41.9797373,-87.6686248
+Sweet Hearts Bar,bar,41.9784399,-87.66849
+Armitage Alehouse,pub,41.9182402,-87.6535622
 North Park Village Health Center,clinic,41.98517002524449,-87.72747958645414
 Pine Avenue United Church,place_of_worship,41.89879325667042,-87.76336748078577
+Christ Lutheran Church,place_of_worship,41.9370323573609,-87.7672703142802
 Resurrection Life Center,social_facility,41.98909448567523,-87.81113852440706
 Carole Robertson Center for Learning,school,41.85509253057799,-87.70007982970415
 Paul House,social_facility,41.95076037959989,-87.69884751448643
@@ -2453,6 +2449,7 @@ Trinity United Methodist Church,place_of_worship,41.714201756426704,-87.67106807
 Illinois Center for Rehabilitation,social_facility,41.867534824217216,-87.67075761923513
 Bethany Retirement Community,social_facility,41.97220779889549,-87.67000678468082
 Christ the King Roman Catholic Church,place_of_worship,41.72506793748522,-87.67562084795115
+The Breakers at Edgewater Beach,social_facility,41.979283234037204,-87.6544820622012
 South Park Baptist Church,place_of_worship,41.826650293056375,-87.6176938478223
 Ray and Joan Kroc Community Center,community_centre,41.67865794238011,-87.65273187406072
 Jackson Park,park,41.78171991700642,-87.5796900128824
@@ -2473,7 +2470,7 @@ Lily Gardens Park,park,41.763479032974644,-87.63975823936404
 Ryan Harris Memorial Park,park,41.77074487615383,-87.63993067504275
 Lyle Park,park,41.75344674718599,-87.63968090280572
 Lorraine Dixon Park,park,41.732238859093684,-87.60194966353862
-Kinzie Parkway Park,park,41.88785400275604,-87.75795950893144
+Kinzie Parkway Park,park,41.88785393308759,-87.75795659887666
 Fernwood Parkway Park,park,41.71412743839362,-87.63356459989532
 Bernard Stone Park,park,41.994480537511265,-87.71023880105535
 Indian Boundary Park,park,42.00947689431491,-87.69325255489927
@@ -2499,7 +2496,7 @@ Unknown,park,41.829548041033966,-87.62778930974618
 Unknown,park,41.917950068136115,-87.63642387199971
 Deeper Life Bible Church,place_of_worship,42.001082780209245,-87.69525480668432
 D'Angelo Park,park,41.8755110316979,-87.63450815939605
-Lincoln Park,park,41.94546401309708,-87.63797999730076
+Lincoln Park,park,41.94546401318336,-87.63797999732805
 Altgeld Gardens Community Center,community_centre,41.65680581154061,-87.59866319091827
 Northtown Branch Library,library,42.00545530431962,-87.69045763074303
 Bloomingdale Trail Park,park,41.913897980536646,-87.69720932529715
@@ -2535,10 +2532,10 @@ Sothwest Regional Senior Center,social_facility,41.781429364323046,-87.702838876
 Graham Elementary School,school,41.8128931398796,-87.64409217241456
 Near North Montessori School,school,41.90384285350588,-87.6648706969601
 Humboldt Park Health,hospital,41.901041476562774,-87.70007230200272
-Logan Square,park,41.92840493685803,-87.70679584770866
+Logan Square,park,41.92840310476121,-87.70679289411396
 Mobil,fuel,41.99832903073651,-87.88807296572045
 Howard Brown Health at La Casa Norte,clinic,41.90971255639462,-87.71562179143113
-Grant Park,park,41.87535033227862,-87.61922627334808
+Grant Park,park,41.875350431684836,-87.6192261883228
 Eugenie Triangle,park,41.91324578557585,-87.63310021649264
 Humboldt Playground -NE,playground,41.908118471875895,-87.69939152163761
 Morrie Mages Playground,playground,41.95337541599379,-87.64374373118214
@@ -2558,6 +2555,8 @@ South Shore Cultural Center,community_centre,41.76839806358697,-87.5639706729654
 Arthur Ashe Beach Park,park,41.76241909070515,-87.55786289229268
 Unknown,playground,41.928022252197145,-87.65889359167122
 Park No. 566 (USX),park,41.74847177710079,-87.53624465891501
+Saint Ignatius College Preparatory School,school,41.86713933709648,-87.65325397919494
+Henry Austin Park,park,41.88770104064106,-87.77189371308528
 Mark Twain Park,park,41.86088242296062,-87.620520948953
 Eckhart Park,park,41.897095673291204,-87.66119223429259
 Wicker Park,park,41.907760246638354,-87.6765194262858
@@ -2607,7 +2606,7 @@ Warren Park,park,42.00269669528933,-87.6858691069082
 John T. Richardson Library,library,41.92494423130774,-87.6553770869984
 Blaine Elementary School,school,41.9512319578015,-87.66495498812964
 Bell Elementary School,school,41.94947986641086,-87.68648262689815
-Unknown,school,41.95291993165102,-87.68420247680682
+Saint Benedict Preperatory School,school,41.95291993165102,-87.68420247680682
 Revere Park,park,41.95305221197935,-87.6920733795422
 Cleveland Elementary School,school,41.951624599999995,-87.70612200000002
 CICS Irving Park School,school,41.95077915,-87.71073335
@@ -2661,11 +2660,11 @@ Christopher Elementary School,school,41.80173699987674,-87.68610642915417
 Fulton Elementary School,school,41.797157675973295,-87.66892999861031
 Saint Mary of the Woods Church,place_of_worship,42.00797678596159,-87.77746257231809
 McKiernan Park,park,41.69835238176564,-87.70292406456763
-Mount Greenwood Elementary School,school,41.696077324413004,-87.70533495501961
+Mount Greenwood Elementary School,school,41.69607913290893,-87.70533852480742
 Oriole Park,park,41.97951305232456,-87.81540986048655
 Mozart Park,park,41.91822943697878,-87.72362543257442
 Haas Park,park,41.92516067251828,-87.69597308895776
-Levin Park,park,41.888298150445465,-87.76185635250366
+Levin Park,park,41.88829754869687,-87.76185913954173
 Hubbard Park,park,41.88890659629147,-87.75006203975792
 Cornell Square Park,park,41.80217494059763,-87.67088500730412
 Wendell Smith Park,park,41.7139651599658,-87.6320551241735
@@ -2685,10 +2684,11 @@ Gage Park,park,41.79349520414134,-87.68470846679023
 Nicholson School for Science and Math,school,41.78437215474969,-87.64771938669062
 John Hope College Prep,school,41.792373730110555,-87.64084814573263
 Sherman Park,park,41.79686365128643,-87.65737848536864
-Wentworth Park,park,41.788295661970466,-87.7804519176189
+Wentworth Park,park,41.7882954101005,-87.78045790222724
 St. James School,school,41.92511061545197,-87.7702703821686
 Hale Park,park,41.77975016017765,-87.7788821962727
 Minuteman Park,park,41.785205229485086,-87.7639752136658
+Unknown,school,41.78987199282123,-87.77988194957709
 Valley Forge Park,park,41.78427585175798,-87.79772788470713
 Erhler Park,park,41.916333217227326,-87.6837183006478
 Walsh Park,park,41.91376347917452,-87.66841173769905
@@ -2719,7 +2719,7 @@ Clybourn Park,park,41.913219412805624,-87.65231236948614
 Gertrud Kolmar Park,park,41.9566410606837,-87.7414794541616
 Kelvyn Park,park,41.92962218934442,-87.73796076172079
 Emmerson Park,park,41.99457586585764,-87.67694863845058
-Moore Park,park,41.878060373405745,-87.75241811392084
+Moore Park,park,41.87805772383387,-87.75240211417245
 Oakdale Park,park,41.720257104959146,-87.64853365150735
 Saint Patrick High School,school,41.93916458602166,-87.77479100744938
 O'Hallaren Park,park,41.742086784581936,-87.6693050014765
@@ -2727,7 +2727,7 @@ Jewel-Osco,supermarket,41.93555737885946,-87.6702488663368
 Gary Elementary School,school,41.837894208171846,-87.71878665888032
 Sun Yat-Sen Park,park,41.84807074937218,-87.63407191950321
 Unknown,playground,41.84806567792303,-87.63381360777133
-Pasteur Park,park,41.788063840805684,-87.73154674935262
+Pasteur Park,park,41.78806384568346,-87.73154674968976
 Helen Zatterburg Park,park,41.959284273814994,-87.6727901345884
 Ann & Robert H. Lurie Children's Hospital,hospital,41.896218339882175,-87.62196141765021
 Mobil,fuel,41.90447044999999,-87.6484152
@@ -2879,12 +2879,10 @@ Orr Park,park,41.894288388053646,-87.72794680590093
 Tilton Park,park,41.88556593919768,-87.73514827895242
 Mason Park,park,41.883923612399066,-87.72849342187709
 Altgeld Park,park,41.87439007816622,-87.69261693150725
-Austin Park,park,41.88768663172883,-87.7718218135654
 Air Force Academy High School,school,41.82784468353488,-87.6332522668801
 John B. Drake Elementary School,school,41.843507671196136,-87.62875285315991
 Unknown,playground,41.975406326756286,-87.6827940894121
 Thorek Memorial Hospital Andersonville,hospital,41.9730989037168,-87.67100403645995
-Saint Augustine College,school,41.97213924726899,-87.66320853696807
 Carmen Park,park,41.974911778347064,-87.66094467431407
 Hickory Park,park,41.97017203158356,-87.65804328921242
 McPherson Elementary School,school,41.96826849841656,-87.67719893596434
@@ -2915,10 +2913,10 @@ Dearborn Park,park,41.87096357929339,-87.6290997574771
 Gladys Park,park,41.87601485000001,-87.70877390000001
 Horan Park,park,41.875548665222865,-87.70373888199869
 Park No. 489,park,41.8789512757494,-87.68720750910741
-Touhy-Herbert Park,park,41.879282888717285,-87.6794269329831
+Touhy-Herbert Park,park,41.879283670612516,-87.6794321237669
 Simons Park,park,41.911395432177216,-87.71541067709916
 Beilfuss Park,park,41.912438937320466,-87.72330212857742
-Greenebaum Park,park,41.912546267722725,-87.73387259326266
+Greenebaum Park,park,41.91254640858887,-87.73387370186752
 Kedvale Park,park,41.906627153583386,-87.73006753413506
 Unity Park,park,41.85484173537848,-87.73342754799815
 Franklin Park,park,41.86148090085665,-87.73236732811957
@@ -3024,7 +3022,7 @@ Monk's Pub,pub,41.8854785037211,-87.6343086111177
 57th Street Meeting of Friends,place_of_worship,41.79279934931013,-87.59616987452004
 Downtown Islamic Center,place_of_worship,41.87869905696681,-87.62726887781578
 Eli M. Schulman Playground,playground,41.89724287371862,-87.62247246495541
-Old Saint Patrick's Church,place_of_worship,41.879450211777026,-87.64448401231115
+Old Saint Patrick's Church,place_of_worship,41.87945021196387,-87.64448400694866
 Binny's Beverage Depot,alcohol,41.86791903547213,-87.64266658172846
 Citgo,fuel,41.86933986778758,-87.64400871013247
 BP,fuel,41.80133895,-87.5879973
@@ -3040,7 +3038,7 @@ Rockefeller Memorial Chapel,place_of_worship,41.788548993757345,-87.597037743849
 Chicago Women's Park and Gardens,park,41.85718106456904,-87.62156945885306
 Chicago Fire Department Engine Company 5,fire_station,41.87718878500512,-87.64431022068123
 Olivet Baptist Church,place_of_worship,41.838173013953515,-87.61661254269849
-Chicago World Language Academy,school,41.874765977220484,-87.66076125835468
+Chicago World Language Academy,school,41.87476540915581,-87.66076111912368
 Bond Chapel,place_of_worship,41.78867543985851,-87.60043825503577
 BP,fuel,41.96049569999999,-87.78652109999999
 Shell,fuel,41.96017920012202,-87.77666220184979
@@ -3071,9 +3069,9 @@ Dickinson Park,park,41.95564540495155,-87.75198520901476
 Mother Hubbard's Sports Pub,pub,41.8898237775766,-87.62835487969157
 Unknown,playground,41.870425369382666,-87.62972708773778
 Unknown,playground,41.87059562510653,-87.6297487891753
-Lerner Park,park,42.007457585930595,-87.70574174897885
+Lerner Park,park,42.007454542533345,-87.70573932761238
 Swartzberg House,social_facility,42.01070586135312,-87.706645366201
-Bernard Horwich Jewish Community Center,community_centre,42.01102541210904,-87.70571541113394
+Bernard Horwich Jewish Community Center,community_centre,42.01102288013617,-87.7057139561105
 Yeshiva Ohr Boruch/The Veitzner Cheder,school,42.00562565021776,-87.70111990339132
 Chicago Fire Academy,fire_station,41.86932861699069,-87.64177662316911
 Chicago Fire Department Survive Alive House,fire_station,41.869446590079725,-87.6410977786722
@@ -3136,11 +3134,13 @@ Shell,fuel,41.80373110333993,-87.74335891647102
 Exxon,fuel,41.80242484383166,-87.74273302477377
 Midway Church of God,place_of_worship,41.80218547677107,-87.72736905778466
 Saint Richard Catholic Church,place_of_worship,41.80179492573597,-87.73357536761412
+Midway Pointe Senior Living,social_facility,41.80734794519454,-87.74853501533381
 Citgo,fuel,41.807588949999996,-87.73173145
 BP,fuel,41.7929518,-87.7333675
 Saint Mary Star of the Sea Church,place_of_worship,41.775641013505464,-87.73423013560662
 Christian Fellowship Church,place_of_worship,41.78611962481326,-87.72875021155187
 Save-A-Lot,supermarket,41.77827151182609,-87.73405103252863
+St Mary's Parish Center,community_centre,41.77884056286805,-87.73821640302843
 Good Shepherd Lutheran Church,place_of_worship,41.78068117131097,-87.72794164127242
 BP,fuel,41.77868592536337,-87.74026563850855
 Saint Bede the Venerable Church,place_of_worship,41.742350254199515,-87.73186384350842
@@ -3192,6 +3192,7 @@ Mobil,fuel,41.901867249999995,-87.74619890000001
 Incarnation Lutheran Church,place_of_worship,41.90561725642809,-87.72863615591274
 Falcon,fuel,41.89557585766334,-87.72645595322146
 Saints Cyril and Methodius Roman Catholic Church,place_of_worship,41.89818371377388,-87.73319660479464
+Greater Holy Temple Ministries,place_of_worship,41.89251313712265,-87.74320807308516
 Saint Francis of Assisi Church,place_of_worship,41.898612907507605,-87.73652575525473
 Saint Stephens United Church of Christ,place_of_worship,41.91150505274454,-87.72851217840953
 Saint Marks Evangelical Lutheran Church,place_of_worship,41.911782725021496,-87.73224633041626
@@ -3208,9 +3209,10 @@ Kildare Avenue Baptist Church,place_of_worship,41.922762587611366,-87.7337920885
 Cermak Produce,supermarket,41.916799723792764,-87.73670465760829
 Church of God,place_of_worship,41.92267324430494,-87.73735741699178
 Walmart Supercenter,supermarket,41.91162074262381,-87.74282084162903
-Belmont Village Senior Apartment,social_facility,41.93866653524813,-87.74380374233108
+Belmont Village Senior Apartment,social_facility,41.93866599955337,-87.74380147984456
 Chicago Fire Department Engine Company 91,fire_station,41.93257879519339,-87.72665642177219
 Aldi,supermarket,41.92866544573831,-87.72874884858629
+Senior Suites of Kelyvn Park,social_facility,41.93010513500294,-87.74618252333771
 Citgo,fuel,41.93489034330818,-87.74701633868429
 Citgo,fuel,41.93699704390611,-87.72736300527866
 Soap Box Laundry,laundry,41.93959620312687,-87.72757308063375
@@ -3223,7 +3225,8 @@ Maranatha - The House of God / La Casa de Dios,place_of_worship,41.9314234983553
 Citgo,fuel,41.93878657465342,-87.73664091065291
 Saint Stephens Evangelical Lutheran Church,place_of_worship,41.93100665520388,-87.73655609065847
 Oak Street Health - Hermosa Primary Care,clinic,41.93139691580437,-87.73792634476902
-BP,fuel,41.92459133254219,-87.73870191390762
+BP,fuel,41.92459116758058,-87.73870192803828
+Blue Kangaroo Laundromat,laundry,41.93142445467062,-87.73947906665555
 Tony's Fresh Market,supermarket,41.940284507672565,-87.74269255903472
 Walgreens,pharmacy,41.938583981307616,-87.74593668578378
 Shell,fuel,41.93127950541093,-87.74686709360613
@@ -3239,6 +3242,7 @@ The Booze Hound,bar,41.94860744347365,-87.73987313706031
 Mount Olive Lutheran Church,place_of_worship,41.9515388765507,-87.7343755299149
 Saint John's Episcopal Church,place_of_worship,41.95156367880203,-87.73769512940936
 Shell,fuel,41.953918200000004,-87.72799115000001
+Irving Park Lutheran Church Parish Hall,community_centre,41.955314055991174,-87.72606267096687
 Fullness Presbyterian Church,place_of_worship,41.95521129179588,-87.73195807554832
 Irving Park Lutheran Church,place_of_worship,41.9556896644967,-87.7268301622728
 Korean Catholic Church,place_of_worship,41.95609884568641,-87.73037516076546
@@ -3267,7 +3271,7 @@ Dar Al-Hadith,place_of_worship,41.968470515197254,-87.74029141921453
 Sokol Community Center,community_centre,41.9692901,-87.74165845000002
 Aldi,supermarket,41.97285676243916,-87.72780647101193
 The Church of Jesus Christ of Latter-day Saints,place_of_worship,41.97381845216347,-87.72615041913559
-Mayfair Common Senior Living,social_facility,41.96850436851189,-87.7397294639341
+Mayfair Commons Senior Living,social_facility,41.96850436851189,-87.7397294639341
 Unknown,playground,41.972138649999636,-87.73876417384464
 BP,fuel,41.96069305,-87.72758850000001
 Chicago Police Department 17th District,police,41.96615348256916,-87.72830071021184
@@ -3295,7 +3299,7 @@ Saint Camillus School,school,41.79362129321797,-87.75552899738179
 Chicago Fire Department Engine Company 113,fire_station,41.87318545,-87.7554801
 Aldi,supermarket,41.86723625117249,-87.76491358136964
 Mandell United Methodist Church,place_of_worship,41.87429702081217,-87.7494682553574
-Austin Satellite Senior Center,community_centre,41.87375397836205,-87.75231818114017
+Austin Satellite Senior Center,community_centre,41.873754073507634,-87.75231814148789
 BUILD,community_centre,41.87335836896666,-87.75396310956353
 Greek Orthodox Church of the Assumption,place_of_worship,41.87247790577098,-87.76411514723493
 Loretto Hospital,hospital,41.87212965582353,-87.76356688891221
@@ -3314,6 +3318,7 @@ Gammon United Methodist Church,place_of_worship,41.889510928612246,-87.765588907
 Saint Thomas Aquinas Roman Catholic Church,place_of_worship,41.8821211554533,-87.7535833266062
 BP,fuel,41.87638189942529,-87.75534111441947
 Walgreens,pharmacy,41.88069322587049,-87.7559946798286
+Paradise Missionary Baptist Church,place_of_worship,41.888000695889104,-87.75726433713942
 Saint Martin's Episcopal Church,place_of_worship,41.88938583367538,-87.76808459744474
 Greater Holy Temple Church of God in Christ,place_of_worship,41.88870257278561,-87.76797612821552
 Austin Baptist United Church of Christ,place_of_worship,41.89132948580306,-87.76297218112029
@@ -3326,12 +3331,16 @@ Citgo,fuel,41.89516845,-87.75526480000002
 Super Fuel,fuel,41.902438043369074,-87.7654302235224
 North Austin United Methodist Church,place_of_worship,41.903728324542506,-87.76848069571842
 Trinity Evangelical Lutheran Church,place_of_worship,41.90606486186619,-87.75626038020435
+Christ School,school,41.90730527765104,-87.75994647595938
 Christ English Evangelical Lutheran Church,place_of_worship,41.90787311701502,-87.76047571061612
 GoLo,fuel,41.90195910426482,-87.75258843512874
+Pleasant Valley Baptist Church,place_of_worship,41.90382442470972,-87.75632065510099
 Jehovahs Witnesses - West Unit,place_of_worship,41.902450835993825,-87.76260679761447
+Hamlett Isom CME Church,place_of_worship,41.90242973419768,-87.76285077772619
 Inspirational Deliverance Center Church of God in Christ,place_of_worship,41.892653174662264,-87.76623579553203
 Christ Unity Church,place_of_worship,41.89169174818974,-87.7662868256785
 Our Lady Help of Christians Roman Catholic Church,place_of_worship,41.896378783265384,-87.75354392389102
+Christ Tabernacle Missionary Baptist Church of Austin,place_of_worship,41.89647732197021,-87.76582541262307
 Jordan Temple Baptist Church,place_of_worship,41.89689560906443,-87.75845384323927
 High Mountain Missionary Baptist Church,place_of_worship,41.897427341832156,-87.75055931157898
 West Chicago Avenue Branch Library,library,41.895315317370205,-87.74799859973953
@@ -3339,14 +3348,15 @@ Marathon,fuel,41.90200097252968,-87.75606783098736
 Chicago Fire Department Engine Company 68,fire_station,41.917592826713204,-87.75809825336194
 Walgreens,pharmacy,41.90896313848245,-87.76667069037931
 Carolyn’s Zodiac Lounge,bar,41.91251066561772,-87.76594853326357
-Amoco,fuel,41.91719719147707,-87.7557209458423
-Saint Stanislaus Bishop and Martyr Catholic Church,place_of_worship,41.922654485988794,-87.76029593117737
+Amoco,fuel,41.91719719616676,-87.755720901465
+Saint Stanislaus Bishop and Martyr Catholic Church,place_of_worship,41.92265441401689,-87.7602959893837
 Walgreens,pharmacy,41.924456373013406,-87.76664973202824
 Saint Pauls Evangelical Lutheran Church,place_of_worship,41.915755817708,-87.74834230086954
 Iglesia Misionera Bautista North Avenue,place_of_worship,41.92299573094211,-87.74953517985803
 BP,fuel,41.90924904745714,-87.75555364631784
+Rock of Salvation Church,place_of_worship,41.91328862495347,-87.76039295030169
 North Austin Branch Library,library,41.909605861536605,-87.76889447713708
-St Stanislaus School,school,41.92307714338224,-87.76042035757266
+Saint Stanislaus School,school,41.92307714338224,-87.76042035757266
 Falcon,fuel,41.923737859044934,-87.76874059826532
 Chicago Police Department 25th District Station,police,41.91794079754446,-87.76501259651366
 Chicago Fire Department Engine Company 7,fire_station,41.9385245241345,-87.74993700435734
@@ -3354,13 +3364,17 @@ Tony's Fresh Market,supermarket,41.92690008322843,-87.76643284434785
 Unknown,place_of_worship,41.9274284,-87.76585265
 Grace School,school,41.93016311286096,-87.755892912096
 Aldi,supermarket,41.93200606653701,-87.76660691887328
+New Life Family Center,social_facility,41.933462720336415,-87.76664845201621
+SpinXpress Laundry,laundry,41.934722142260746,-87.7666870951794
 Iglesia Crstiana de la Familia,place_of_worship,41.93650507538885,-87.76365977623685
+Morelia Supermarket,supermarket,41.93126697901669,-87.74783811812452
 Saint Genevieves Roman Catholic Church,place_of_worship,41.925806119713904,-87.7482152196708
 Maplewood Bible Baptist Church,place_of_worship,41.93366748991091,-87.751360534468
 Jehovahs Witnesses Northwest Unit,place_of_worship,41.93164872360592,-87.75206477724305
 Evangel Assembly of God Church,place_of_worship,41.931708526735015,-87.75426240665564
 Walgreens,pharmacy,41.93167810716079,-87.7555278032449
 Cermak Fresh Market,supermarket,41.9384694043953,-87.7549283819457
+Northwest Community Church,place_of_worship,41.93159708973428,-87.75953683106208
 Carniceria Jimenez,supermarket,41.938920078546715,-87.76027221502017
 Citgo,fuel,41.92784039525968,-87.76591198541354
 BP,fuel,41.93156945100966,-87.76660496296152
@@ -3373,6 +3387,7 @@ Saint Ladislaus Catholic Church,place_of_worship,41.941674760529,-87.76104655536
 Saint Bartholomews Roman Catholic Church,place_of_worship,41.9463617300696,-87.75142857267699
 Saint Thomas United Church of Christ,place_of_worship,41.95005211851605,-87.75190017851202
 The Bridge Community Church,place_of_worship,41.95110700551416,-87.76654602819092
+Chicago Fil-Am Seventh-day Adventist Church,place_of_worship,41.95202888073437,-87.76717867742174
 Shell,fuel,41.953524015678006,-87.75678246746261
 Romanian Baptist Church,place_of_worship,41.95361646489293,-87.75370097361393
 Walgreens,pharmacy,41.95465857056866,-87.74773178362756
@@ -3446,6 +3461,7 @@ Galewood Community Church,place_of_worship,41.91247705818837,-87.78576604935549
 Word of Life Church of God,place_of_worship,41.921689517311506,-87.78567414246096
 Saint John Bosco Roman Catholic Church,place_of_worship,41.922211097989646,-87.77623341464526
 Saint James Roman Catholic Church,place_of_worship,41.92432866667572,-87.77048309603678
+Kingdom Builders Ministries International,place_of_worship,41.90903982528241,-87.7721530329848
 Express Coin Laundry,laundry,41.92408257650599,-87.77762420991947
 Christian Congregation Church,place_of_worship,41.92341961917862,-87.7821261754591
 BP,fuel,41.92229375000001,-87.78500475
@@ -3469,12 +3485,12 @@ Aldi,supermarket,41.92600091917988,-87.7887373162164
 West Belmont Branch Library,library,41.93673586926461,-87.78619726115048
 Unknown,playground,41.81410076387861,-87.59788942902736
 Kennicott Park,park,41.81395117646436,-87.59755816325098
-Chicago Fire Department Engine Company 94,fire_station,41.94969726585915,-87.77160032581871
+Chicago Fire Department Engine Company 94,fire_station,41.94970523688591,-87.7715757404786
 Christadelphian Church,place_of_worship,41.94866320183207,-87.78609198302507
 Walgreens,pharmacy,41.945551215605946,-87.77564068045338
 Portage Park Evangelical Covenant Church,place_of_worship,41.95002839878299,-87.77645223412308
 BP,fuel,41.94594959999999,-87.77686034999999
-Austin-Irving Branch Library,library,41.953247420983665,-87.7797554636831
+Austin-Irving Branch Library,library,41.95324717177356,-87.77975355213728
 Saint Pascal Roman Catholic Church,place_of_worship,41.9526127660718,-87.7813337235694
 Messiah Lutheran Church,place_of_worship,41.946326748664234,-87.78169229361292
 Watson Park Congregational Church,place_of_worship,41.94351523071212,-87.78529540513053
@@ -3524,6 +3540,7 @@ La Tienda Michoacana,supermarket,41.938563008369854,-87.79767422259222
 Chicago Fire Department Engine Company 86,fire_station,41.951388373028486,-87.80755972559913
 Our Saviour Lutheran Church,place_of_worship,41.94329061922455,-87.8053139573759
 BP,fuel,41.945533410917896,-87.80665580765442
+Saint John Syrian Orthodox Church,place_of_worship,41.94873183955265,-87.80003362671289
 Norwood Bible Church,place_of_worship,41.94870914470247,-87.80621851398092
 Martin Luther Lutheran Church,place_of_worship,41.945670746638925,-87.7980744044693
 Saint Priscillas Church,place_of_worship,41.944953098031526,-87.80083380292031
@@ -3556,6 +3573,7 @@ Saint Juliana Church,place_of_worship,42.011880004530965,-87.81086366704712
 Club Belmont,bar,41.93808933536147,-87.82319807334272
 Leyden Baptist Church,place_of_worship,41.94149880998837,-87.81695196834103
 Forest Preserve Bible Church,place_of_worship,41.95126802303001,-87.81348678206538
+Saint Francis Borgia Parish Hall,community_centre,41.94468519398396,-87.82749277000994
 Saint Michael Lutheran Church,place_of_worship,41.945220837294556,-87.83182333386911
 Saint Francis Borgia Church,place_of_worship,41.944256098355005,-87.8280675254303
 Bethel Community Church,place_of_worship,41.97382946613064,-87.81746908782041
@@ -3606,9 +3624,11 @@ Elsdon United Methodist Church,place_of_worship,41.797341600974704,-87.707640047
 Shell,fuel,41.79287292080875,-87.72354348106157
 Pete's Market,supermarket,41.81383384384691,-87.72241756552363
 Aldi,supermarket,41.810089466626025,-87.72328016031292
+The Blue Kanagaroo Laundromat,laundry,41.809897661645635,-87.7239856169972
 Saint Nikola Serbian Orthodox Church,place_of_worship,41.840900346656234,-87.71499453796456
 Little Village Baptist Chapel,place_of_worship,41.84088753391847,-87.7193149214368
 Iglesia La Santa Trinidad,place_of_worship,41.84072741021211,-87.72653000569707
+Enlace Chicago,social_facility,41.84070055357662,-87.72413205493031
 Mobil,fuel,41.84032015148899,-87.72423397985179
 Saint Andrew-Crawford United Church of Christ,place_of_worship,41.840377299900375,-87.72656571031435
 Aldi,supermarket,41.83824466628036,-87.70563943026458
@@ -3657,7 +3677,7 @@ ACCESS Paul and Mimi Francis Westside Family Health Center,clinic,41.85911685000
 Lena A Hamlett Christian Methodist Episcopal Church,place_of_worship,41.86184401728157,-87.71995200440573
 Citgo,fuel,41.874640628934635,-87.72517124993398
 Save-A-Lot,supermarket,41.87460334420278,-87.72627411620152
-BP,fuel,41.873271697678824,-87.7193582113006
+BP,fuel,41.873288297678826,-87.71937381130063
 Greater Rock Missionary Baptist Church,place_of_worship,41.871922525743,-87.72074291658652
 Independence Boulevard Seventh Day Adventist Church,place_of_worship,41.87097332018181,-87.72074184415585
 Henry Ford Academy: Power House High,school,41.86918656732895,-87.70999593341725
@@ -3669,6 +3689,7 @@ Chicago Fire Department Engine Company 44,fire_station,41.88880167432267,-87.706
 Central Memorial Missionary Baptist Church,place_of_worship,41.88565229196582,-87.70603065802997
 Shiloh Missionary Baptist Church,place_of_worship,41.87998244327591,-87.70530413115031
 Monroe Street Church of Christ,place_of_worship,41.87992779983118,-87.70872500069792
+People's Church of the Harvest,place_of_worship,41.876150327227116,-87.7153057396561
 Philadelphia Missionary Baptist Church,place_of_worship,41.88246584830972,-87.70994479236522
 Mobil,fuel,41.882025675927174,-87.7247535065062
 First Church of the Brethren,place_of_worship,41.874717634563844,-87.71539299174866
@@ -3679,6 +3700,7 @@ Fresenius Kidney Care,clinic,41.87567432470209,-87.71139157813828
 Unknown,playground,41.81752504999999,-87.59827575
 Williams-Davis Park,park,41.820243183003164,-87.59964470235956
 Unknown,place_of_worship,41.899395794349246,-87.71237553174223
+Association House,social_facility,41.90156902867452,-87.70754142945773
 Church of God Spanish,place_of_worship,41.90203980006031,-87.7097897486636
 First Congregational Church of Chicago,place_of_worship,41.90479110304574,-87.72116882392335
 Evangelical Christian Church,place_of_worship,41.90648153248554,-87.72060072287445
@@ -3740,7 +3762,7 @@ Our Lady of Fatima Chapel,place_of_worship,41.93712378452622,-87.71084028189016
 Laundryland,laundry,41.93222039745218,-87.70467064660318
 BP,fuel,41.937349425297015,-87.70735557766263
 Saints Peter and Paul Romanian Greek-Catholic Church,place_of_worship,41.92440038300623,-87.70504802768929
-Northwest (Copernicus) Senior Center,social_facility,41.9381292670984,-87.72280635603337
+Northwest (Copernicus) Regional Senior Center,social_facility,41.9381292670984,-87.72280635603337
 Shell,fuel,41.93892539803033,-87.72296333714472
 Shell,fuel,41.93953266002531,-87.71280472811895
 Grace United Methodist Church of Logan Square,place_of_worship,41.92802248740127,-87.71191408344649
@@ -3793,7 +3815,7 @@ First Korean United Methodist Church,place_of_worship,41.97003105548782,-87.7150
 Alliance Holiness Church,place_of_worship,41.97101357428046,-87.71378527907984
 Korean Evangelical Covenant Church,place_of_worship,41.97227290071151,-87.7070346187874
 First Temple of Universal Law Church,place_of_worship,41.97308570073934,-87.7174741023527
-Albany Park Branch Library,library,41.97545519724891,-87.71398073731541
+Albany Park Branch Library,library,41.97545520266595,-87.71398073517504
 Brandel Library,library,41.97421205663863,-87.7123279263311
 Big Hill Bar & Grill,bar,41.98285225532435,-87.7116689381389
 Church of Christ Presbyterian,place_of_worship,41.988260368832755,-87.7118808327071
@@ -3815,7 +3837,6 @@ Unknown,playground,41.95248320398244,-87.65012482096894
 Park Plaza,social_facility,42.00615066484558,-87.70564318104358
 Saint Christina's Catholic Church,place_of_worship,41.69188342889151,-87.70486538661629
 Chicago Fire Department Engine Company 92,fire_station,41.69182099163636,-87.69900119980868
-Saint Christina Church,place_of_worship,41.69258180328595,-87.70532507035385
 Kean,fuel,41.69190610007502,-87.68761654910881
 Express Med Spa Chicago,clinic,41.69173477927608,-87.70405784880808
 DaVita Dialysis,clinic,41.69126484999999,-87.70595464999998
@@ -3838,6 +3859,7 @@ Beth Shalom B’nai Zaken Ethiopian Hebrew Congregation,place_of_worship,41.7732
 Lithuanian Evangelical Lutheran Church,place_of_worship,41.77224689609221,-87.70139116293518
 Nativity of the Blessed Virgin Mary Church,place_of_worship,41.76857144543032,-87.69123113602416
 BP,fuel,41.77506555925092,-87.70332537539657
+IMAN Community Center,community_centre,41.778912464324094,-87.69317350113043
 Amstar,fuel,41.779337275314056,-87.69381504461255
 Marathon,fuel,41.77921616197438,-87.69858384248289
 Gas Center,fuel,41.77883524153249,-87.69978877470047
@@ -3861,7 +3883,7 @@ Saint Simon Catholic Church,place_of_worship,41.799422890425305,-87.693413605433
 Tabor Lutheran Church,place_of_worship,41.79727145567391,-87.68820301221119
 St. Clare of Montefalco Catholic Church,place_of_worship,41.79420715583888,-87.69105884545748
 Marathon,fuel,41.79834473297103,-87.6844936292351
-Brighton Park Branch Library,library,41.81505562817306,-87.70319650319284
+Brighton Park Branch Library,library,41.815055627377845,-87.70319649907805
 Chicago Fire Department Engine Company 65,fire_station,41.817539348061224,-87.69969759293103
 Brighton Park Presbyterian Church,place_of_worship,41.82251703288634,-87.69690713532096
 Saint Joseph & Saint Anne Catholic Church,place_of_worship,41.82482480779648,-87.69249574984947
@@ -3992,7 +4014,7 @@ Pietrowski Park,park,41.719861590391275,-87.53804692479426
 Unknown,playground,41.71971356847145,-87.53805425574733
 Skinner Park Playground,playground,41.87966289419876,-87.6600029361751
 Our Lady of Fatima Church,place_of_worship,41.82343398753368,-87.69433130591209
-Austin Town Hall Park,park,41.888516964916434,-87.76579289323197
+Austin Town Hall Park,park,41.888519148188465,-87.76579319981035
 Unknown,playground,41.74359267854844,-87.54989640191323
 Whole Foods Market,supermarket,41.90872759024384,-87.65287837785738
 Carnegie Elementary School,school,41.7837066134086,-87.59087643173491
@@ -4031,7 +4053,7 @@ Woodlawn Community Academy,school,41.773794925557546,-87.59402801616403
 Saint John's Polish National Catholic Church,place_of_worship,41.810286932682274,-87.70368296388064
 Jacolik Park,park,41.843797959897756,-87.66109993333332
 Park No. 571,park,41.843719308368456,-87.66293510625535
-Park No. 567,park,41.91424661485137,-87.68297673670257
+Park No. 567,park,41.91424655850283,-87.6829769048459
 Canal Origins Park,park,41.842651701152676,-87.66537033924544
 Canalport Riverwalk Park,park,41.84349989862077,-87.66873772898765
 Richard J. Daley Park,park,41.83679671457854,-87.68614045846569
@@ -4063,8 +4085,8 @@ Marist High School,school,41.685062123125995,-87.72559719339353
 Saint John Fisher School,school,41.70766919362892,-87.6897103364402
 Unknown,playground,41.70215930370668,-87.68671676791429
 Unknown,playground,41.70233725830251,-87.68728952498638
-Unknown,playground,41.696693499999995,-87.70567844999998
-Unknown,playground,41.69666422426825,-87.7054313114299
+Unknown,playground,41.69676389999999,-87.70573375000001
+Unknown,playground,41.696144174234234,-87.70500847427562
 Unknown,playground,41.69813209826626,-87.70257095715773
 Brother Rice High School,school,41.711530620768336,-87.7189293793957
 Mother McAuley High School,school,41.711911792732096,-87.7142195159546
@@ -4072,8 +4094,6 @@ Southwest Elementary School,school,41.712352777629214,-87.711985110677
 Unknown,playground,41.77085764294191,-87.73875620243442
 Saint Rene School,school,41.776156344972534,-87.79492361130009
 Nottingham Park,park,41.77705976194393,-87.7990366363658
-Blair Early Childhood Center,school,41.77640116632143,-87.78976694107794
-Dore Elementary School,school,41.78047455984429,-87.78794705823519
 Unknown,playground,41.77626103171651,-87.79073633865637
 Unknown,playground,41.780002471171244,-87.77796419430939
 Hale Elementary School,school,41.78048665260633,-87.77719609637164
@@ -4107,7 +4127,7 @@ Jackson Playground - 67th and Jeffery,playground,41.77368487847702,-87.575784858
 Unknown,playground,41.76831625,-87.58316475000001
 Unknown,playground,41.76701846613142,-87.58977927567862
 Mosque Maryam,place_of_worship,41.76090745123491,-87.58500848387713
-South Shore Fine Arts Academy,school,41.76700140574726,-87.59020878903097
+South Shore Fine Arts Academy,school,41.767033789463255,-87.59020007790683
 Unknown,playground,41.76224513001573,-87.5840117212385
 Dunbar High School,school,41.8400115776742,-87.6183646540212
 Unknown,playground,41.83791015098221,-87.61148347214422
@@ -4204,7 +4224,7 @@ Onahan Elementary School,school,41.9946151500782,-87.79260975923984
 Saint Thecla School,school,41.99582744124907,-87.79609075318675
 Unknown,playground,41.966795945706195,-87.72839092014907
 Spikings Farm Park,park,41.96679825,-87.7283387
-Pasteur Elementary School,school,41.7867716825317,-87.73222540428144
+Pasteur Elementary School,school,41.78677165621319,-87.73222540819349
 Lee Elementary School,school,41.77578623484119,-87.7294029803839
 Sor Juana Elementary School,school,41.792300335891284,-87.72497420305815
 Saint Turibius School,school,41.79000292533874,-87.72649624440554
@@ -4230,7 +4250,7 @@ Unknown,playground,41.97235115,-87.739058
 Unknown,playground,41.97334933583953,-87.74221453270754
 Corcoran's Grill & Pub,bar,41.91160115,-87.63443699999999
 Moody Church,place_of_worship,41.911926005759646,-87.63264517043447
-Falconer Elementary School,school,41.93559283606332,-87.75044095535
+Falconer Elementary School,school,41.93559305085291,-87.75043939925773
 Schubert Elementary School,school,41.93000279724038,-87.76005412462193
 Saint Alphonsus Roman Catholic Church,place_of_worship,41.93587067727838,-87.66437621364997
 Ohio and Harding Park,park,41.892021299999996,-87.72441475000001
@@ -4249,7 +4269,7 @@ Unknown,playground,42.014789601994956,-87.6784533689158
 Unknown,playground,42.01492159580447,-87.67882464937173
 Wendt Playlot,playground,41.943388999999996,-87.64713474999998
 Evergreen Park,park,41.93976764999999,-87.64568165
-Sheil Park,park,41.945670714825766,-87.66361400684218
+Sheil Park,park,41.94567247703088,-87.66361367589397
 Grape Park,park,41.93348316666666,-87.699323
 Stehman School Playground,park,41.934276557236224,-87.7084932533609
 Algonquin Park,park,41.9352017,-87.69491245
@@ -4407,7 +4427,7 @@ Unknown,playground,42.00787142654575,-87.70521890248428
 Unknown,playground,42.00452590845755,-87.70522674819726
 Marathon,fuel,42.011801366666845,-87.6907553249959
 George Armstrong Elementary School,school,42.01060797682866,-87.68502039343014
-Decatur Classical School,school,42.0092537123484,-87.70519691560735
+Decatur Classical School,school,42.009235051274786,-87.70520442792095
 A Safe Haven Foundation,social_facility,41.86702662515644,-87.69526472511482
 Chicago Fire Department Engine Company 107,fire_station,41.868111659588315,-87.69563160896534
 Healing Temple Church of God in Christ,place_of_worship,41.863818814392864,-87.69482393550055
@@ -4426,7 +4446,7 @@ Walgreens,pharmacy,41.88144208790839,-87.68534088246199
 BP,fuel,41.88325749999999,-87.68604505
 Jackson Boulevard Christian Church,place_of_worship,41.87730810863881,-87.68700685785859
 Greater Holy Temple Church of God and Christ,place_of_worship,41.885662919871876,-87.69671952885139
-Heritage Woods,social_facility,41.88696272586223,-87.69690210470253
+Heritage Woods,social_facility,41.886963622303014,-87.69691646720666
 Mount Sinai Baptist Church,place_of_worship,41.882583548446995,-87.69795960432397
 Vince & Pat Foglia Family & Youth Center,social_facility,41.877135874107644,-87.69826136775416
 New Greater Exodus Missionary Baptist Church,place_of_worship,41.878503412745765,-87.69891164997425
@@ -4476,7 +4496,7 @@ Cermak Produce,supermarket,41.90991936695252,-87.69491635852383
 New Moms,social_facility,41.918295354813694,-87.6990201985425
 Saint Sylvester's Church,place_of_worship,41.921428311391146,-87.70117577964888
 St. Sylvester's School & Hall,school,41.921221867183675,-87.70130883790758
-Chicago Police Department 14th District,police,41.92127878027703,-87.69781357370168
+Chicago Police Department 14th District,police,41.92128311852629,-87.69781155809002
 Stone Scholastic Academy,school,41.995113342064506,-87.68420915891704
 Unknown,playground,41.99457752173684,-87.67636893722923
 Unknown,playground,41.99499237268079,-87.68379221050853
@@ -4512,6 +4532,7 @@ Acero Fuentes School,school,41.93729405081474,-87.69966720480791
 Chicago Fire Department Engine Company 106,fire_station,41.943079848180545,-87.70321496181744
 Advocate Medical Group Primary Care,clinic,41.95482351205571,-87.68796771414989
 Saint Benedict Catholic Church,place_of_worship,41.95365515014048,-87.68394939500523
+Unknown,community_centre,41.953761400000005,-87.68453510000002
 Brentano Elementary Math and Science Academy,school,41.930928148754475,-87.69584763863216
 Walgreens,pharmacy,41.95374693168778,-87.68638912603521
 Lakeview Seventh Day Adventist Church,place_of_worship,41.94339690071748,-87.68656541739773
@@ -4540,6 +4561,7 @@ Luther Memorial Church of Chicago,place_of_worship,41.96509636425401,-87.6914854
 Montrose Saloon,bar,41.961053,-87.70229885
 Korean Christian Reformed Church,place_of_worship,41.95863279721759,-87.69873162423099
 Shell,fuel,41.961043954593556,-87.68895100667608
+Queen of Angels Guild Hall,community_centre,41.96194923915462,-87.68908223556929
 DANK Haus,community_centre,41.9681091523313,-87.68926824558505
 Jewel-Osco,supermarket,41.958495921151915,-87.68243426398065
 Queen of Angels Roman Catholic Church,place_of_worship,41.963537857764756,-87.68795884689311
@@ -4559,6 +4581,7 @@ Immanuel Evangelical Covenant Church,place_of_worship,41.975134536783834,-87.697
 Mount Calvary Lutheran Church,place_of_worship,41.9870049713967,-87.70000970282263
 Tony's Fresh Market,supermarket,41.976931679737696,-87.69200028843163
 Mobil,fuel,41.978014019105586,-87.68963361695876
+Japanese American Service Committee,social_facility,41.98544428667867,-87.69978621750901
 Holy Nativity Romanian Orthodox Church,place_of_worship,41.98726779506879,-87.70014125186255
 Horatio N. May Chapel,place_of_worship,41.98712175529583,-87.68249840318471
 Saint Hilary Roman Catholic Church,place_of_worship,41.98339503293106,-87.69862204548443
@@ -4575,15 +4598,18 @@ Dewitt Clinton Elementary School,school,41.99309911960262,-87.6988843756976
 Chicago Fire Department Engine Company 71,fire_station,41.99513888923571,-87.69924900465709
 Mobil,fuel,42.00527781569675,-87.68975922905734
 Dar ul Eimaan Islamic Community Center,place_of_worship,41.9975594344453,-87.68810246670502
+Trellus,community_centre,41.99078109857971,-87.69055725423416
 World Fresh Market,supermarket,41.997962775369494,-87.69172282349598
 Mobil,fuel,41.99074609288669,-87.69256567748481
 Black Sheep,bar,41.99026101293962,-87.69357387635809
 Shree Ganesh Temple of Chicago,place_of_worship,41.99745624647645,-87.69414967032117
 Patel Brothers,supermarket,41.99790228216843,-87.69527663650405
+Trellus,social_facility,41.99067682803933,-87.70096127685309
 F.R.E.E.,place_of_worship,41.99725091936932,-87.70380740402366
 Shell,fuel,41.99072002955534,-87.69005420868294
 Congregation Mishne Ugmoro,place_of_worship,41.99172493047682,-87.699158224872
 Christ Church of Chicago,place_of_worship,41.99195802866189,-87.69416225444442
+West Ridge Senior Apartments,social_facility,41.993482074124664,-87.69984771471022
 Aldi,supermarket,41.99442374398516,-87.69987848029737
 Jamia Masjid of Chicago,place_of_worship,41.99703375,-87.6929139
 The ARK,social_facility,41.99907066293018,-87.70005002872306
@@ -4593,7 +4619,6 @@ University Bible Fellowship,place_of_worship,42.00117282416731,-87.6915536895681
 Congregation Poalei Tzedek,place_of_worship,42.001044872146046,-87.69999529871666
 Faizan-e-Madinah Mosque,place_of_worship,42.005887981935906,-87.68965692403057
 Bethesda Evangelical Lutheran Church,place_of_worship,42.00552879854733,-87.6921839798657
-Heartland International Health Center,social_facility,42.01242035,-87.68642125
 Fresenius Kidney Care,clinic,42.019309631403964,-87.68731249907846
 West Ridge United Methodist Church,place_of_worship,42.008345070974194,-87.68829257040044
 Saint Margaret Mary Roman Catholic Church,place_of_worship,42.01448979051338,-87.6885867716235
@@ -4678,7 +4703,7 @@ Falcon Fuel,fuel,41.76460554125803,-87.66347090410557
 Walgreens,pharmacy,41.76409165202306,-87.68276143545388
 Stir Up The Gifts Ministries Church,place_of_worship,41.76200646750871,-87.66410607644531
 Second Mount Calvary Missionary Baptist Church,place_of_worship,41.75909337768652,-87.68269813229841
-Mobil,fuel,41.76260205106386,-87.68349145802127
+Citgo,fuel,41.76260205106386,-87.68349145802127
 Chicago Fire Department Engine Company 116,fire_station,41.785188363786595,-87.6639870515345
 Philadelphia Church of God in Christ,place_of_worship,41.78331215,-87.66531385
 Bread of Life Missionary Baptist Church,place_of_worship,41.7796268213157,-87.67234396438658
@@ -4767,7 +4792,7 @@ Epiphany School,school,41.84571585,-87.73022859999999
 McCormick Elementary School,school,41.84177057870901,-87.70653082577934
 Benito Juárez Community Academy,school,41.85328465428157,-87.66346137060184
 Chicago Fire Department Engine Company 23,fire_station,41.85521763553472,-87.67560647860033
-Bethel Temple,place_of_worship,41.85619122452522,-87.66341672174426
+Bethel Family Chicago,place_of_worship,41.85619122452522,-87.66341672174426
 Cermak Fresh Market,supermarket,41.85174686225559,-87.66913198286531
 Aldi,supermarket,41.85159825157837,-87.6701669549834
 Saint Vitus Roman Catholic Church,place_of_worship,41.857010792805596,-87.66893278839329
@@ -4811,6 +4836,7 @@ West Side Community Church,place_of_worship,41.87846312011695,-87.67560467394814
 Greater Union Baptist Church,place_of_worship,41.882515310741226,-87.676425429279
 Gospel Temple Missionary Baptist Church,place_of_worship,41.88342131253219,-87.67647367936591
 Boys & Girls Club,social_facility,41.8802936852596,-87.67966090415456
+Michael Barlow Center,social_facility,41.88243177377043,-87.67991310209244
 Metropolitan Missionary Baptist Church,place_of_worship,41.882791054400535,-87.68122617230051
 St. Malachy + Precious Blood,place_of_worship,41.883312550773915,-87.68329931410153
 First Baptist Congregational Church,place_of_worship,41.88302760142545,-87.6673722789113
@@ -4883,7 +4909,6 @@ Neighbors Garden Park,park,41.92764610003054,-87.70204949754364
 Washington Irving Elementary School,school,41.871923116978834,-87.68294055542982
 Rizal Center,community_centre,41.954607973811456,-87.6635479704809
 Unknown,playground,41.87198649251936,-87.66509279973988
-Silvie's,pub,41.95441794691336,-87.67653928972376
 Cuyler Covenant Church,place_of_worship,41.952603,-87.66994295
 Brownstone,bar,41.953377939990965,-87.67788133222905
 Lakeview Congregation of Jehovahs Witnesses,place_of_worship,41.955394175427585,-87.67101827682446
@@ -5016,6 +5041,7 @@ Greater Mount Eagle Baptist Church,place_of_worship,41.69615372531086,-87.642876
 New Hope Baptist Church,place_of_worship,41.693347569117975,-87.66148216314987
 Greater New Testament Missionary Baptist Church,place_of_worship,41.69791937498805,-87.65336585892874
 Morgan Park Seventh Day Adventist Church,place_of_worship,41.69372687180545,-87.66137991739888
+The Powerhouse Church of Chicago,place_of_worship,41.707136625571856,-87.64730436093876
 Chicago Fire Department Engine Company 24,fire_station,41.704803275476365,-87.65707679174471
 Citgo,fuel,41.70667612687064,-87.64970941648473
 Jewel-Osco,supermarket,41.94816152190069,-87.66439579376116
@@ -5024,6 +5050,7 @@ Southpoint Nursing and Rehabilitation Center,nursing_home,41.721907037898,-87.64
 Holy Ghost Deliverance Temple,place_of_worship,41.71076873806404,-87.65478199756559
 Jehovahs Witnesses Fernwood Unit,place_of_worship,41.71041784019437,-87.65498437612801
 Saint Margaret of Scotland Catholic Church,place_of_worship,41.71444205962307,-87.65487452702519
+New Covenant Coptic Temple,place_of_worship,41.72468010781615,-87.64363020568801
 Baptist Church Without a Spot or Wrinkle,place_of_worship,41.72396258876981,-87.64365416664643
 Beverly Hills Seventh Day Adventist Church,place_of_worship,41.723317406000966,-87.66189311672498
 Oakdale Christian Academy,school,41.722287310085584,-87.65068029643898
@@ -5051,6 +5078,7 @@ Memorial Missionary Baptist Church,place_of_worship,41.73604349810351,-87.662169
 Acme Missionary Baptist Church,place_of_worship,41.73435449809609,-87.64638507440216
 Community of Christ,place_of_worship,41.7338598057454,-87.65537604459176
 Cross Temple Church of God in Christ,place_of_worship,41.72823702396574,-87.65958535941509
+Shiloah Baptist Church,place_of_worship,41.72625711453905,-87.66120912635074
 William Nixon Elementary School,school,41.91986710420235,-87.73093010176262
 Amstar,fuel,41.73047153684423,-87.66318174402215
 Phillips 66,fuel,41.73614152562262,-87.66281134617391
@@ -5201,13 +5229,14 @@ Bethany Evangelical Lutheran Church,place_of_worship,41.9901998254441,-87.661903
 Kilmer Elementary School,school,42.00436192494556,-87.66871868708216
 Unknown,playground,42.0045721282475,-87.68161313819382
 Unknown,playground,42.01546387514264,-87.67274161800825
-Field Elementary School,school,42.00967390920869,-87.66928070859777
+Field Elementary School,school,42.00967391000348,-87.66928071483048
 Stephen F. Gale Math and Science Academy,school,42.020631938977054,-87.67163257260704
 Unknown,playground,42.018921792454854,-87.66425117611189
 Chicago Fire Department Engine Company 28,fire_station,41.845583051958535,-87.6563318375242
 Providence of God Roman Catholic Church,place_of_worship,41.85733280166049,-87.64516538061494
 Pleasant House Pub,pub,41.85357962634326,-87.64620955907368
 88 Marketplace,supermarket,41.85444105773727,-87.64128010647057
+Senior Suites of Bridgeport,social_facility,41.8428531151819,-87.6461043808772
 King David Missionary Baptist Church,place_of_worship,41.8557662,-87.64597475000001
 Rudy Lozano Branch Library,library,41.85752577248963,-87.6609400664122
 Saint Barbara Roman Catholic Church,place_of_worship,41.84249655316343,-87.65275986943043
@@ -5237,7 +5266,7 @@ Guiness Open Gate Brewery,pub,41.8886982875904,-87.65048362704196
 Shell,fuel,41.87680397434974,-87.65677791742516
 Skinner West Elementary School,school,41.879581590528865,-87.65894686448864
 Unknown,playground,41.879233226660745,-87.67928833845198
-Dett Elementary School,school,41.879659455390026,-87.68032309442252
+Dett Elementary School,school,41.87966105026108,-87.68032107412985
 Chicago Bulls College Prep,school,41.879060165413115,-87.67838550104965
 Smyth Elementary School,school,41.86510399177243,-87.6536368153837
 Unknown,playground,41.86499867278878,-87.65257475863935
@@ -5301,6 +5330,7 @@ Church of Our Saviour,place_of_worship,41.9259264797104,-87.64268169103389
 Burwood Tap,bar,41.92930346624417,-87.64750366288555
 Shell,fuel,41.93274937547867,-87.65831569306577
 Wellington's Tavern,pub,41.93635557036656,-87.6614087483268
+Church of the Valley,place_of_worship,41.938249084957526,-87.65619223143992
 Advocate Medical Group,clinic,41.938764627630704,-87.65024865868199
 Chabad East Lakeview Community Center,community_centre,41.93619586021053,-87.64491037621836
 Second Unitarian Church of Chicago,place_of_worship,41.93818796321851,-87.6465020064625
@@ -5315,6 +5345,7 @@ Holy Trinity Lutheran Church,place_of_worship,41.947440587938935,-87.66012266136
 Missio Dei Chicago,place_of_worship,41.94738480732317,-87.6608511956991
 Sheffield's,pub,41.94159473295191,-87.65454572210628
 Resurrection Lutheran Church,place_of_worship,41.941892438102805,-87.65621507196151
+Broadway United Methodist Church,place_of_worship,41.942945991498625,-87.64491209472037
 Temple Sholom,place_of_worship,41.94629875005825,-87.64260278312118
 Jewel-Osco,supermarket,41.94687175963328,-87.64617394811194
 Walgreens,pharmacy,41.9485835793612,-87.64844855434751
@@ -5328,7 +5359,6 @@ Shell,fuel,41.94710805974237,-87.64982292173656
 North Side Baptist Church,place_of_worship,41.942055578538195,-87.65085039080036
 BP,fuel,41.95426277977292,-87.65089703536009
 Unknown,playground,41.862640049999996,-87.65940169999999
-Saint Ignatius College Preparatory School,school,41.8671381320099,-87.65325118261549
 Saint Paul's United Church of Christ,place_of_worship,41.92478366594816,-87.64596932394899
 Lincoln Park High School,school,41.91902280425706,-87.64626840346543
 Saint Clement School,school,41.928409500000015,-87.64676979999999
@@ -5806,7 +5836,7 @@ Unknown,playground,41.93018235105711,-87.6462783855301
 Alcott Elementary School,school,41.92985739279826,-87.64575122791003
 Francis W. Parker School,school,41.92268578126119,-87.63770082003349
 Avalon Branch Library,library,41.74633752709982,-87.58625794056667
-Southeast Senior Center,social_facility,41.751296117638496,-87.58041741423567
+Southeast (Atlas) Regional Senior Center,social_facility,41.751296117638496,-87.58041741423567
 Chicago Fire Department Engine Company 72,fire_station,41.74966000160888,-87.58358866819415
 Jewel-Osco,supermarket,41.758285091731054,-87.58773870998864
 Church of Christ Stony Island,place_of_worship,41.742670352811224,-87.58497123839224
@@ -5826,12 +5856,11 @@ Citgo,fuel,41.74393810613061,-87.58606878411666
 Bray Temple Christian Methodist Episcopal Church,place_of_worship,41.76209064887087,-87.59856706342198
 New Testament Memorial Baptist Church,place_of_worship,41.75889334007814,-87.59374362451389
 The Lord's Way Missionary Baptist Church,place_of_worship,41.758887939307485,-87.59343010513938
-Love Tabernacle Full Gospel Church,place_of_worship,41.7675925144921,-87.59391364952366
 Haven of Prayer and Praise Church,place_of_worship,41.758912553141265,-87.59293676930756
 Midway #2 Food and Liquor,alcohol,41.77350535297447,-87.59243938528694
 Fidelity Life Full Baptist Church,place_of_worship,41.75893799496656,-87.58994350498504
 Walgreens,pharmacy,41.773079772632435,-87.58776662386624
-Maranatha Community Youth Center,social_facility,41.76578740000001,-87.58458574999999
+Maranatha Community Youth Center,social_facility,41.76578902902444,-87.58459262508428
 The New Jerusalem Evangelistic Church,place_of_worship,41.759054828259025,-87.58313857288412
 WIC Food and Nutrition Center,social_facility,41.76643273265819,-87.58080660022011
 ABJ Community Services,social_facility,41.76654988404801,-87.58040548368584
@@ -5932,7 +5961,7 @@ Trinity Lutheran Church,place_of_worship,41.655354129142005,-87.54501944394474
 Steve's Lounge,bar,41.655348922373456,-87.54749966736128
 Eric's Food Market,supermarket,41.65519240217885,-87.54678342874794
 Baltimore Food & Liquor,supermarket,41.65293295445718,-87.54752491130999
-Saint Columba Roman Catholic Church,place_of_worship,41.6530040065659,-87.54078096227107
+Hegewisch Community Center,community_centre,41.6530040065659,-87.54078096227107
 Wendol's,bar,41.65259685754936,-87.54689411365229
 Uncle Bobby's,bar,41.651963639140895,-87.53717197013304
 Old Time Tap,bar,41.649889327871556,-87.54568723063569
@@ -6191,7 +6220,7 @@ Unknown,playground,41.8655379754438,-87.66039213589693
 Jane Addams Park,park,41.862461171419,-87.66268948226569
 Unknown,playground,41.86557099576863,-87.6609795901192
 Unknown,playground,41.86361840929824,-87.65949633968337
-Saint Phillip Neri School,school,41.76487519887327,-87.57316324988321
+Saint Phillip Neri School,school,41.76487505946634,-87.57316323412269
 Shell,fuel,41.84429246499669,-87.70538263388254
 Unknown,playground,41.71473492464238,-87.61783980879517
 Harlan Community Academy High School,school,41.71772942850444,-87.62145376240605
@@ -6373,7 +6402,7 @@ Stateway Park,park,41.82639822400956,-87.62713572736638
 Unknown,playground,41.82003720000001,-87.6270602
 Bronzeville Classical School,school,41.819938387648996,-87.62695774936961
 Chicago Lakeshore Hospital,hospital,41.97032713748268,-87.65070526391467
-Eden Place Nature Center,park,41.814570265462066,-87.63555500127462
+Eden Place Nature Center,park,41.814570264598,-87.63555500085137
 Hendricks Elementary School,school,41.81592162304346,-87.63413926956747
 Saint Gabriel School,school,41.81227133705915,-87.6411105948729
 Saint Veronica School,school,41.94149028849348,-87.7043631748619
@@ -6509,7 +6538,7 @@ Unknown,playground,41.67289457548067,-87.64995748028898
 Hefferan Elementary School,school,41.87830541502115,-87.73613451070824
 Unknown,playground,41.878321335366486,-87.75270768400179
 Finkl Elementary School,school,41.8494237916612,-87.68665739495219
-PCC Austin Family Health Center,clinic,41.88698567435976,-87.76150525154517
+PCC Austin Family Health Center,clinic,41.886992853238745,-87.76152359448315
 Austin Community Academy High School,school,41.885020528113024,-87.76179254485004
 Unknown,park,41.88193432372835,-87.75474567455781
 Duke Ellington Elementary School,school,41.885227415877,-87.76590075783439
@@ -6521,7 +6550,7 @@ Trader Joe's,supermarket,41.932432293270246,-87.64627018167945
 Unknown,playground,41.89248432563168,-87.77410255221596
 Unknown,playground,41.8894835,-87.76620100000001
 Unknown,playground,41.8884502129664,-87.76551845666299
-Unknown,playground,41.88769016505529,-87.77244575041833
+Austin Playground,playground,41.887692673864976,-87.77245626754762
 Unknown,playground,41.88850597502268,-87.76250011648531
 Hazelnut Park,park,41.89254247538242,-87.77410069309057
 Frederick Douglass Academy High School,school,41.890174233256815,-87.76712889632829
@@ -6542,6 +6571,7 @@ Fort Dearborn Elementary School,school,41.729533669667795,-87.6549894931309
 Unknown,playground,41.72775537995197,-87.65522785518837
 Owen Scholastic Academy,school,41.743376567767385,-87.7052650110788
 Ashburn Community Area Academy,school,41.74199911722166,-87.71034334539752
+Wrightwood Senior Apartments,social_facility,41.74964857867321,-87.69323305413786
 Agudath Israel of West Rogers Park,place_of_worship,42.00454855718209,-87.70015137547554
 Roseland Community Hospital,hospital,41.692470986708514,-87.62533419747018
 Sauganash Elementary School,school,41.99115295609808,-87.74640997481006
@@ -6568,7 +6598,7 @@ Kipling Elementary School,school,41.724264814228135,-87.63904437554358
 Langston Hughes Elementary School,school,41.7061216906038,-87.62953031229887
 Roseland Place Senior Apartments,social_facility,41.70470542136984,-87.62120569072867
 Cullen Elementary School,school,41.70029470546244,-87.61174918653832
-Walgreens,pharmacy,41.69193426184536,-87.70198028139144
+Walgreens,pharmacy,41.69193314999999,-87.70198099999999
 Wendell Green Elementary School,school,41.71952890404259,-87.65210723639291
 Chicago International Charter School Loomis-Longwood,school,41.720200793735714,-87.6565073723324
 Unknown,playground,41.688706908766825,-87.68547585942848
@@ -6622,7 +6652,7 @@ Unknown,playground,41.92113792098707,-87.70468247352782
 John C. Haines Elementary School,school,41.849786289219075,-87.6337392174934
 James Ward Elementary School,school,41.843535315293074,-87.63511704947486
 Unknown,playground,41.84251907450609,-87.64119347679197
-Polk Bros Park,park,41.89084634466594,-87.61095207376046
+Polk Bros Park,park,41.89100773623988,-87.61101429651036
 Unknown,park,41.85178468205386,-87.63502397155611
 Robert A. Black Magnet Elementary School,school,41.76580064756621,-87.56369465238149
 O'Keeffe Elementary School,school,41.76892615,-87.57332159999999
@@ -6722,7 +6752,7 @@ Park No. 536,park,41.90732213333334,-87.66247010000001
 Morgan Park Sports Center Park,park,41.684057670621144,-87.68043624658264
 Jesse White Park,park,41.89696373170543,-87.63935740750935
 Soldier Field Children's Garden,playground,41.864639739238235,-87.61494518348053
-North-Grand High School,school,41.91248641071336,-87.7352422523362
+North-Grand High School,school,41.91248695041908,-87.73521054510734
 Unknown,playground,41.929135823581994,-87.73774265834689
 Unknown,playground,41.94410403076508,-87.7389714998553
 Unknown,playground,41.93319871523388,-87.67288699166566
@@ -7166,8 +7196,8 @@ Roberts Temple Church of God in Christ,place_of_worship,41.821250173332814,-87.6
 Rudy Lozano Bilingual & International Center Elementary School,school,41.90908004671256,-87.66484235009365
 Citgo,fuel,41.79968337959859,-87.72397278057011
 The Church of Jesus Christ of Latter-day Saints,place_of_worship,41.897412034058505,-87.63169794509167
-Steinmetz College Prep,school,41.935627154560954,-87.78452824690194
-Unknown,park,41.93559296520262,-87.78396050991986
+Steinmetz College Prep,school,41.93562769198109,-87.78452885553199
+Unknown,park,41.935592136184965,-87.78395970540736
 Marathon,fuel,41.771463749999995,-87.7302111
 Progressive Baptist Church,place_of_worship,41.82763676766502,-87.63177402694815
 Marathon,fuel,41.787127908680816,-87.65542349690723
@@ -7182,7 +7212,7 @@ CVS Pharmacy,pharmacy,41.97685656684947,-87.6594419292589
 Wolf Point Riverwalk,park,41.88742509291434,-87.63737940379986
 Mobil,fuel,41.93261251315865,-87.67794497609172
 Unknown,playground,41.86167079695502,-87.65020842432641
-Norman Bridge Elementary,school,41.94996838080217,-87.79919528004955
+Norman Bridge Elementary School,school,41.94996838080217,-87.79919528004955
 Clark,fuel,41.801866085265935,-87.68338114134731
 Unknown,community_centre,41.876912938781864,-87.69067849539562
 Chicago Riverwalk,park,41.88765110671035,-87.62520538115996
@@ -7214,7 +7244,7 @@ Garvy School Garden,park,41.976387851950996,-87.7961411632412
 Summerdale Park,park,41.97771063320612,-87.80903716455742
 Unknown,park,41.89536723508546,-87.63387883948921
 Mobil,fuel,41.771955322029584,-87.70272485410663
-KIPP Ascend North Lawndale,school,41.861404082698456,-87.70979206594612
+KIPP,school,41.861404082698456,-87.70979206594612
 Chicago-Read Mental Health Center,hospital,41.9554790630677,-87.79964384720361
 Garfield Park Behavioral Hospital,hospital,41.89051583420778,-87.72035372840695
 Schwab Rehabilitation Hospital,hospital,41.86214516280789,-87.69517710326393
@@ -7330,6 +7360,7 @@ Unknown,playground,41.92991914972243,-87.64629431125226
 Alcott Park,park,41.93012559261648,-87.64555998121234
 Unknown,school,41.970982639122695,-87.70946587021426
 Montclare Senior Residences of Calumet Heights,social_facility,41.72412996242421,-87.58347006401576
+Cicero Senior Lofts,social_facility,41.80445303265835,-87.74270761709396
 Unknown,playground,41.88791993167655,-87.61747480015025
 Unknown,playground,41.887913949033305,-87.61786753525588
 Riverwalk East,park,41.8879825789311,-87.61762712029562
@@ -7347,7 +7378,7 @@ Unknown,playground,41.89435952971055,-87.71595300907197
 Chicago Fire Department Engine Company 115,fire_station,41.678317847501674,-87.64741263388188
 Illinois Veterans' Home Chicago,social_facility,41.95734167034848,-87.79827139653318
 Taft High School Freshman Academy,school,41.9545161012698,-87.79450908272268
-Southbank Park,park,41.87315044909871,-87.63488668045265
+Southbank Park,park,41.87315573688011,-87.63488977895291
 Ferd Kramer Memorial Garden,park,41.872006974400456,-87.6296092850424
 Elysian Field,park,41.87649585850912,-87.64690993040477
 Park at 150 N Riverside,park,41.88499176438985,-87.63875899194558
@@ -7387,7 +7418,7 @@ Unknown,park,41.840638702274276,-87.66507949845676
 Unknown,playground,41.843823066788296,-87.64052008602103
 Unknown,park,41.833900213296026,-87.65906096582223
 Unknown,park,41.854751140154,-87.64991871002158
-Scammon Elementary School,school,41.94129078900892,-87.73312869426348
+Scammon Elementary School,school,41.941291823556654,-87.73312126248483
 Unknown,playground,41.85618788385181,-87.63353005703519
 Unknown,playground,41.843760894184506,-87.66105802960212
 Ronald E. McNair Elementary School,school,41.89805127926396,-87.74694951598856
@@ -7417,7 +7448,7 @@ Unknown,park,41.85295739725211,-87.66181987723283
 Unknown,playground,41.843888056850275,-87.63507497040248
 Unknown,park,41.85330881604236,-87.66504609886258
 Unknown,playground,41.85526217953649,-87.65805123870223
-Unknown,park,41.89423265610404,-87.65683696866219
+Unknown,park,41.89423176160635,-87.65683686961559
 Unknown,playground,41.948087835895606,-87.65113464865917
 Unknown,playground,41.953048079844194,-87.6514013629799
 Unknown,playground,41.82971922681333,-87.64073915258716
@@ -7479,7 +7510,7 @@ Unknown,social_facility,41.86543216806519,-87.66212090162702
 Unknown,social_facility,41.86463451464315,-87.6620916064591
 Unknown,playground,41.798826024689916,-87.75943817843309
 Unknown,school,41.8646165116741,-87.66843852767846
-Mariano Azuela Elementary School,school,41.77078914626874,-87.73946772558108
+Mariano Azuela Elementary School,school,41.77079434793772,-87.73947139203037
 STEM Magnet Academy,school,41.86872043744649,-87.66490875550535
 Unknown,playground,41.86874559998807,-87.66425308799799
 UIC College Prep,school,41.865461919168006,-87.67545674513948
@@ -7798,7 +7829,7 @@ Railroad Junction Park,park,41.76115199953219,-87.60456378201822
 Unknown,playground,41.97016906886471,-87.65808329513068
 Mobil,fuel,41.96915095,-87.66910010000001
 Carver Elementary School,school,41.65261477049728,-87.60139985693306
-Unknown,park,41.872050112473836,-87.63489707449035
+Polk Street Pier,park,41.872074867410284,-87.63496715590958
 Unknown,social_facility,41.77291073755599,-87.64641414933631
 Unknown,playground,41.898599265628164,-87.62534118396914
 Unknown,park,41.784645490145905,-87.6458158247525
@@ -7820,7 +7851,7 @@ G&A Senior Residence at Kedzie,social_facility,41.95548807744791,-87.70832082235
 Acero Bartolomé de las Casas Elementary School,school,41.85925822348144,-87.66814649669257
 76,fuel,41.768920611430126,-87.62460849970464
 The Roux,fuel,41.78766285114233,-87.6300540784022
-Unknown,park,41.970434621614295,-87.6514811553657
+Unknown,park,41.97043462536515,-87.65148115653093
 Greeley Elementary School,school,41.95313395579294,-87.65087013494976
 Unknown,park,41.861509766313695,-87.69390583403673
 ARFF Training Area,fire_station,41.99952789046936,-87.90713831970393
@@ -7961,7 +7992,7 @@ Unknown,playground,41.99453728303524,-87.67606396515902
 BP,fuel,41.968787825734715,-87.64982885279582
 Socorro Sandoval Elementary School,school,41.792817425442415,-87.71243253762341
 Chappell Elementary School,school,41.97549360344168,-87.6834055986566
-Belmont Cragin Elementary School,school,41.924398264604875,-87.7789306578369
+Belmont-Cragin Elementary School,school,41.924398264604875,-87.7789306578369
 Hanson Park Elementary School,school,41.923142708652456,-87.76192542036586
 Dr. Jorge Prieto Math and Science Academy,school,41.920939213265136,-87.76468731144624
 Tarkington Elementary School,school,41.76467014823875,-87.70644032951088
@@ -7999,3 +8030,6 @@ The Quad,park,41.871892511171865,-87.64924911420627
 Unknown,supermarket,41.86779341758792,-87.63313395254445
 Buttercup Park - Playground,playground,41.971780307233445,-87.65445711536346
 Boys & Girls Club,social_facility,41.97031634094129,-87.654410802126
+Erie Elementary Charter School,school,41.90693094375636,-87.69411827825205
+Unknown,playground,41.78712345118968,-87.58797189846932
+Austin Water Playground,playground,41.88769078400061,-87.77418082972466
