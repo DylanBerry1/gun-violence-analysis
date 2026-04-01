@@ -9,7 +9,7 @@ This repository is organized so a reviewer can see:
 - the scripts that generate the main outputs,
 - the figures, maps, and model results produced so far.
 
-## Start Here
+## More Detailed Description
 
 If you only open a few things in the repository, start with these:
 
