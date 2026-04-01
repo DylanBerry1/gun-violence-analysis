@@ -1,5 +1,16 @@
 # gun-violence-analysis
 
+## Overview
+
+## Work Done So Far
+
+## Next Steps
+- Research important events related to policing in Chicago with goal of inferring causality (Dylan)
+- Finding correlations between crime types in a given hexagon (Diego)
+- Finding correlations between social infrastructure and crime in a given hexagon (???)
+- Try to predict amount of a given crime in a given hexagon using a Bayesian temporal model (???)
+
+
 Analysis pipeline and project repository for studying Chicago homicide patterns.
 
 This repository is organized so a reviewer can see:
