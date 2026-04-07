@@ -1,8 +1,10 @@
 # gun-violence-analysis
 
 ## Overview
+This goal of this repo is to study general crime in Chicago. We want to find correlational and causal links between types of crimes and other outside information, like social infrastructure and demographic factors. Refer to the Highlights section for the most interesting outputs.
 
 ## Work Done So Far
+As of now, we have completed some surface-level analysis, and have generated some interactive maps to show crime scene trends in Chicago. Our surface level analysis focuses on homicides, which includes a chart plotting homicides over time and the 10 most frequent location descriptions of where the homicide occured, among others. In addition, we have generated interactive maps covering homicides, motor vehicle thefts, and drug offenses of any type. These maps cover the city of Chicago in hexagons, and then count the number of instances of the crime that is the focus of the map, and then plots all of these hexagons over the city. The interactivity comes from being able to change the size of the hexagons, and the map will regenerate itself. This allows for increased granularity (almost down to the street), or just studying larger trends.
 
 ## Next Steps
 - Research important events related to policing in Chicago with goal of inferring causality (Dylan)
@@ -20,11 +22,11 @@ This repository is organized so a reviewer can see:
 - the scripts that generate the main outputs,
 - the figures, maps, and model results produced so far.
 
-## More Detailed Description
+## Highlights
 
 If you only open a few things in the repository, start with these:
 
-- [Project writeup](report/3_6%20Capstone%20Report.md)
+- [Project writeup](report/3_6%20Capstone%20Report.md) (Outdated, refer to top of README for latest update on project)
 - [Combined Chicago crime hex map output](reports/maps/crime_hex_maps/chicago_hex_map.html)
 - [Homicide rank-order plot](reports/figures/homicide_rank_order_plot.png)
 - [Interactive rank-order plot](reports/figures/interactive_rank_order.html)
