@@ -1,0 +1,45 @@
+========================================================================
+CORRELATION ANALYSIS SUMMARY
+Crime Types × Social Infrastructure per 500 m Hexagon — Chicago
+========================================================================
+
+Total hexagons with any data:  1,524
+Hexagons with ≥1 crime event:  1,414
+Hexagons with ≥1 homicide:     1,251
+Hexagons with ≥1 drug crime:   1,271
+
+────────────────────────────────────────────────────────────────────────
+1. DRUG CRIME ↔ HOMICIDE CORRELATION
+────────────────────────────────────────────────────────────────────────
+   Spearman ρ = 0.6529   (p = 1.51e-172)
+   Pearson  r = 0.5285   (p = 1.44e-102)
+
+────────────────────────────────────────────────────────────────────────
+2. AGGREGATE INFRASTRUCTURE ↔ HOMICIDE (crime-active hexes only)
+────────────────────────────────────────────────────────────────────────
+   Protective infrastructure  ρ = 0.4053  (p = 4.87e-57)
+   Risk-associated infrastructure  ρ = 0.0726  (p = 6.33e-03)
+
+────────────────────────────────────────────────────────────────────────
+3. PER-TYPE INFRASTRUCTURE ↔ HOMICIDE (top 10 by |ρ|)
+────────────────────────────────────────────────────────────────────────
+   Place Of Worship              ρ = +0.4493***   (present in 790 hexes)
+   School                        ρ = +0.2606***   (present in 675 hexes)
+   Fuel                          ρ = +0.2119***   (present in 345 hexes)
+   Playground                    ρ = +0.1442***   (present in 668 hexes)
+   Social Facility               ρ = +0.1345***   (present in 214 hexes)
+   Community Centre              ρ = +0.1155***   (present in 79 hexes)
+   Bar                           ρ = -0.1109***   (present in 313 hexes)
+   Pub                           ρ = -0.0996***   (present in 73 hexes)
+   Laundry                       ρ = +0.0510      (present in 78 hexes)
+   Fire Station                  ρ = +0.0502      (present in 98 hexes)
+
+────────────────────────────────────────────────────────────────────────
+4. FULL SPEARMAN MATRIX (crime + aggregates)
+────────────────────────────────────────────────────────────────────────
+                  homicide_count  drug_count  infra_total  infra_protective  infra_risk
+homicide_count          1.000000    0.652867     0.351983          0.405333    0.072574
+drug_count              0.652867    1.000000     0.514871          0.482403    0.290317
+infra_total             0.351983    0.514871     1.000000          0.908415    0.537207
+infra_protective        0.405333    0.482403     0.908415          1.000000    0.238567
+infra_risk              0.072574    0.290317     0.537207          0.238567    1.000000

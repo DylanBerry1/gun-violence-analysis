@@ -236,7 +236,7 @@ def plot_correlation_matrix(
     ax.set_title(title, fontsize=14, fontweight="bold", pad=16)
     plt.tight_layout()
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
-    plt.close(fig)
+    plt.show()
     print(f"Saved {out_path}")
 
 
