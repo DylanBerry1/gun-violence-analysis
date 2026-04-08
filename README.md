@@ -120,7 +120,7 @@ The notebooks are useful for understanding the project’s evolution, but the op
 
 ## Current Results
 
-Key Correlation Findings
+### Key Correlation Findings
 
 Our exploratory data analysis examined the correlation between crime types and social infrastructure across 1,524 populated 500m hexagons in Chicago (1,414 with ≥1 crime event).
 
@@ -128,7 +128,7 @@ Our exploratory data analysis examined the correlation between crime types and s
 - Protective Infrastructure (schools, places of worship, etc.): Shows a moderate positive correlation with homicide (ρ = 0.40). This is an ecological artifact: cities build schools, churches, and social facilities in dense residential neighborhoods—the same disadvantaged neighborhoods that experience the most violence. This represents compensatory placement/co-location rather than a causal relationship.
 - Risk-Associated Infrastructure (bars, liquor stores, etc.): Shows a weak but significant positive correlation with homicide (ρ = 0.07, p = 0.005), though this effect is substantially weaker than drug crime. Interestingly, bars (ρ = -0.11) and pubs (ρ = -0.10) are weakly negatively correlated, likely reflecting that nightlife clusters in wealthier commercial districts (e.g., Lincoln Park, River North) with lower homicide rates.
 
-Top Infrastructure Correlations with Homicide
+#### Top Infrastructure Correlations with Homicide
 
 Showing the top 10 social infrastructure types by absolute Spearman correlation (|ρ|).
 
@@ -145,7 +145,18 @@ Showing the top 10 social infrastructure types by absolute Spearman correlation 
 | Arts Centre | 0.0563 | 33 |
 | Laundry | 0.0523 | 75 |
 
-
+### Correlation Matrix of Crime and Infrastructure
+![Correlation Matrix of Crime and Infrastructure](reports/figures/correlation_matrix_crime_infrastructure.png)
+### Drug Crimes vs Homicides Scatter Plot
+![Drug Crimes vs Homicides Scatter Plot](reports/figures/scatter_homicides_vs_drugs.png)
+### Social Infrastructure vs Homicides Scatter Plot
+![Social Infrastructure vs Homicides Scatter Plot](reports/figures/scatter_infrastructure_vs_homicides.png)
+### Protective Infrastructure vs Homicides Scatter Plot
+![Protective Infrastructure vs Homicides Scatter Plot](reports/figures/scatter_protective_vs_homicides.png)
+### Risk-associated Infrastructure vs Homicides Scatter Plot
+![Risk-associated Infrastructure vs Homicides Scatter Plot](reports/figures/scatter_risk_vs_homicides.png)
+### Infrastructure Correlation with Homicides Bar Chart
+![Infrastructure Correlation with Homicides Bar Chart](reports/figures/top_infrastructure_correlations.png)
 
 The latest generated model outputs in this repository were produced on 500 meter hex cells with 1,525 populated hex observations and 64 model features.
 
