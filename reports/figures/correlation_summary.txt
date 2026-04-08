@@ -1,45 +1,76 @@
-========================================================================
+============================================================================
 CORRELATION ANALYSIS SUMMARY
-Crime Types × Social Infrastructure per 500 m Hexagon — Chicago
-========================================================================
+All Crime Types & Social Infrastructure vs. Homicide
+per 500 m Hexagon — Chicago (2001–2026)
+============================================================================
 
-Total hexagons with any data:  1,524
-Hexagons with ≥1 crime event:  1,414
-Hexagons with ≥1 homicide:     1,251
-Hexagons with ≥1 drug crime:   1,271
+Total hexagons:                1,778
+Hexagons with ≥1 homicide:     1,252
+Crime types analysed:          29
 
-────────────────────────────────────────────────────────────────────────
-1. DRUG CRIME ↔ HOMICIDE CORRELATION
-────────────────────────────────────────────────────────────────────────
-   Spearman ρ = 0.6529   (p = 1.51e-172)
-   Pearson  r = 0.5285   (p = 1.44e-102)
+────────────────────────────────────────────────────────────────────────────
+1. CRIME TYPE ↔ HOMICIDE — Spearman ρ (ranked)
+────────────────────────────────────────────────────────────────────────────
+   Weapons Violation                     ρ = +0.9031 ***   (n_hex=1,571,  incidents=126,258)
+   Battery                               ρ = +0.8826 ***   (n_hex=1,714,  incidents=1,546,209)
+   Narcotics                             ρ = +0.8815 ***   (n_hex=1,646,  incidents=753,820)
+   Assault                               ρ = +0.8810 ***   (n_hex=1,692,  incidents=570,663)
+   Robbery                               ρ = +0.8545 ***   (n_hex=1,588,  incidents=315,050)
+   Offense Involving Children            ρ = +0.8486 ***   (n_hex=1,514,  incidents=56,701)
+   Crim Sexual Assault                   ρ = +0.8474 ***   (n_hex=1,457,  incidents=25,776)
+   Interference With Public Officer      ρ = +0.8442 ***   (n_hex=1,355,  incidents=20,562)
+   Other Offense                         ρ = +0.8420 ***   (n_hex=1,678,  incidents=527,711)
+   Criminal Damage                       ρ = +0.8375 ***   (n_hex=1,706,  incidents=964,363)
+   Motor Vehicle Theft                   ρ = +0.8309 ***   (n_hex=1,666,  incidents=435,248)
+   Arson                                 ρ = +0.8279 ***   (n_hex=1,378,  incidents=14,470)
+   Public Peace Violation                ρ = +0.8007 ***   (n_hex=1,555,  incidents=54,962)
+   Burglary                              ρ = +0.7833 ***   (n_hex=1,620,  incidents=448,615)
+   Criminal Trespass                     ρ = +0.7768 ***   (n_hex=1,635,  incidents=228,019)
+   Sex Offense                           ρ = +0.7575 ***   (n_hex=1,517,  incidents=32,676)
+   Gambling                              ρ = +0.7551 ***   (n_hex=904,  incidents=14,568)
+   Criminal Sexual Assault               ρ = +0.7507 ***   (n_hex=1,310,  incidents=11,053)
+   Kidnapping                            ρ = +0.7160 ***   (n_hex=1,314,  incidents=7,478)
+   Intimidation                          ρ = +0.6964 ***   (n_hex=1,178,  incidents=5,141)
+   Theft                                 ρ = +0.6962 ***   (n_hex=1,720,  incidents=1,789,530)
+   Stalking                              ρ = +0.6805 ***   (n_hex=1,279,  incidents=6,286)
+   Deceptive Practice                    ρ = +0.6565 ***   (n_hex=1,646,  incidents=372,679)
+   Prostitution                          ρ = +0.6563 ***   (n_hex=1,038,  incidents=69,806)
+   Liquor Law Violation                  ρ = +0.5957 ***   (n_hex=1,292,  incidents=15,333)
+   Concealed Carry License Violation     ρ = +0.4958 ***   (n_hex=583,  incidents=1,734)
+   Obscenity                             ρ = +0.3687 ***   (n_hex=634,  incidents=922)
+   Human Trafficking                     ρ = +0.2278 ***   (n_hex=115,  incidents=126)
+   Public Indecency                      ρ = +0.1907 ***   (n_hex=172,  incidents=228)
 
-────────────────────────────────────────────────────────────────────────
-2. AGGREGATE INFRASTRUCTURE ↔ HOMICIDE (crime-active hexes only)
-────────────────────────────────────────────────────────────────────────
-   Protective infrastructure  ρ = 0.4053  (p = 4.87e-57)
-   Risk-associated infrastructure  ρ = 0.0726  (p = 6.33e-03)
+────────────────────────────────────────────────────────────────────────────
+2. AGGREGATE INFRASTRUCTURE ↔ HOMICIDE (homicide-active hexes)
+────────────────────────────────────────────────────────────────────────────
+   Protective infrastructure   ρ = +0.3978  (p = 1.01e-48)
+   Risk-associated             ρ = +0.0582  (p = 3.96e-02)
 
-────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────
 3. PER-TYPE INFRASTRUCTURE ↔ HOMICIDE (top 10 by |ρ|)
-────────────────────────────────────────────────────────────────────────
-   Place Of Worship              ρ = +0.4493***   (present in 790 hexes)
-   School                        ρ = +0.2606***   (present in 675 hexes)
-   Fuel                          ρ = +0.2119***   (present in 345 hexes)
-   Playground                    ρ = +0.1442***   (present in 668 hexes)
-   Social Facility               ρ = +0.1345***   (present in 214 hexes)
-   Community Centre              ρ = +0.1155***   (present in 79 hexes)
-   Bar                           ρ = -0.1109***   (present in 313 hexes)
-   Pub                           ρ = -0.0996***   (present in 73 hexes)
-   Laundry                       ρ = +0.0510      (present in 78 hexes)
-   Fire Station                  ρ = +0.0502      (present in 98 hexes)
+────────────────────────────────────────────────────────────────────────────
+   Place Of Worship              ρ = +0.4542 ***   (present in 730 hexes)
+   School                        ρ = +0.2466 ***   (present in 623 hexes)
+   Fuel                          ρ = +0.2171 ***   (present in 319 hexes)
+   Bar                           ρ = -0.1423 ***   (present in 276 hexes)
+   Community Centre              ρ = +0.1400 ***   (present in 71 hexes)
+   Playground                    ρ = +0.1228 ***   (present in 610 hexes)
+   Social Facility               ρ = +0.1166 ***   (present in 202 hexes)
+   Pub                           ρ = -0.0788 **    (present in 57 hexes)
+   Fire Station                  ρ = +0.0488       (present in 89 hexes)
+   Atm                           ρ = -0.0404       (present in 63 hexes)
 
-────────────────────────────────────────────────────────────────────────
-4. FULL SPEARMAN MATRIX (crime + aggregates)
-────────────────────────────────────────────────────────────────────────
-                  homicide_count  drug_count  infra_total  infra_protective  infra_risk
-homicide_count          1.000000    0.652867     0.351983          0.405333    0.072574
-drug_count              0.652867    1.000000     0.514871          0.482403    0.290317
-infra_total             0.351983    0.514871     1.000000          0.908415    0.537207
-infra_protective        0.405333    0.482403     0.908415          1.000000    0.238567
-infra_risk              0.072574    0.290317     0.537207          0.238567    1.000000
+────────────────────────────────────────────────────────────────────────────
+4. FULL SPEARMAN MATRIX (homicide + top-5 crime types + infra aggregates)
+────────────────────────────────────────────────────────────────────────────
+                   homicide  weapons_violation   battery  narcotics   assault   robbery  infra_total  infra_protective  infra_risk
+homicide           1.000000           0.903141  0.882597   0.881547  0.880969  0.854461     0.553840          0.568768    0.243841
+weapons_violation  0.903141           1.000000  0.943519   0.951416  0.944666  0.905377     0.616460          0.629017    0.272163
+battery            0.882597           0.943519  1.000000   0.957925  0.991223  0.946786     0.720017          0.709223    0.368924
+narcotics          0.881547           0.951416  0.957925   1.000000  0.952733  0.918715     0.662630          0.658564    0.333483
+assault            0.880969           0.944666  0.991223   0.952733  1.000000  0.947279     0.722086          0.708674    0.369882
+robbery            0.854461           0.905377  0.946786   0.918715  0.947279  1.000000     0.731405          0.695937    0.432296
+infra_total        0.553840           0.616460  0.720017   0.662630  0.722086  0.731405     1.000000          0.935027    0.584766
+infra_protective   0.568768           0.629017  0.709223   0.658564  0.708674  0.695937     0.935027          1.000000    0.346137
+infra_risk         0.243841           0.272163  0.368924   0.333483  0.369882  0.432296     0.584766          0.346137    1.000000

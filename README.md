@@ -8,9 +8,7 @@ As of now, we have completed some surface-level analysis, and have generated som
 
 ## Next Steps
 - Research important events related to policing in Chicago with goal of inferring causality (Dylan)
-- Finding correlations between crime types in a given hexagon (Diego)
 - Try to predict amount of a given crime in a given hexagon using a Bayesian temporal model (???)
-
 
 Analysis pipeline and project repository for studying Chicago homicide patterns.
 
@@ -30,6 +28,7 @@ If you only open a few things in the repository, start with these:
 - [Combined Chicago crime hex map output](reports/maps/crime_hex_maps/chicago_hex_map.html)
 - [Homicide rank-order plot](reports/figures/homicide_rank_order_plot.png)
 - [Interactive rank-order plot](reports/figures/interactive_rank_order.html)
+- [Crime-type vs homicide correlation chart](reports/figures/correlation_crime_vs_homicide.png)
 - [Hotspot model metrics](reports/modeling/hotspot/xgboost_metrics.json)
 - [Count model metrics](reports/modeling/count/xgboost_metrics.json)
 
@@ -41,6 +40,7 @@ The project focuses on homicide patterns in Chicago and uses related data source
 
 - Chicago homicide incidents
 - Chicago drug-crime incidents
+- All 30+ crime types from the full Chicago Crimes 2001–Present dataset (8.4M+ incidents)
 - social infrastructure locations from OpenStreetMap
 - Chicago socioeconomic indicators by community area
 
@@ -69,7 +69,23 @@ Current behavior:
 - Otherwise it falls back to the filtered crime CSVs already stored in `data/raw/`.
 - The interactive map supports multiple hex sizes, but the persisted CSV outputs are written for the default `500m` hex size.
 
-### 2. Predictive Modeling
+### 2. Correlation Analysis — All Crime Types and Social Infrastructure
+
+The correlation analysis reads the full Chicago Crimes CSV (8.4M+ records, 30 crime types), assigns every incident to the same 500 m hex grid, and computes Spearman and Pearson correlations between each crime type and homicide at the hexagon level. Infrastructure from OpenStreetMap is also hex-binned and correlated.
+
+Main script:
+
+- [`src/build_correlation_analysis.py`](src/build_correlation_analysis.py)
+
+Main outputs:
+
+- [`data/processed/crime_infrastructure_hex_merged.csv`](data/processed/crime_infrastructure_hex_merged.csv) — full merged hex table (1,778 hexagons × 30 crime types + infrastructure)
+- [`reports/figures/correlation_crime_vs_homicide.png`](reports/figures/correlation_crime_vs_homicide.png) — bar chart of ρ per crime type
+- [`reports/figures/correlation_matrix_all_crimes.png`](reports/figures/correlation_matrix_all_crimes.png) — heatmap across crime types
+- [`reports/figures/correlation_matrix_crime_infrastructure.png`](reports/figures/correlation_matrix_crime_infrastructure.png) — combined heatmap
+- [`reports/figures/correlation_summary.txt`](reports/figures/correlation_summary.txt) — full numerical summary
+
+### 3. Predictive Modeling
 
 The repository trains two XGBoost models on the hex-level table:
 
@@ -93,7 +109,7 @@ Main outputs:
 - [`reports/modeling/hotspot/`](reports/modeling/hotspot/)
 - [`reports/modeling/count/`](reports/modeling/count/)
 
-### 3. Exploratory And Reporting Figures
+### 4. Exploratory And Reporting Figures
 
 The repository also includes figures that summarize the spatial and distributional behavior of the data.
 
@@ -108,7 +124,7 @@ Current scripted rank-order stage:
 
 - [`src/build_rank_order_plot.py`](src/build_rank_order_plot.py)
 
-### 4. Project Report And Notebooks
+### 5. Project Report And Notebooks
 
 Background narrative and earlier exploratory work live here:
 
@@ -116,47 +132,73 @@ Background narrative and earlier exploratory work live here:
 - [`notebooks/exploration/chicago_analysis.ipynb`](notebooks/exploration/chicago_analysis.ipynb)
 - [`notebooks/reporting/chicago_analysis_report.ipynb`](notebooks/reporting/chicago_analysis_report.ipynb)
 
-The notebooks are useful for understanding the project’s evolution, but the operational source of truth is the Python code in `src/`.
+The notebooks are useful for understanding the project's evolution, but the operational source of truth is the Python code in `src/`.
 
 ## Current Results
 
-### Key Correlation Findings
+### Crime Type ↔ Homicide Spatial Correlation (All 29 Types)
 
-Our exploratory data analysis examined the correlation between crime types and social infrastructure across 1,524 populated 500m hexagons in Chicago (1,414 with ≥1 crime event).
+Using the full Chicago Crimes dataset (2001–2026, 8.4M incidents), we computed Spearman rank correlations between per-hex counts of every crime type and homicide across 1,778 populated 500 m hexagons.
 
-- Drug Crime is a strong spatial predictor of homicide: (Spearman ρ = 0.65, Pearson r = 0.53). This supports the criminological theory that narcotics markets generate territorial violence. The Spearman coefficient exceeding Pearson suggests that the relationship is monotonic but nonlinear—extreme drug-activity hexagons produce disproportionately more homicides.
-- Protective Infrastructure (schools, places of worship, etc.): Shows a moderate positive correlation with homicide (ρ = 0.40). This is an ecological artifact: cities build schools, churches, and social facilities in dense residential neighborhoods—the same disadvantaged neighborhoods that experience the most violence. This represents compensatory placement/co-location rather than a causal relationship.
-- Risk-Associated Infrastructure (bars, liquor stores, etc.): Shows a weak but significant positive correlation with homicide (ρ = 0.07, p = 0.005), though this effect is substantially weaker than drug crime. Interestingly, bars (ρ = -0.11) and pubs (ρ = -0.10) are weakly negatively correlated, likely reflecting that nightlife clusters in wealthier commercial districts (e.g., Lincoln Park, River North) with lower homicide rates.
+Every crime type is positively correlated with homicide — crime concentrates in the same places. But the strength varies enormously:
 
-#### Top Infrastructure Correlations with Homicide
+| Crime Type | Spearman ρ | Hexagons Present | Total Incidents |
+| :--- | ---: | ---: | ---: |
+| Weapons Violation | **0.903** | 1,571 | 126,258 |
+| Battery | **0.883** | 1,714 | 1,546,209 |
+| Narcotics | **0.882** | 1,646 | 753,820 |
+| Assault | **0.881** | 1,692 | 570,663 |
+| Robbery | **0.854** | 1,588 | 315,050 |
+| Offense Involving Children | **0.849** | 1,514 | 56,701 |
+| Crim Sexual Assault | **0.847** | 1,457 | 25,776 |
+| Interference With Public Officer | **0.844** | 1,355 | 20,562 |
+| Other Offense | **0.842** | 1,678 | 527,711 |
+| Criminal Damage | **0.837** | 1,706 | 964,363 |
+| Motor Vehicle Theft | **0.831** | 1,666 | 435,248 |
+| Arson | **0.828** | 1,378 | 14,470 |
+| Public Peace Violation | **0.801** | 1,555 | 54,962 |
+| Burglary | **0.783** | 1,620 | 448,615 |
+| Criminal Trespass | **0.777** | 1,635 | 228,019 |
+| Sex Offense | **0.757** | 1,517 | 32,676 |
+| Gambling | **0.755** | 904 | 14,568 |
+| Theft | 0.696 | 1,720 | 1,789,530 |
+| Deceptive Practice | 0.656 | 1,646 | 372,679 |
+| Prostitution | 0.656 | 1,038 | 69,806 |
+| Concealed Carry License Violation | 0.496 | 583 | 1,734 |
+| Human Trafficking | 0.228 | 115 | 126 |
+| Public Indecency | 0.191 | 172 | 228 |
 
-Showing the top 10 social infrastructure types by absolute Spearman correlation (|ρ|).
+All correlations significant at p < 0.001.
 
-| Infrastructure Type | Spearman ρ | Hexagons Present |
-| :--- | :--- | ---: |
-| Place Of Worship | 0.4440 | 789 |
-| School | 0.2600 | 677 |
-| Fuel | 0.2119 | 345 |
-| Playground | 0.1445 | 668 |
-| Social Facility | 0.1265 | 200 |
-| Community Centre | 0.1252 | 72 |
-| Bar | -0.1109 | 313 |
-| Pub | -0.0953 | 72 |
-| Arts Centre | 0.0563 | 33 |
-| Laundry | 0.0523 | 75 |
+**Key finding:** Weapons violations (ρ = 0.903) surpasses narcotics (ρ = 0.882) as the strongest spatial correlate of homicide. This makes mechanistic sense — weapons are the proximate instrument of lethal violence. The top cluster (weapons, battery, narcotics, assault, robbery) all exceed ρ = 0.85, forming a tightly co-located syndrome of violent crime. Property and white-collar offenses (theft at 0.70, deceptive practice at 0.66) still correlate positively but much more weakly, consistent with those crimes having different geographic distributions.
 
-### Correlation Matrix of Crime and Infrastructure
-![Correlation Matrix of Crime and Infrastructure](reports/figures/correlation_matrix_crime_infrastructure.png)
-### Drug Crimes vs Homicides Scatter Plot
-![Drug Crimes vs Homicides Scatter Plot](reports/figures/scatter_homicides_vs_drugs.png)
-### Social Infrastructure vs Homicides Scatter Plot
-![Social Infrastructure vs Homicides Scatter Plot](reports/figures/scatter_infrastructure_vs_homicides.png)
-### Protective Infrastructure vs Homicides Scatter Plot
-![Protective Infrastructure vs Homicides Scatter Plot](reports/figures/scatter_protective_vs_homicides.png)
-### Risk-associated Infrastructure vs Homicides Scatter Plot
-![Risk-associated Infrastructure vs Homicides Scatter Plot](reports/figures/scatter_risk_vs_homicides.png)
-### Infrastructure Correlation with Homicides Bar Chart
-![Infrastructure Correlation with Homicides Bar Chart](reports/figures/top_infrastructure_correlations.png)
+### Infrastructure ↔ Homicide Correlation
+
+| Infrastructure Category | Spearman ρ with Homicide | p-value |
+| :--- | ---: | ---: |
+| Protective (aggregate) | +0.398 | 1.0 × 10⁻⁴⁸ |
+| Risk-associated (aggregate) | +0.058 | 0.040 |
+| Place of Worship | +0.454 | < 0.001 |
+| School | +0.247 | < 0.001 |
+| Fuel Station | +0.217 | < 0.001 |
+| Bar | −0.142 | < 0.001 |
+| Community Centre | +0.140 | < 0.001 |
+| Playground | +0.123 | < 0.001 |
+| Social Facility | +0.117 | < 0.001 |
+| Pub | −0.079 | < 0.01 |
+
+The positive correlation between protective infrastructure and homicide is an ecological artifact: cities build schools, churches, and social facilities in dense residential neighborhoods — the same disadvantaged neighborhoods that experience the most violence. This does **not** imply these institutions cause violence; rather, they are co-located with the populations most affected by it. The negative bar/pub correlation reflects that nightlife clusters in wealthier commercial districts (e.g., Lincoln Park, River North) with lower homicide rates.
+
+### Full Spearman Matrix (Homicide + Top-5 Crime Types + Infrastructure Aggregates)
+
+|  | Homicide | Weapons | Battery | Narcotics | Assault | Robbery | Infra Total | Protective | Risk |
+|--|----------|---------|---------|-----------|---------|---------|-------------|------------|------|
+| **Homicide** | 1.000 | 0.903 | 0.883 | 0.882 | 0.881 | 0.854 | 0.554 | 0.569 | 0.244 |
+| **Weapons** | 0.903 | 1.000 | 0.944 | 0.951 | 0.945 | 0.905 | 0.616 | 0.629 | 0.272 |
+| **Battery** | 0.883 | 0.944 | 1.000 | 0.958 | 0.991 | 0.947 | 0.720 | 0.709 | 0.369 |
+| **Narcotics** | 0.882 | 0.951 | 0.958 | 1.000 | 0.953 | 0.919 | 0.663 | 0.659 | 0.333 |
+| **Assault** | 0.881 | 0.945 | 0.991 | 0.953 | 1.000 | 0.947 | 0.722 | 0.709 | 0.370 |
+| **Robbery** | 0.854 | 0.905 | 0.947 | 0.919 | 0.947 | 1.000 | 0.731 | 0.696 | 0.432 |
 
 The latest generated model outputs in this repository were produced on 500 meter hex cells with 1,525 populated hex observations and 64 model features.
 
@@ -176,6 +218,18 @@ Metric sources:
 - [`reports/modeling/count/xgboost_metrics.json`](reports/modeling/count/xgboost_metrics.json)
 
 ## Example Outputs
+
+### Crime-Type vs Homicide Correlation (All Types)
+
+![Crime-type vs homicide correlation](reports/figures/correlation_crime_vs_homicide.png)
+
+### Crime Type Correlation Heatmap
+
+![Crime type heatmap](reports/figures/correlation_matrix_all_crimes.png)
+
+### Crime & Infrastructure Combined Heatmap
+
+![Combined heatmap](reports/figures/correlation_matrix_crime_infrastructure.png)
 
 ### Homicide Rank-Order Plot
 
@@ -214,16 +268,11 @@ Additional supporting data sources used in the repository:
 
 Expected raw inputs under `data/raw/`:
 
+- `Crimes_-_2001_to_Present_20260408.csv` (full dataset, used by correlation analysis)
 - `chicago_violence_homicides.csv`
 - `chicago_drug_crimes.csv`
 - `infrastructure_locations.csv`
 - `chicago_socioeconomic_neighborhoods.csv`
-
-Optional full-dataset inputs for multi-crime map generation:
-
-- `chicago_crimes_2001_to_present.csv`
-- `Crimes_-_2001_to_Present.csv`
-- `chicago_crimes.csv`
 
 ## Reproducing The Pipeline
 
@@ -238,12 +287,19 @@ Run the main stages from the repository root:
 ```bash
 python3 src/build_infrastructure_data.py        # optional, refreshes OSM-derived infrastructure data
 python3 src/build_hex_maps.py                   # builds the combined hex map and hex-level CSV outputs
+python3 src/build_correlation_analysis.py       # all-crime-type + infrastructure hex correlation analysis
 python3 src/train_xgboost_hex_model.py          # trains hotspot and count models
 python3 src/build_rank_order_plot.py            # builds the static and interactive rank-order plots
 ```
+
+## References
+
+- City of Chicago. *Crimes — 2001 to Present.* Chicago Data Portal. https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/about_data
+- Boeing, G. (2017). OSMnx: New methods for acquiring, constructing, analyzing, and visualizing complex street networks. *Computers, Environment and Urban Systems*, 65, 126–139.
+- Sampson, R. J. (2012). *Great American City: Chicago and the Enduring Neighborhood Effect.* University of Chicago Press.
 
 ## Notes
 
 - Prefer the scripts in `src/` over notebooks or older prose when they disagree.
 - Generated artifacts under `data/processed/` and `reports/` should be regenerated from scripts rather than edited by hand.
-- Some older exploratory outputs remain in the repository for comparison, but the combined hex map in `reports/maps/crime_hex_maps/` and the model outputs in `reports/modeling/` are the clearest view of the team’s current progress.
+- Some older exploratory outputs remain in the repository for comparison, but the combined hex map in `reports/maps/crime_hex_maps/` and the model outputs in `reports/modeling/` are the clearest view of the team's current progress.
