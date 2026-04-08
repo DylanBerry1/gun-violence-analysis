@@ -4,12 +4,11 @@
 This goal of this repo is to study general crime in Chicago. We want to find correlational and causal links between types of crimes and other outside information, like social infrastructure and demographic factors. Refer to the Highlights section for the most interesting outputs.
 
 ## Work Done So Far
-As of now, we have completed some surface-level analysis, and have generated some interactive maps to show crime scene trends in Chicago. Our surface level analysis focuses on homicides, which includes a chart plotting homicides over time and the 10 most frequent location descriptions of where the homicide occured, among others. In addition, we have generated interactive maps covering homicides, motor vehicle thefts, and drug offenses of any type. These maps cover the city of Chicago in hexagons, and then count the number of instances of the crime that is the focus of the map, and then plots all of these hexagons over the city. The interactivity comes from being able to change the size of the hexagons, and the map will regenerate itself. This allows for increased granularity (almost down to the street), or just studying larger trends.
+As of now, we have completed some surface-level analysis, and have generated some interactive maps to show crime scene trends in Chicago. Our surface level analysis focuses on homicides, which includes a chart plotting homicides over time and the 10 most frequent location descriptions of where the homicide occurred, among others. We have also completed a correlation analysis between crime types and social infrastructure at the 500m hexagon level. This includes analyzing the spatial co-occurrence of homicide, narcotics offenses, and both protective (e.g., schools, places of worship) and risk-associated (e.g., bars, liquor stores) infrastructure to understand urban crime ecology. In addition, we have generated interactive maps covering homicides, motor vehicle thefts, and drug offenses of any type. These maps cover the city of Chicago in 500-meter flat axial hexagonal grids, counting the number of instances of the focal crime and plotting them over the city. The interactivity comes from being able to change the size of the hexagons, and the map will regenerate itself. This allows for increased granularity (almost down to the street), or just studying larger trends.
 
 ## Next Steps
 - Research important events related to policing in Chicago with goal of inferring causality (Dylan)
 - Finding correlations between crime types in a given hexagon (Diego)
-- Finding correlations between social infrastructure and crime in a given hexagon (???)
 - Try to predict amount of a given crime in a given hexagon using a Bayesian temporal model (???)
 
 
@@ -26,6 +25,7 @@ This repository is organized so a reviewer can see:
 
 If you only open a few things in the repository, start with these:
 
+- [Project slides](https://docs.google.com/presentation/d/1r3yGWe5nyEBj4HpeNcQ_DzlclLKmw4AoyAubE0k-A0w/edit?usp=sharing)
 - [Project writeup](report/3_6%20Capstone%20Report.md) (Outdated, refer to top of README for latest update on project)
 - [Combined Chicago crime hex map output](reports/maps/crime_hex_maps/chicago_hex_map.html)
 - [Homicide rank-order plot](reports/figures/homicide_rank_order_plot.png)
@@ -119,6 +119,33 @@ Background narrative and earlier exploratory work live here:
 The notebooks are useful for understanding the project’s evolution, but the operational source of truth is the Python code in `src/`.
 
 ## Current Results
+
+Key Correlation Findings
+
+Our exploratory data analysis examined the correlation between crime types and social infrastructure across 1,524 populated 500m hexagons in Chicago (1,414 with ≥1 crime event).
+
+- Drug Crime is a strong spatial predictor of homicide: (Spearman ρ = 0.65, Pearson r = 0.53). This supports the criminological theory that narcotics markets generate territorial violence. The Spearman coefficient exceeding Pearson suggests that the relationship is monotonic but nonlinear—extreme drug-activity hexagons produce disproportionately more homicides.
+- Protective Infrastructure (schools, places of worship, etc.): Shows a moderate positive correlation with homicide (ρ = 0.40). This is an ecological artifact: cities build schools, churches, and social facilities in dense residential neighborhoods—the same disadvantaged neighborhoods that experience the most violence. This represents compensatory placement/co-location rather than a causal relationship.
+- Risk-Associated Infrastructure (bars, liquor stores, etc.): Shows a weak but significant positive correlation with homicide (ρ = 0.07, p = 0.005), though this effect is substantially weaker than drug crime. Interestingly, bars (ρ = -0.11) and pubs (ρ = -0.10) are weakly negatively correlated, likely reflecting that nightlife clusters in wealthier commercial districts (e.g., Lincoln Park, River North) with lower homicide rates.
+
+Top Infrastructure Correlations with Homicide
+
+Showing the top 10 social infrastructure types by absolute Spearman correlation (|ρ|).
+
+| Infrastructure Type | Spearman ρ | Hexagons Present |
+| :--- | :--- | ---: |
+| Place Of Worship | 0.4440 | 789 |
+| School | 0.2600 | 677 |
+| Fuel | 0.2119 | 345 |
+| Playground | 0.1445 | 668 |
+| Social Facility | 0.1265 | 200 |
+| Community Centre | 0.1252 | 72 |
+| Bar | -0.1109 | 313 |
+| Pub | -0.0953 | 72 |
+| Arts Centre | 0.0563 | 33 |
+| Laundry | 0.0523 | 75 |
+
+
 
 The latest generated model outputs in this repository were produced on 500 meter hex cells with 1,525 populated hex observations and 64 model features.
 
