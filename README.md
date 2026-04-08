@@ -7,7 +7,9 @@ This goal of this repo is to study general crime in Chicago. We want to find cor
 As of now, we have completed some surface-level analysis, and have generated some interactive maps to show crime scene trends in Chicago. Our surface level analysis focuses on homicides, which includes a chart plotting homicides over time and the 10 most frequent location descriptions of where the homicide occurred, among others. We have also completed a correlation analysis between crime types and social infrastructure at the 500m hexagon level. This includes analyzing the spatial co-occurrence of homicide, narcotics offenses, and both protective (e.g., schools, places of worship) and risk-associated (e.g., bars, liquor stores) infrastructure to understand urban crime ecology. In addition, we have generated interactive maps covering homicides, motor vehicle thefts, and drug offenses of any type. These maps cover the city of Chicago in 500-meter flat axial hexagonal grids, counting the number of instances of the focal crime and plotting them over the city. The interactivity comes from being able to change the size of the hexagons, and the map will regenerate itself. This allows for increased granularity (almost down to the street), or just studying larger trends.
 
 ## Next Steps
-- Research important events related to policing in Chicago with goal of inferring causality (Dylan)
+- try and find more data for different cities in US (Dylan) 
+- try and find more correlations between variables (Dylan)
+- organize Diego's work in a word doc
 - Try to predict amount of a given crime in a given hexagon using a Bayesian temporal model (???)
 
 Analysis pipeline and project repository for studying Chicago homicide patterns.
