@@ -200,6 +200,8 @@ The positive correlation between protective infrastructure and homicide is an ec
 | **Assault** | 0.881 | 0.945 | 0.991 | 0.953 | 1.000 | 0.947 | 0.722 | 0.709 | 0.370 |
 | **Robbery** | 0.854 | 0.905 | 0.947 | 0.919 | 0.947 | 1.000 | 0.731 | 0.696 | 0.432 |
 
+### Model Outputs
+
 The latest generated model outputs in this repository were produced on 500 meter hex cells with 1,525 populated hex observations and 64 model features.
 
 | Task | Metric | Current value |
