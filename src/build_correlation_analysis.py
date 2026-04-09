@@ -21,6 +21,9 @@ Outputs (reports/figures/ and data/processed/):
 
 Run:
     python3 src/build_correlation_analysis.py
+
+Input:
+    data/raw/Crimes_-_2001_to_Present_20260408.csv
 """
 
 import math
@@ -52,25 +55,46 @@ CHICAGO_BOUNDS = {
 }
 
 PROTECTIVE_TYPES = {
-    "library", "community_centre", "social_facility", "school",
-    "hospital", "clinic", "park", "playground", "recreation_ground",
-    "arts_centre", "place_of_worship", "police", "fire_station",
+    "library",
+    "community_centre",
+    "social_facility",
+    "school",
+    "hospital",
+    "clinic",
+    "park",
+    "playground",
+    "recreation_ground",
+    "arts_centre",
+    "place_of_worship",
+    "police",
+    "fire_station",
 }
 RISK_TYPES = {
-    "bar", "pub", "nightclub", "stripclub", "alcohol", "tobacco",
-    "e-cigarette", "casino", "gambling", "fuel",
+    "bar",
+    "pub",
+    "nightclub",
+    "stripclub",
+    "alcohol",
+    "tobacco",
+    "e-cigarette",
+    "casino",
+    "gambling",
+    "fuel",
 }
 
 # Crime types too rare or too noisy to include in the main analysis
 EXCLUDE_CRIME_TYPES = {
-    "NON-CRIMINAL", "RITUALISM", "DOMESTIC VIOLENCE",
+    "NON-CRIMINAL",
+    "RITUALISM",
+    "DOMESTIC VIOLENCE",
     "OTHER NARCOTIC VIOLATION",
 }
 
 TOP_N_SCATTER = 6
 
 
-# ── Hex grid (same axial system as build_homicides_hex_map.py) ───────────────
+# ── Hex grid (same axial system as build_hex_maps.py) ────────────────────────
+
 
 def cube_round(qf: np.ndarray, rf: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     xf, zf = qf, rf
@@ -83,15 +107,20 @@ def cube_round(qf: np.ndarray, rf: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
     rx[x_largest] = -ry[x_largest] - rz[x_largest]
     ry[y_largest] = -rx[y_largest] - rz[y_largest]
-    rz[~x_largest & ~y_largest] = -rx[~x_largest & ~y_largest] - ry[~x_largest & ~y_largest]
+    rz[~x_largest & ~y_largest] = (
+        -rx[~x_largest & ~y_largest] - ry[~x_largest & ~y_largest]
+    )
     return rx.astype(int), rz.astype(int)
 
 
 def assign_hex_ids(
-    lats: np.ndarray, lons: np.ndarray, hex_size_m: float,
+    lats: np.ndarray,
+    lons: np.ndarray,
+    hex_size_m: float,
 ) -> pd.DataFrame:
     gdf = gpd.GeoDataFrame(
-        geometry=gpd.points_from_xy(lons, lats), crs="EPSG:4326",
+        geometry=gpd.points_from_xy(lons, lats),
+        crs="EPSG:4326",
     ).to_crs(epsg=3857)
 
     x = gdf.geometry.x.to_numpy()
@@ -101,13 +130,17 @@ def assign_hex_ids(
     rf = ((2.0 / 3.0) * y) / hex_size_m
     q, r = cube_round(qf, rf)
 
-    return pd.DataFrame({
-        "hex_q": q, "hex_r": r,
-        "hex_id": pd.array([f"{qi}_{ri}" for qi, ri in zip(q, r)]),
-    })
+    return pd.DataFrame(
+        {
+            "hex_q": q,
+            "hex_r": r,
+            "hex_id": pd.array([f"{qi}_{ri}" for qi, ri in zip(q, r)]),
+        }
+    )
 
 
 # ── Data loading ─────────────────────────────────────────────────────────────
+
 
 def load_crimes(path: Path) -> pd.DataFrame:
     """Load only the columns we need from the full crimes CSV."""
@@ -130,7 +163,9 @@ def load_crimes(path: Path) -> pd.DataFrame:
     dropped = int((~in_bounds).sum())
     df = df[in_bounds].copy()
     print(f"  Dropped {dropped:,} out-of-bounds rows")
-    print(f"  Kept {len(df):,} crime incidents across {df['Primary Type'].nunique()} types")
+    print(
+        f"  Kept {len(df):,} crime incidents across {df['Primary Type'].nunique()} types"
+    )
     return df
 
 
@@ -138,7 +173,9 @@ def pivot_crimes_to_hex(df: pd.DataFrame) -> pd.DataFrame:
     """Assign hex IDs and pivot to one row per hex, one col per crime type."""
     print("Projecting to hex grid …")
     hex_info = assign_hex_ids(
-        df["Latitude"].to_numpy(), df["Longitude"].to_numpy(), HEX_SIZE_M,
+        df["Latitude"].to_numpy(),
+        df["Longitude"].to_numpy(),
+        HEX_SIZE_M,
     )
     df = pd.concat([df.reset_index(drop=True), hex_info], axis=1)
 
@@ -148,9 +185,7 @@ def pivot_crimes_to_hex(df: pd.DataFrame) -> pd.DataFrame:
         .size()
         .unstack(fill_value=0)
     )
-    pivot.columns = [
-        col.lower().replace(" ", "_") for col in pivot.columns
-    ]
+    pivot.columns = [col.lower().replace(" ", "_") for col in pivot.columns]
     pivot = pivot.reset_index()
     return pivot
 
@@ -165,7 +200,9 @@ def load_infrastructure(path: Path) -> pd.DataFrame:
     )
     df = df[in_bounds].copy()
     hex_info = assign_hex_ids(
-        df["latitude"].to_numpy(), df["longitude"].to_numpy(), HEX_SIZE_M,
+        df["latitude"].to_numpy(),
+        df["longitude"].to_numpy(),
+        HEX_SIZE_M,
     )
     df = pd.concat([df.reset_index(drop=True), hex_info], axis=1)
     return df
@@ -173,14 +210,14 @@ def load_infrastructure(path: Path) -> pd.DataFrame:
 
 def pivot_infrastructure(infra_df: pd.DataFrame) -> pd.DataFrame:
     pivot = (
-        infra_df.groupby(["hex_id", "infrastructure_type"])
-        .size()
-        .unstack(fill_value=0)
+        infra_df.groupby(["hex_id", "infrastructure_type"]).size().unstack(fill_value=0)
     )
     pivot.columns = [f"infra_{c}" for c in pivot.columns]
     pivot["infra_total"] = pivot.sum(axis=1)
 
-    prot_cols = [f"infra_{t}" for t in PROTECTIVE_TYPES if f"infra_{t}" in pivot.columns]
+    prot_cols = [
+        f"infra_{t}" for t in PROTECTIVE_TYPES if f"infra_{t}" in pivot.columns
+    ]
     risk_cols = [f"infra_{t}" for t in RISK_TYPES if f"infra_{t}" in pivot.columns]
     if prot_cols:
         pivot["infra_protective"] = pivot[prot_cols].sum(axis=1)
@@ -198,8 +235,10 @@ def build_merged(crime_pivot: pd.DataFrame, infra_pivot: pd.DataFrame) -> pd.Dat
 
 # ── Correlation helpers ──────────────────────────────────────────────────────
 
+
 def crime_vs_homicide_correlations(
-    df: pd.DataFrame, crime_cols: list[str],
+    df: pd.DataFrame,
+    crime_cols: list[str],
 ) -> pd.DataFrame:
     """Spearman ρ of each crime-type column against homicide."""
     rows = []
@@ -208,20 +247,23 @@ def crime_vs_homicide_correlations(
             continue
         r_s, p_s = stats.spearmanr(df[col], df["homicide"])
         r_p, p_p = stats.pearsonr(df[col], df["homicide"])
-        rows.append({
-            "crime_type": col.replace("_", " ").title(),
-            "col": col,
-            "spearman_rho": r_s,
-            "spearman_p": p_s,
-            "pearson_r": r_p,
-            "pearson_p": p_p,
-            "total_incidents": int(df[col].sum()),
-            "n_hexes_present": int((df[col] > 0).sum()),
-        })
+        rows.append(
+            {
+                "crime_type": col.replace("_", " ").title(),
+                "col": col,
+                "spearman_rho": r_s,
+                "spearman_p": p_s,
+                "pearson_r": r_p,
+                "pearson_p": p_p,
+                "total_incidents": int(df[col].sum()),
+                "n_hexes_present": int((df[col] > 0).sum()),
+            }
+        )
     return pd.DataFrame(rows).sort_values("spearman_rho", ascending=False)
 
 
 # ── Plotting ─────────────────────────────────────────────────────────────────
+
 
 def _sig_stars(p: float) -> str:
     if p < 0.001:
@@ -239,24 +281,38 @@ def plot_crime_vs_homicide_bars(corr_df: pd.DataFrame, out_path: Path) -> None:
 
     fig, ax = plt.subplots(figsize=(10, max(6, len(plot_df) * 0.38)))
     colors = ["#d95f02" if v > 0 else "#1b9e77" for v in plot_df["spearman_rho"]]
-    bars = ax.barh(plot_df["crime_type"], plot_df["spearman_rho"],
-                   color=colors, height=0.65)
+    bars = ax.barh(
+        plot_df["crime_type"], plot_df["spearman_rho"], color=colors, height=0.65
+    )
 
     for bar, p in zip(bars, plot_df["spearman_p"]):
         x_pos = bar.get_width()
         offset = 0.008 if x_pos >= 0 else -0.008
         ha = "left" if x_pos >= 0 else "right"
-        ax.text(x_pos + offset, bar.get_y() + bar.get_height() / 2,
-                f"{x_pos:.3f} {_sig_stars(p)}", va="center", ha=ha, fontsize=8)
+        ax.text(
+            x_pos + offset,
+            bar.get_y() + bar.get_height() / 2,
+            f"{x_pos:.3f} {_sig_stars(p)}",
+            va="center",
+            ha=ha,
+            fontsize=8,
+        )
 
     ax.axvline(0, color="grey", linewidth=0.6)
     ax.set_xlabel("Spearman ρ with Homicide Count per Hex", fontsize=11)
     ax.set_title(
         "Crime Type – Homicide Spatial Correlation\n(per 500 m hexagon, all crime types)",
-        fontsize=13, fontweight="bold",
+        fontsize=13,
+        fontweight="bold",
     )
-    ax.text(0.01, -0.04, "Significance: * p<.05  ** p<.01  *** p<.001",
-            transform=ax.transAxes, fontsize=8, color="grey")
+    ax.text(
+        0.01,
+        -0.04,
+        "Significance: * p<.05  ** p<.01  *** p<.001",
+        transform=ax.transAxes,
+        fontsize=8,
+        color="grey",
+    )
     sns.despine(ax=ax)
     plt.tight_layout()
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
@@ -265,8 +321,11 @@ def plot_crime_vs_homicide_bars(corr_df: pd.DataFrame, out_path: Path) -> None:
 
 
 def plot_correlation_matrix(
-    corr_df: pd.DataFrame, title: str, out_path: Path,
-    label_map: dict | None = None, figsize: tuple = (14, 11),
+    corr_df: pd.DataFrame,
+    title: str,
+    out_path: Path,
+    label_map: dict | None = None,
+    figsize: tuple = (14, 11),
     annot_size: int = 7,
 ) -> None:
     if label_map:
@@ -278,10 +337,19 @@ def plot_correlation_matrix(
     fig, ax = plt.subplots(figsize=figsize)
     mask = np.triu(np.ones_like(renamed, dtype=bool), k=1)
     sns.heatmap(
-        renamed, mask=mask, annot=True, fmt=".2f", cmap="RdBu_r",
-        center=0, vmin=-1, vmax=1, square=True, linewidths=0.5,
+        renamed,
+        mask=mask,
+        annot=True,
+        fmt=".2f",
+        cmap="RdBu_r",
+        center=0,
+        vmin=-1,
+        vmax=1,
+        square=True,
+        linewidths=0.5,
         cbar_kws={"shrink": 0.7, "label": "Spearman ρ"},
-        ax=ax, annot_kws={"size": annot_size},
+        ax=ax,
+        annot_kws={"size": annot_size},
     )
     ax.set_title(title, fontsize=14, fontweight="bold", pad=16)
     plt.tight_layout()
@@ -291,19 +359,31 @@ def plot_correlation_matrix(
 
 
 def plot_scatter(
-    df: pd.DataFrame, x: str, y: str,
-    xlabel: str, ylabel: str, title: str, out_path: Path,
+    df: pd.DataFrame,
+    x: str,
+    y: str,
+    xlabel: str,
+    ylabel: str,
+    title: str,
+    out_path: Path,
 ) -> None:
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.scatter(df[x], df[y], alpha=0.35, s=18, edgecolors="none", color="#d95f02")
 
     r_s, p_s = stats.spearmanr(df[x], df[y])
     r_p, p_p = stats.pearsonr(df[x], df[y])
-    stat_text = (f"Spearman ρ = {r_s:.3f} (p = {p_s:.2e})\n"
-                 f"Pearson r = {r_p:.3f} (p = {p_p:.2e})")
-    ax.text(0.03, 0.96, stat_text, transform=ax.transAxes, fontsize=9,
-            verticalalignment="top",
-            bbox=dict(boxstyle="round,pad=0.4", fc="white", alpha=0.85))
+    stat_text = (
+        f"Spearman ρ = {r_s:.3f} (p = {p_s:.2e})\nPearson r = {r_p:.3f} (p = {p_p:.2e})"
+    )
+    ax.text(
+        0.03,
+        0.96,
+        stat_text,
+        transform=ax.transAxes,
+        fontsize=9,
+        verticalalignment="top",
+        bbox=dict(boxstyle="round,pad=0.4", fc="white", alpha=0.85),
+    )
 
     z = np.polyfit(df[x], df[y], 1)
     x_line = np.linspace(df[x].min(), df[x].max(), 200)
@@ -320,42 +400,63 @@ def plot_scatter(
 
 
 def plot_top_infrastructure_correlations(
-    df: pd.DataFrame, out_path: Path,
+    df: pd.DataFrame,
+    out_path: Path,
 ) -> pd.DataFrame:
     infra_cols = [
-        c for c in df.columns
-        if c.startswith("infra_") and c not in ("infra_total", "infra_protective", "infra_risk")
+        c
+        for c in df.columns
+        if c.startswith("infra_")
+        and c not in ("infra_total", "infra_protective", "infra_risk")
     ]
     results = []
     for col in infra_cols:
         if int((df[col] > 0).sum()) < 10:
             continue
         r_s, p_s = stats.spearmanr(df[col], df["homicide"])
-        results.append({
-            "infrastructure": col.replace("infra_", "").replace("_", " ").title(),
-            "spearman_rho": r_s,
-            "p_value": p_s,
-            "n_hexes_present": int((df[col] > 0).sum()),
-        })
+        results.append(
+            {
+                "infrastructure": col.replace("infra_", "").replace("_", " ").title(),
+                "spearman_rho": r_s,
+                "p_value": p_s,
+                "n_hexes_present": int((df[col] > 0).sum()),
+            }
+        )
 
     res_df = pd.DataFrame(results).sort_values("spearman_rho", ascending=True)
 
     fig, ax = plt.subplots(figsize=(10, max(6, len(res_df) * 0.35)))
     colors = ["#d95f02" if v > 0 else "#1b9e77" for v in res_df["spearman_rho"]]
-    bars = ax.barh(res_df["infrastructure"], res_df["spearman_rho"],
-                   color=colors, height=0.65)
+    bars = ax.barh(
+        res_df["infrastructure"], res_df["spearman_rho"], color=colors, height=0.65
+    )
     for bar, p in zip(bars, res_df["p_value"]):
         x_pos = bar.get_width()
         offset = 0.005 if x_pos >= 0 else -0.005
         ha = "left" if x_pos >= 0 else "right"
-        ax.text(x_pos + offset, bar.get_y() + bar.get_height() / 2,
-                f"{x_pos:.3f} {_sig_stars(p)}", va="center", ha=ha, fontsize=8)
+        ax.text(
+            x_pos + offset,
+            bar.get_y() + bar.get_height() / 2,
+            f"{x_pos:.3f} {_sig_stars(p)}",
+            va="center",
+            ha=ha,
+            fontsize=8,
+        )
     ax.axvline(0, color="grey", linewidth=0.6)
     ax.set_xlabel("Spearman ρ with Homicide Count", fontsize=11)
-    ax.set_title("Infrastructure–Homicide Correlation by Type\n(per 500 m hexagon)",
-                 fontsize=13, fontweight="bold")
-    ax.text(0.01, -0.06, "Significance: * p<.05  ** p<.01  *** p<.001",
-            transform=ax.transAxes, fontsize=8, color="grey")
+    ax.set_title(
+        "Infrastructure–Homicide Correlation by Type\n(per 500 m hexagon)",
+        fontsize=13,
+        fontweight="bold",
+    )
+    ax.text(
+        0.01,
+        -0.06,
+        "Significance: * p<.05  ** p<.01  *** p<.001",
+        transform=ax.transAxes,
+        fontsize=8,
+        color="grey",
+    )
     sns.despine(ax=ax)
     plt.tight_layout()
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
@@ -365,6 +466,7 @@ def plot_top_infrastructure_correlations(
 
 
 # ── Summary ──────────────────────────────────────────────────────────────────
+
 
 def write_summary(
     merged: pd.DataFrame,
@@ -448,6 +550,7 @@ def write_summary(
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+
 def main() -> int:
     for d in (DATA_OUT, FIG_DIR):
         d.mkdir(parents=True, exist_ok=True)
@@ -480,7 +583,9 @@ def main() -> int:
     print(f"Saved merged table ({len(merged):,} hexagons) → {csv_out}")
 
     if "homicide" not in merged.columns:
-        print("ERROR: 'homicide' column not found after pivot. Check Primary Type values.")
+        print(
+            "ERROR: 'homicide' column not found after pivot. Check Primary Type values."
+        )
         return 1
 
     active = merged[merged["homicide"] > 0].copy()
@@ -489,10 +594,13 @@ def main() -> int:
     # ── Crime ↔ homicide correlations ────────────────────────────────────
     crime_corr = crime_vs_homicide_correlations(merged, crime_cols)
     print("\nCrime-type vs homicide correlations:")
-    print(crime_corr[["crime_type", "spearman_rho", "spearman_p"]].to_string(index=False))
+    print(
+        crime_corr[["crime_type", "spearman_rho", "spearman_p"]].to_string(index=False)
+    )
 
     plot_crime_vs_homicide_bars(
-        crime_corr, FIG_DIR / "correlation_crime_vs_homicide.png",
+        crime_corr,
+        FIG_DIR / "correlation_crime_vs_homicide.png",
     )
 
     # Top-N scatter plots for strongest crime–homicide correlations
@@ -502,8 +610,11 @@ def main() -> int:
         nice = row["crime_type"]
         safe_name = col.replace(" ", "_")
         plot_scatter(
-            merged, col, "homicide",
-            f"{nice} Count (per hex)", "Homicide Count (per hex)",
+            merged,
+            col,
+            "homicide",
+            f"{nice} Count (per hex)",
+            "Homicide Count (per hex)",
             f"{nice} vs. Homicides per 500 m Hexagon",
             FIG_DIR / f"scatter_{safe_name}_vs_homicides.png",
         )
@@ -515,53 +626,73 @@ def main() -> int:
         top15_spearman,
         "Spearman Correlation: Top Crime Types per Hex",
         FIG_DIR / "correlation_matrix_all_crimes.png",
-        figsize=(14, 12), annot_size=8,
+        figsize=(14, 12),
+        annot_size=8,
     )
 
     # ── Infrastructure ↔ homicide ────────────────────────────────────────
     infra_corr_df = plot_top_infrastructure_correlations(
-        active, FIG_DIR / "top_infrastructure_correlations.png",
+        active,
+        FIG_DIR / "top_infrastructure_correlations.png",
     )
 
     # Infrastructure + crime combined heatmap
-    agg_infra = [c for c in ("infra_total", "infra_protective", "infra_risk")
-                 if c in merged.columns]
+    agg_infra = [
+        c
+        for c in ("infra_total", "infra_protective", "infra_risk")
+        if c in merged.columns
+    ]
     combined_cols = ["homicide"] + crime_corr.head(8)["col"].tolist() + agg_infra
     combined_spearman = merged[combined_cols].corr(method="spearman")
-    label_map = {c: c.replace("infra_", "").replace("_", " ").title() for c in combined_cols}
+    label_map = {
+        c: c.replace("infra_", "").replace("_", " ").title() for c in combined_cols
+    }
     label_map["homicide"] = "Homicide"
     plot_correlation_matrix(
         combined_spearman,
         "Spearman Correlation: Crime & Infrastructure per Hex",
         FIG_DIR / "correlation_matrix_crime_infrastructure.png",
-        label_map=label_map, figsize=(12, 10), annot_size=9,
+        label_map=label_map,
+        figsize=(12, 10),
+        annot_size=9,
     )
 
     # Infrastructure scatter plots
     if "infra_total" in active.columns:
         plot_scatter(
-            active, "infra_total", "homicide",
-            "Total Infrastructure Count (per hex)", "Homicide Count (per hex)",
+            active,
+            "infra_total",
+            "homicide",
+            "Total Infrastructure Count (per hex)",
+            "Homicide Count (per hex)",
             "Social Infrastructure vs. Homicides per 500 m Hexagon",
             FIG_DIR / "scatter_infrastructure_vs_homicides.png",
         )
     if "infra_protective" in active.columns:
         plot_scatter(
-            active, "infra_protective", "homicide",
-            "Protective Infrastructure (per hex)", "Homicide Count (per hex)",
+            active,
+            "infra_protective",
+            "homicide",
+            "Protective Infrastructure (per hex)",
+            "Homicide Count (per hex)",
             "Protective Infrastructure vs. Homicides per Hexagon",
             FIG_DIR / "scatter_protective_vs_homicides.png",
         )
     if "infra_risk" in active.columns:
         plot_scatter(
-            active, "infra_risk", "homicide",
-            "Risk-Associated Infrastructure (per hex)", "Homicide Count (per hex)",
+            active,
+            "infra_risk",
+            "homicide",
+            "Risk-Associated Infrastructure (per hex)",
+            "Homicide Count (per hex)",
             "Risk-Associated Infrastructure vs. Homicides per Hexagon",
             FIG_DIR / "scatter_risk_vs_homicides.png",
         )
 
     # ── Summary ──────────────────────────────────────────────────────────
-    write_summary(merged, crime_corr, infra_corr_df, FIG_DIR / "correlation_summary.txt")
+    write_summary(
+        merged, crime_corr, infra_corr_df, FIG_DIR / "correlation_summary.txt"
+    )
 
     return 0
 

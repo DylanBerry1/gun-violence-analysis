@@ -1,11 +1,12 @@
 """
-Builds the rank order plots for homicides within a hex area
-Make crime density a parameter (e.g., places with high homicide% vs low/no homicide%)
-Pareto statistic to fit the data
-Rank order handles heavy-tailed phenomena with scale (alpha) and shape (xmin) parameters
-Plot the log-log complementary CDF (1-CDF)
-The log-log is the log of rank, and the log of probability
-Slope of the line gives the shape (xmin)
+Build static and interactive homicide rank-order plots from hex-count outputs.
+
+Inputs:
+- data/processed/hex/chicago_homicides_hex_counts.csv
+
+Outputs:
+- reports/figures/homicide_rank_order_plot.png
+- reports/figures/interactive_rank_order.html
 """
 
 import os

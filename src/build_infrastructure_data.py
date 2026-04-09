@@ -1,6 +1,11 @@
 """
-Finds the lat/lon of several forms of infrastructure in Chicago (e.g., parks, churches, libraries, liquor stores, etc.)
-Infrastructure on the OSM map can be found here: https://wiki.openstreetmap.org/wiki/Map_features
+Fetch Chicago infrastructure features from OpenStreetMap and write centroided points.
+
+Output:
+- data/raw/infrastructure_locations.csv
+
+Reference:
+- https://wiki.openstreetmap.org/wiki/Map_features
 """
 
 import osmnx as ox

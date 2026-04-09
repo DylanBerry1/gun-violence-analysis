@@ -9,16 +9,16 @@ This script treats each 500m hex cell as one observation and builds features fro
 
 Outputs:
 - data/processed/modeling/chicago_hex_modeling_table.csv
-- reports/modeling/xgboost_hotspot_metrics.json
-- reports/modeling/xgboost_count_metrics.json
-- reports/modeling/xgboost_hotspot_holdout_predictions.csv
-- reports/modeling/xgboost_count_holdout_predictions.csv
-- reports/modeling/xgboost_hotspot_feature_importance.csv
-- reports/modeling/xgboost_count_feature_importance.csv
-- reports/modeling/xgboost_hotspot_feature_groups.csv
-- reports/modeling/xgboost_count_feature_groups.csv
-- reports/modeling/xgboost_hotspot_feature_importance.png
-- reports/modeling/xgboost_count_feature_importance.png
+- reports/modeling/hotspot/xgboost_metrics.json
+- reports/modeling/hotspot/xgboost_holdout_predictions.csv
+- reports/modeling/hotspot/xgboost_feature_importance.csv
+- reports/modeling/hotspot/xgboost_feature_groups.csv
+- reports/modeling/hotspot/xgboost_feature_importance.png
+- reports/modeling/count/xgboost_metrics.json
+- reports/modeling/count/xgboost_holdout_predictions.csv
+- reports/modeling/count/xgboost_feature_importance.csv
+- reports/modeling/count/xgboost_feature_groups.csv
+- reports/modeling/count/xgboost_feature_importance.png
 """
 
 from __future__ import annotations
