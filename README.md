@@ -9,7 +9,8 @@ As of now, we have completed some surface-level analysis, and have generated som
 ## Next Steps
 - try and find more data for different cities in US (Dylan) 
 - try and find more correlations between variables (Dylan)
-- organize Diego's work in a word doc
+- organize Diego's work in a word doc (Diego)
+- Ways to extract info from Time series (Everyone)
 - Try to predict amount of a given crime in a given hexagon using a Bayesian temporal model (???)
 
 Analysis pipeline and project repository for studying Chicago homicide patterns.
