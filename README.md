@@ -34,7 +34,7 @@ If you only open a few things in the repository, start with these:
 - [Crime-type vs. homicide correlation chart](reports/figures/correlation_crime_vs_homicide.png)
 - [Hotspot model metrics](reports/modeling/hotspot/xgboost_metrics.json)
 - [Count model metrics](reports/modeling/count/xgboost_metrics.json)
-- [Spatial Correlates of Homicide in Chicago (PDF capstone writeup)](report/Spatial%20Correlates%20of%20Homicide%20in%20Chicago%20Capstone%20Writeup.pdf)
+- [Spatial Correlates of Homicide in Chicago (Word Writeup)](report/Spatial%20Correlates%20of%20Homicide%20in%20Chicago%20Capstone%20Writeup.pdf)
 
 GitHub will preview Markdown, CSV, JSON, and PNG outputs directly in the browser. Interactive HTML files are included in the repo, but they are easiest to inspect by downloading them or serving the repository locally.
 
@@ -135,12 +135,7 @@ Background narrative and earlier exploratory work live here:
 - [`report/3_6 Capstone Report.md`](report/3_6%20Capstone%20Report.md)
 - [`notebooks/exploration/chicago_analysis.ipynb`](notebooks/exploration/chicago_analysis.ipynb)
 - [`notebooks/reporting/chicago_analysis_report.ipynb`](notebooks/reporting/chicago_analysis_report.ipynb)
-
-**Written reports (`report/`):** The capstone-style paper *Spatial Correlates of Homicide in Chicago* is available as a PDF in this folder:
-
 - [`report/Spatial Correlates of Homicide in Chicago Capstone Writeup.pdf`](report/Spatial%20Correlates%20of%20Homicide%20in%20Chicago%20Capstone%20Writeup.pdf)
-
-Related formats in the same directory include [`Spatial Correlates of Homicide in Chicago Capstone Writeup.docx`](report/Spatial%20Correlates%20of%20Homicide%20in%20Chicago%20Capstone%20Writeup.docx). A Markdown companion with figures and correlation tables lives at [`reports/Correlation_Analysis_Report.md`](reports/Correlation_Analysis_Report.md).
 
 The notebooks are useful for understanding the project's evolution, but the operational source of truth is the Python code in `src/`.
 
