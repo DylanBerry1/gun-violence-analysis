@@ -11,7 +11,8 @@ So far we have completed surface-level analysis and generated interactive maps t
 ## Next Steps
 - try and find more correlations between variables (Dylan)
 - organize Diego's work in a word doc (Diego)
-- Ways to extract info from Time series (Everyone)
+- Ways to extract info from Time series
+- Change detection analysis
 - Try to predict amount of a given crime in a given hexagon using a Bayesian temporal model (???)
 
 
