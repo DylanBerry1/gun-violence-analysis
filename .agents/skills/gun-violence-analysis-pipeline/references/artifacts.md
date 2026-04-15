@@ -9,8 +9,6 @@ Use this reference when you need exact input names, output paths, or script owne
   - `data/raw/chicago_drug_crimes.csv`
   - `data/raw/infrastructure_locations.csv`
   - `data/raw/chicago_socioeconomic_neighborhoods.csv`
-- Required for `src/build_correlation_analysis.py` as currently written:
-  - `data/raw/Crimes_-_2001_to_Present_20260408.csv`
 - Optional full crime dataset candidates for `src/build_hex_maps.py`:
   - `data/raw/chicago_crimes_2001_to_present.csv`
   - `data/raw/Crimes_-_2001_to_Present.csv`
@@ -27,10 +25,6 @@ Use this reference when you need exact input names, output paths, or script owne
     - `chicago_<crime>_hex_counts.csv`
     - `chicago_<crime>_with_hex.csv`
     - `chicago_<crime>_hex_time_season_counts.csv`
-- `src/build_correlation_analysis.py`
-  - Reads `data/raw/Crimes_-_2001_to_Present_20260408.csv`
-  - Writes `data/processed/crime_infrastructure_hex_merged.csv`
-  - Writes correlation figures, scatter plots, and `correlation_summary.txt` under `reports/figures/`
 - `src/train_xgboost_hex_model.py`
   - Writes `data/processed/modeling/chicago_hex_modeling_table.csv`
   - Writes task-specific reports under:
@@ -45,6 +39,5 @@ Use this reference when you need exact input names, output paths, or script owne
 ## Behavioral Notes
 
 - `src/build_hex_maps.py` auto-detects latitude and longitude columns, coerces them to numeric, drops null coordinates, and filters rows to a fixed Chicago bounding box.
-- `src/build_correlation_analysis.py` currently hardcodes the full-crimes CSV filename instead of auto-discovering it.
 - `src/train_xgboost_hex_model.py` defaults to `--task all` and `--hex-size-m 500`.
 - `notebooks/` may contain stale assumptions or brittle paths. Prefer `src/` scripts for current behavior.
