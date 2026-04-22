@@ -201,7 +201,7 @@ We added a DAG-based interpretation pass that conditions homicide associations o
 
 Main writeup:
 
-- [`reportsCorrelation_Analysis_DAG_Demographics_Addendum.pdf`](report/Addendum_%20Demographic%20Controls%20and%20DAG-Based%20Interpretation%20of%20Hex-Level%20Correlations.pdf)
+- [`report/Correlation_Analysis_DAG_Demographics_Addendum.pdf`](report/Addendum_%20Demographic%20Controls%20and%20DAG-Based%20Interpretation%20of%20Hex-Level%20Correlations.pdf)
 
 Conceptual DAG used in the addendum:
 
