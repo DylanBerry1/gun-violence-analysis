@@ -14,3 +14,4 @@ powerlaw
 seaborn
 scikit-learn
 xgboost
+pyarrow
