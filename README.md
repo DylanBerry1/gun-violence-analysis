@@ -266,6 +266,10 @@ Metric sources:
 
 ![Crime-type vs homicide correlation](reports/figures/correlation_crime_vs_homicide.png)
 
+### Demographically Adjusted Crime-Type vs Homicide Correlation (Partial Spearman)
+
+![Demographically adjusted crime-type vs homicide correlation](reports/figures/hex_dag_partial_spearman_crime_vs_homicide.png)
+
 ### Crime Type Correlation Heatmap
 
 ![Crime type heatmap](reports/figures/correlation_matrix_all_crimes.png)
