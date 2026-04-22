@@ -195,6 +195,41 @@ All correlations are significant at p < 0.001.
 
 The positive correlation between protective infrastructure and homicide is an ecological artifact: cities build schools, churches, and social facilities in dense residential neighborhoods—the same disadvantaged neighborhoods that experience the most violence. This does **not** imply these institutions cause violence; rather, they are co-located with the populations most affected by it. The negative bar/pub correlation reflects that nightlife clusters in wealthier commercial districts (e.g., Lincoln Park, River North) with lower homicide rates.
 
+### Demographic Controls Addendum (DAG + Partial Spearman)
+
+We added a DAG-based interpretation pass that conditions homicide associations on socioeconomic context to reduce ecological-confounding bias in naive pairwise correlations.
+
+Main writeup:
+
+- [`reports/Correlation_Analysis_DAG_Demographics_Addendum.md`](reports/Correlation_Analysis_DAG_Demographics_Addendum.md)
+
+Conceptual DAG used in the addendum:
+
+![Conceptual DAG for adjusted homicide correlations](reports/figures/Chicago_DAG.png)
+
+Data and method highlights:
+
+- merged table from correlation stage: `data/processed/crime_infrastructure_hex_merged.csv`
+- socioeconomic fields source: `data/processed/modeling/chicago_hex_modeling_table.csv`
+- join key: `hex_id`
+- adjusted sample size (complete cases): 1,524 hexes
+- controls used in partial Spearman estimates:
+  - `per_capita_income`
+  - `poverty_pct`
+  - `hardship_index`
+
+Interpretation highlights from the addendum:
+
+- violent-crime correlates (weapons, narcotics, battery, assault, robbery) remain strong after adjustment
+- several infrastructure associations shift materially after controls, including sign reversals for some variables (for example `infra_bar` and `infra_pub`)
+- protective infrastructure should be interpreted as spatial co-location with neighborhood context, not direct causal drivers of homicide
+
+Generated addendum artifacts:
+
+- selected before/after comparison figure: [`reports/figures/dag_selected_homicide_correlations_before_after_controls.png`](reports/figures/dag_selected_homicide_correlations_before_after_controls.png)
+- full adjusted crime table: [`reports/figures/dag_partial_spearman_crime_vs_homicide.csv`](reports/figures/dag_partial_spearman_crime_vs_homicide.csv)
+- full adjusted infrastructure table: [`reports/figures/dag_partial_spearman_infra_vs_homicide.csv`](reports/figures/dag_partial_spearman_infra_vs_homicide.csv)
+
 ### Full Spearman Matrix (Homicide + Top-5 Crime Types + Infrastructure Aggregates)
 
 |  | Homicide | Weapons | Battery | Narcotics | Assault | Robbery | Infra Total | Protective | Risk |
