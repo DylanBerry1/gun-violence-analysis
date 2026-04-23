@@ -3,12 +3,12 @@
 Robustness checks for homicide correlations under socioeconomic confounding.
 
 Outputs:
-  - reports/figures/hex_gaussian_z_percentile_spearman_crime_vs_homicide.csv
-  - reports/figures/hex_gaussian_z_percentile_spearman_infra_vs_homicide.csv
+  - reports/figures/hex_empirical_z_percentile_spearman_crime_vs_homicide.csv
+  - reports/figures/hex_empirical_z_percentile_spearman_infra_vs_homicide.csv
   - reports/figures/hex_gam_residual_spearman_crime_vs_homicide.csv
   - reports/figures/hex_gam_residual_spearman_infra_vs_homicide.csv
-  - reports/figures/hex_gaussian_z_percentile_spearman_top10_crime_vs_homicide.png
-  - reports/figures/hex_gaussian_z_percentile_spearman_top10_infra_vs_homicide.png
+  - reports/figures/hex_empirical_z_percentile_spearman_top10_crime_vs_homicide.png
+  - reports/figures/hex_empirical_z_percentile_spearman_top10_infra_vs_homicide.png
   - reports/figures/hex_gam_residual_spearman_crime_vs_homicide.png
   - reports/figures/hex_gam_residual_spearman_infra_vs_homicide.png
   - reports/figures/hex_gam_residual_spearman_crime_vs_homicide_dumbbell.png
@@ -27,7 +27,6 @@ import pandas as pd
 from patsy import dmatrix
 from scipy.stats import spearmanr
 from matplotlib.colors import TwoSlopeNorm
-from sklearn.preprocessing import QuantileTransformer
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,27 +39,32 @@ TARGET = "homicide"
 INFRA_EXCLUDE = {"infra_total", "infra_protective", "infra_risk"}
 
 
-def _gaussianized_controls(df: pd.DataFrame) -> pd.DataFrame:
-    """Map controls to approximately Gaussian marginals via rank transform."""
-    qt = QuantileTransformer(
-        output_distribution="normal",
-        n_quantiles=min(1000, len(df)),
-        random_state=42,
+def _build_empirical_disadvantage_score(df: pd.DataFrame) -> pd.Series:
+    """Construct common-cause score Z from observed control distribution."""
+    # Standardize on observed sample moments; no Gaussianization transform.
+    income = (df["per_capita_income"] - df["per_capita_income"].mean()) / df[
+        "per_capita_income"
+    ].std(ddof=0)
+    poverty = (df["poverty_pct"] - df["poverty_pct"].mean()) / df["poverty_pct"].std(
+        ddof=0
     )
-    arr = qt.fit_transform(df[CONTROLS].to_numpy(dtype=float))
-    return pd.DataFrame(arr, columns=CONTROLS, index=df.index)
-
-
-def _build_disadvantage_score_from_gaussian_controls(
-    gaussian_controls: pd.DataFrame,
-) -> pd.Series:
-    """Construct transformed common-cause score Z."""
+    hardship = (df["hardship_index"] - df["hardship_index"].mean()) / df[
+        "hardship_index"
+    ].std(ddof=0)
     # Higher score means more disadvantage: low income, high poverty/hardship.
     return (
-        -gaussian_controls["per_capita_income"]
-        + gaussian_controls["poverty_pct"]
-        + gaussian_controls["hardship_index"]
+        -income
+        + poverty
+        + hardship
     ) / 3.0
+
+
+def _to_empirical_percentiles(z: pd.Series, bins: int = 100) -> pd.Series:
+    """Map Z to exact ntile-style empirical percentiles 1..bins."""
+    n = len(z)
+    ranks = z.rank(method="first")
+    out = np.floor((ranks - 1) * bins / n).astype(int) + 1
+    return out.clip(1, bins)
 
 
 def _design_matrix(controls_df: pd.DataFrame) -> np.ndarray:
@@ -139,7 +143,7 @@ def _plot_top10_percentile_lines(strat_df: pd.DataFrame, gam_df: pd.DataFrame, o
         ax.plot(d["z_percentile"], d["rho_spearman"], label=variable, linewidth=1.8)
     ax.set_title(title)
     ax.set_ylabel("Spearman rho")
-    ax.set_xlabel("Gaussian-Z percentile")
+    ax.set_xlabel("Empirical-Z percentile")
     ax.set_xlim(1, 100)
     ax.legend(title="Variable", ncol=2, fontsize=8)
     fig.tight_layout()
@@ -171,7 +175,7 @@ def _plot_top10_percentile_heatmap(
         interpolation="nearest",
     )
     ax.set_title(title)
-    ax.set_xlabel("Gaussian-Z percentile")
+    ax.set_xlabel("Empirical-Z percentile")
     ax.set_ylabel("Infrastructure variable")
     ax.set_yticks(np.arange(len(pivot.index)))
     ax.set_yticklabels(pivot.index)
@@ -266,19 +270,14 @@ def main() -> None:
         and np.issubdtype(merged[c].dtype, np.number)
     ]
 
-    # ---------- 1) Gaussian-Z percentile Spearman ----------
-    gaussian_controls = _gaussianized_controls(df)
-    df["z_disadvantage_gaussian"] = _build_disadvantage_score_from_gaussian_controls(
-        gaussian_controls
-    )
-    # Percentile bins 1..100 based on transformed Z.
-    z_pct = df["z_disadvantage_gaussian"].rank(method="average", pct=True) * 100.0
-    df["z_percentile"] = np.ceil(z_pct).astype(int).clip(1, 100)
+    # ---------- 1) Empirical-Z percentile Spearman ----------
+    df["z_disadvantage_empirical"] = _build_empirical_disadvantage_score(df)
+    df["z_percentile"] = _to_empirical_percentiles(df["z_disadvantage_empirical"], bins=100)
 
     strat_crime_df = _compute_percentile_stratified(df, crime_cols)
     strat_infra_df = _compute_percentile_stratified(df, infra_cols)
-    strat_crime_out = OUT_DIR / "hex_gaussian_z_percentile_spearman_crime_vs_homicide.csv"
-    strat_infra_out = OUT_DIR / "hex_gaussian_z_percentile_spearman_infra_vs_homicide.csv"
+    strat_crime_out = OUT_DIR / "hex_empirical_z_percentile_spearman_crime_vs_homicide.csv"
+    strat_infra_out = OUT_DIR / "hex_empirical_z_percentile_spearman_infra_vs_homicide.csv"
     strat_crime_df.to_csv(strat_crime_out, index=False)
     strat_infra_df.to_csv(strat_infra_out, index=False)
 
@@ -292,17 +291,17 @@ def main() -> None:
     gam_infra_df.to_csv(gam_infra_out, index=False)
 
     # ---------- Plots ----------
-    _plot_top10_percentile_lines(
+    _plot_top10_percentile_heatmap(
         strat_crime_df,
         gam_crime_df,
-        OUT_DIR / "hex_gaussian_z_percentile_spearman_top10_crime_vs_homicide.png",
-        "Spearman(homicide, crime) by Gaussian-Z percentile (1-100)",
+        OUT_DIR / "hex_empirical_z_percentile_spearman_top10_crime_vs_homicide.png",
+        "Crime vs homicide by empirical-Z percentile (top 10, heatmap)",
     )
     _plot_top10_percentile_heatmap(
         strat_infra_df,
         gam_infra_df,
-        OUT_DIR / "hex_gaussian_z_percentile_spearman_top10_infra_vs_homicide.png",
-        "Infrastructure vs homicide by Gaussian-Z percentile (top 10, heatmap)",
+        OUT_DIR / "hex_empirical_z_percentile_spearman_top10_infra_vs_homicide.png",
+        "Infrastructure vs homicide by empirical-Z percentile (top 10, heatmap)",
     )
 
     _plot_overlap_bars(
@@ -342,8 +341,8 @@ def main() -> None:
     print(f"Wrote: {strat_infra_out}")
     print(f"Wrote: {gam_crime_out}")
     print(f"Wrote: {gam_infra_out}")
-    print("Wrote: reports/figures/hex_gaussian_z_percentile_spearman_top10_crime_vs_homicide.png")
-    print("Wrote: reports/figures/hex_gaussian_z_percentile_spearman_top10_infra_vs_homicide.png")
+    print("Wrote: reports/figures/hex_empirical_z_percentile_spearman_top10_crime_vs_homicide.png")
+    print("Wrote: reports/figures/hex_empirical_z_percentile_spearman_top10_infra_vs_homicide.png")
     print("Wrote: reports/figures/hex_gam_residual_spearman_crime_vs_homicide.png")
     print("Wrote: reports/figures/hex_gam_residual_spearman_infra_vs_homicide.png")
     print("Wrote: reports/figures/hex_gam_residual_spearman_crime_vs_homicide_dumbbell.png")
