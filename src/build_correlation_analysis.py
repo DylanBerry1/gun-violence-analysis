@@ -279,8 +279,8 @@ def plot_crime_vs_homicide_bars(corr_df: pd.DataFrame, out_path: Path) -> None:
     """Horizontal bar chart: Spearman ρ of each crime type vs homicide."""
     plot_df = corr_df.sort_values("spearman_rho", ascending=True)
 
-    fig, ax = plt.subplots(figsize=(10, max(6, len(plot_df) * 0.38)))
-    colors = ["#d95f02" if v > 0 else "#1b9e77" for v in plot_df["spearman_rho"]]
+    fig, ax = plt.subplots(figsize=(13, max(6, len(plot_df) * 0.38)))
+    colors = ["#bf616a" if v > 0 else "#5e81ac" for v in plot_df["spearman_rho"]]
     bars = ax.barh(
         plot_df["crime_type"], plot_df["spearman_rho"], color=colors, height=0.65
     )
@@ -425,8 +425,8 @@ def plot_top_infrastructure_correlations(
 
     res_df = pd.DataFrame(results).sort_values("spearman_rho", ascending=True)
 
-    fig, ax = plt.subplots(figsize=(10, max(6, len(res_df) * 0.35)))
-    colors = ["#d95f02" if v > 0 else "#1b9e77" for v in res_df["spearman_rho"]]
+    fig, ax = plt.subplots(figsize=(13, max(6, len(res_df) * 0.35)))
+    colors = ["#bf616a" if v > 0 else "#5e81ac" for v in res_df["spearman_rho"]]
     bars = ax.barh(
         res_df["infrastructure"], res_df["spearman_rho"], color=colors, height=0.65
     )
@@ -555,32 +555,40 @@ def main() -> int:
     for d in (DATA_OUT, FIG_DIR):
         d.mkdir(parents=True, exist_ok=True)
 
-    for p in (CRIMES_CSV, INFRA_CSV):
-        if not p.exists():
-            print(f"ERROR: Missing {p}")
-            return 1
-
-    # ── Load & hex-bin all crimes ────────────────────────────────────────
-    crimes = load_crimes(CRIMES_CSV)
-    crime_pivot = pivot_crimes_to_hex(crimes)
-    del crimes  # free ~1 GB
-
-    crime_cols = [c for c in crime_pivot.columns if c != "hex_id"]
-    excluded_normalised = {t.lower().replace(" ", "_") for t in EXCLUDE_CRIME_TYPES}
-    crime_cols = [c for c in crime_cols if c not in excluded_normalised]
-
-    print(f"Crime type columns ({len(crime_cols)}): {crime_cols}")
-
-    # ── Load & hex-bin infrastructure ────────────────────────────────────
-    print("Loading infrastructure …")
-    infra_raw = load_infrastructure(INFRA_CSV)
-    infra_pivot = pivot_infrastructure(infra_raw)
-
-    # ── Merge ────────────────────────────────────────────────────────────
-    merged = build_merged(crime_pivot[["hex_id"] + crime_cols], infra_pivot)
     csv_out = DATA_OUT / "crime_infrastructure_hex_merged.csv"
-    merged.to_csv(csv_out, index=False)
-    print(f"Saved merged table ({len(merged):,} hexagons) → {csv_out}")
+    if csv_out.exists():
+        print(f"Loading cached merged table from {csv_out}")
+        merged = pd.read_csv(csv_out)
+        crime_cols = [
+            c for c in merged.columns 
+            if c not in ("hex_id", "homicide", "total_crime") and not c.startswith("infra_")
+        ]
+    else:
+        for p in (CRIMES_CSV, INFRA_CSV):
+            if not p.exists():
+                print(f"ERROR: Missing {p}")
+                return 1
+
+        # ── Load & hex-bin all crimes ────────────────────────────────────────
+        crimes = load_crimes(CRIMES_CSV)
+        crime_pivot = pivot_crimes_to_hex(crimes)
+        del crimes  # free ~1 GB
+
+        crime_cols = [c for c in crime_pivot.columns if c != "hex_id"]
+        excluded_normalised = {t.lower().replace(" ", "_") for t in EXCLUDE_CRIME_TYPES}
+        crime_cols = [c for c in crime_cols if c not in excluded_normalised]
+
+        print(f"Crime type columns ({len(crime_cols)}): {crime_cols}")
+
+        # ── Load & hex-bin infrastructure ────────────────────────────────────
+        print("Loading infrastructure …")
+        infra_raw = load_infrastructure(INFRA_CSV)
+        infra_pivot = pivot_infrastructure(infra_raw)
+
+        # ── Merge ────────────────────────────────────────────────────────────
+        merged = build_merged(crime_pivot[["hex_id"] + crime_cols], infra_pivot)
+        merged.to_csv(csv_out, index=False)
+        print(f"Saved merged table ({len(merged):,} hexagons) → {csv_out}")
 
     if "homicide" not in merged.columns:
         print(

@@ -458,8 +458,8 @@ def save_importance_outputs(
     )
 
     top_features = importance.head(15).sort_values("gain", ascending=True)
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.barh(top_features["feature"], top_features["gain"], color="#b85c38")
+    fig, ax = plt.subplots(figsize=(13, 6))
+    ax.barh(top_features["feature"], top_features["gain"], color="#bf616a")
     ax.set_title(f"Top XGBoost Features ({task_name})")
     ax.set_xlabel("Gain")
     ax.set_ylabel("Feature")
