@@ -396,7 +396,7 @@ def main() -> None:
     plot_top_loadings_per_pc(pca, feature_cols, OUT_DIR)
 
     # 7. Regression summary.
-    reg_df = run_pc_regression(scores, homicide, pca, n_components=10)
+    reg_df = run_pc_regression(scores, homicide, pca, n_components=2)
     reg_path = OUT_DIR / "pca_regression_summary.csv"
     reg_df.to_csv(reg_path, index=False)
     print(f"Wrote: {reg_path}")
