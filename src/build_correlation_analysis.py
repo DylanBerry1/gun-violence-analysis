@@ -37,6 +37,13 @@ import pandas as pd
 import seaborn as sns
 from scipy import stats
 
+plt.rcParams.update({
+    "font.size": 14,
+    "font.weight": "bold",
+    "axes.labelweight": "bold",
+    "axes.titleweight": "bold",
+})
+
 ROOT_DIR = Path(__file__).resolve().parents[1]
 DATA_RAW = ROOT_DIR / "data" / "raw"
 DATA_OUT = ROOT_DIR / "data" / "processed"
@@ -279,7 +286,7 @@ def plot_crime_vs_homicide_bars(corr_df: pd.DataFrame, out_path: Path) -> None:
     """Horizontal bar chart: Spearman ρ of each crime type vs homicide."""
     plot_df = corr_df.sort_values("spearman_rho", ascending=True)
 
-    fig, ax = plt.subplots(figsize=(13, max(6, len(plot_df) * 0.38)))
+    fig, ax = plt.subplots(figsize=(16, max(6, len(plot_df) * 0.38)))
     colors = ["#bf616a" if v > 0 else "#5e81ac" for v in plot_df["spearman_rho"]]
     bars = ax.barh(
         plot_df["crime_type"], plot_df["spearman_rho"], color=colors, height=0.65
@@ -295,22 +302,21 @@ def plot_crime_vs_homicide_bars(corr_df: pd.DataFrame, out_path: Path) -> None:
             f"{x_pos:.3f} {_sig_stars(p)}",
             va="center",
             ha=ha,
-            fontsize=8,
+            fontsize=10,
         )
 
     ax.axvline(0, color="grey", linewidth=0.6)
-    ax.set_xlabel("Spearman ρ with Homicide Count per Hex", fontsize=11)
+    ax.set_xlabel("Spearman ρ with Homicide Count per Hex")
     ax.set_title(
         "Crime Type – Homicide Spatial Correlation\n(per 500 m hexagon, all crime types)",
-        fontsize=13,
-        fontweight="bold",
+        fontsize=14,
     )
     ax.text(
         0.01,
         -0.04,
         "Significance: * p<.05  ** p<.01  *** p<.001",
         transform=ax.transAxes,
-        fontsize=8,
+        fontsize=10,
         color="grey",
     )
     sns.despine(ax=ax)
@@ -351,7 +357,7 @@ def plot_correlation_matrix(
         ax=ax,
         annot_kws={"size": annot_size},
     )
-    ax.set_title(title, fontsize=14, fontweight="bold", pad=16)
+    ax.set_title(title, fontsize=14, pad=16)
     plt.tight_layout()
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
     plt.close(fig)
@@ -367,7 +373,7 @@ def plot_scatter(
     title: str,
     out_path: Path,
 ) -> None:
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(10, 5.5))
     ax.scatter(df[x], df[y], alpha=0.35, s=18, edgecolors="none", color="#d95f02")
 
     r_s, p_s = stats.spearmanr(df[x], df[y])
@@ -380,7 +386,7 @@ def plot_scatter(
         0.96,
         stat_text,
         transform=ax.transAxes,
-        fontsize=9,
+        fontsize=10,
         verticalalignment="top",
         bbox=dict(boxstyle="round,pad=0.4", fc="white", alpha=0.85),
     )
@@ -389,9 +395,9 @@ def plot_scatter(
     x_line = np.linspace(df[x].min(), df[x].max(), 200)
     ax.plot(x_line, np.polyval(z, x_line), color="#1b9e77", lw=1.5, ls="--")
 
-    ax.set_xlabel(xlabel, fontsize=11)
-    ax.set_ylabel(ylabel, fontsize=11)
-    ax.set_title(title, fontsize=13, fontweight="bold")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title, fontsize=14)
     sns.despine(ax=ax)
     plt.tight_layout()
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
@@ -425,7 +431,7 @@ def plot_top_infrastructure_correlations(
 
     res_df = pd.DataFrame(results).sort_values("spearman_rho", ascending=True)
 
-    fig, ax = plt.subplots(figsize=(13, max(6, len(res_df) * 0.35)))
+    fig, ax = plt.subplots(figsize=(16, max(6, len(res_df) * 0.35)))
     colors = ["#bf616a" if v > 0 else "#5e81ac" for v in res_df["spearman_rho"]]
     bars = ax.barh(
         res_df["infrastructure"], res_df["spearman_rho"], color=colors, height=0.65
@@ -440,21 +446,20 @@ def plot_top_infrastructure_correlations(
             f"{x_pos:.3f} {_sig_stars(p)}",
             va="center",
             ha=ha,
-            fontsize=8,
+            fontsize=10,
         )
     ax.axvline(0, color="grey", linewidth=0.6)
-    ax.set_xlabel("Spearman ρ with Homicide Count", fontsize=11)
+    ax.set_xlabel("Spearman ρ with Homicide Count")
     ax.set_title(
         "Infrastructure–Homicide Correlation by Type\n(per 500 m hexagon)",
-        fontsize=13,
-        fontweight="bold",
+        fontsize=14,
     )
     ax.text(
         0.01,
         -0.06,
         "Significance: * p<.05  ** p<.01  *** p<.001",
         transform=ax.transAxes,
-        fontsize=8,
+        fontsize=10,
         color="grey",
     )
     sns.despine(ax=ax)

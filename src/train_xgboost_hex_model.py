@@ -77,6 +77,12 @@ def configure_matplotlib():
     import matplotlib
 
     matplotlib.use("Agg")
+    matplotlib.rcParams.update({
+        "font.size": 14,
+        "font.weight": "bold",
+        "axes.labelweight": "bold",
+        "axes.titleweight": "bold",
+    })
     import matplotlib.pyplot as plt
 
     return plt
@@ -458,9 +464,9 @@ def save_importance_outputs(
     )
 
     top_features = importance.head(15).sort_values("gain", ascending=True)
-    fig, ax = plt.subplots(figsize=(13, 6))
+    fig, ax = plt.subplots(figsize=(16, 5))
     ax.barh(top_features["feature"], top_features["gain"], color="#bf616a")
-    ax.set_title(f"Top XGBoost Features ({task_name})")
+    ax.set_title(f"Top XGBoost Features ({task_name})", fontsize=14)
     ax.set_xlabel("Gain")
     ax.set_ylabel("Feature")
     fig.tight_layout()

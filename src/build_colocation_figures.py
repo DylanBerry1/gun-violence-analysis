@@ -29,6 +29,13 @@ from matplotlib.patches import Polygon as MplPolygon
 from matplotlib.collections import PatchCollection
 from shapely.geometry import Polygon
 
+plt.rcParams.update({
+    "font.size": 14,
+    "font.weight": "bold",
+    "axes.labelweight": "bold",
+    "axes.titleweight": "bold",
+})
+
 ROOT_DIR = Path(__file__).resolve().parents[1]
 DATA_OUT = ROOT_DIR / "data" / "processed"
 FIG_DIR = ROOT_DIR / "reports" / "figures"
@@ -133,17 +140,17 @@ def _make_hex_choropleth(
     ax.set_aspect("auto")
 
     # Title and colorbar
-    ax.set_title(title, fontsize=11, fontweight="bold", pad=8)
+    ax.set_title(title, fontsize=14, pad=8)
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax, fraction=0.035, pad=0.04, shrink=0.8)
-    cbar.set_label(label, fontsize=9)
-    cbar.ax.tick_params(labelsize=8)
+    cbar.set_label(label)
+    cbar.ax.tick_params(labelsize=10)
 
     # Clean up axes
-    ax.set_xlabel("Longitude", fontsize=8)
-    ax.set_ylabel("Latitude", fontsize=8)
-    ax.tick_params(labelsize=7)
+    ax.set_xlabel("Longitude")
+    ax.set_ylabel("Latitude")
+    ax.tick_params(labelsize=10)
 
     # Light grid
     ax.grid(True, alpha=0.15, linewidth=0.3)
@@ -157,7 +164,7 @@ def plot_side_by_side(
 ) -> None:
     """Create a side-by-side figure: homicide (left) vs infrastructure (right)."""
     fig, (ax_hom, ax_inf) = plt.subplots(
-        1, 2, figsize=(16, 9), facecolor="#fafafa"
+        1, 2, figsize=(18, 7), facecolor="#fafafa"
     )
     fig.patch.set_facecolor("#fafafa")
 
@@ -183,7 +190,6 @@ def plot_side_by_side(
         f"Co-location: Homicides  vs.  {infra_label}\n"
         f"(500 m hexagonal grid, Chicago 2001–2026)",
         fontsize=14,
-        fontweight="bold",
         y=0.98,
     )
 
@@ -204,7 +210,7 @@ def plot_panel(
     ncols = 4  # two pairs: each pair = (homicide, infra)
 
     fig, axes = plt.subplots(
-        nrows, ncols, figsize=(24, 20), facecolor="#fafafa"
+        nrows, ncols, figsize=(28, 18), facecolor="#fafafa"
     )
     fig.patch.set_facecolor("#fafafa")
 
@@ -238,8 +244,7 @@ def plot_panel(
             -0.02, 1.08,
             f"({panel_letter})",
             transform=ax_hom.transAxes,
-            fontsize=13,
-            fontweight="bold",
+            fontsize=14,
             va="top",
         )
 
@@ -247,7 +252,6 @@ def plot_panel(
         "Appendix A.1 — Co-location of Homicides and Protective Infrastructure\n"
         "(500 m hexagonal grid, Chicago 2001–2026)",
         fontsize=16,
-        fontweight="bold",
         y=0.99,
     )
 

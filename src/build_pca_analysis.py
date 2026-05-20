@@ -31,6 +31,12 @@ os.environ.setdefault(
 
 import matplotlib
 matplotlib.use("Agg")
+matplotlib.rcParams.update({
+    "font.size": 14,
+    "font.weight": "bold",
+    "axes.labelweight": "bold",
+    "axes.titleweight": "bold",
+})
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -98,12 +104,12 @@ def plot_scree(pca: PCA, out_path: Path) -> None:
     cum_var = np.cumsum(pca.explained_variance_ratio_)[:n]
     x = np.arange(1, n + 1)
 
-    fig, ax1 = plt.subplots(figsize=(10, 5))
+    fig, ax1 = plt.subplots(figsize=(14, 4.5))
     ax1.bar(x, var_ratio * 100, color="#5e81ac", alpha=0.85, label="Individual")
     ax1.set_xlabel("Principal Component")
     ax1.set_ylabel("Variance Explained (%)")
     ax1.set_xticks(x)
-    ax1.set_title("PCA Scree Plot — Crime, Infrastructure & Socioeconomic Features")
+    ax1.set_title("PCA Scree Plot — Crime, Infrastructure & Socioeconomic Features", fontsize=14)
 
     ax2 = ax1.twinx()
     ax2.plot(x, cum_var * 100, color="#bf616a", marker="o", linewidth=2, label="Cumulative")
@@ -136,7 +142,7 @@ def plot_loadings_heatmap(
     mask = (loadings.abs() > threshold).any(axis=1)
     loadings_filtered = loadings[mask]
 
-    fig, ax = plt.subplots(figsize=(12, max(8, len(loadings_filtered) * 0.35)))
+    fig, ax = plt.subplots(figsize=(16, max(7, len(loadings_filtered) * 0.35)))
     im = ax.imshow(
         loadings_filtered.values,
         aspect="auto",
@@ -148,8 +154,8 @@ def plot_loadings_heatmap(
     ax.set_xticks(range(n_components))
     ax.set_xticklabels(loadings_filtered.columns)
     ax.set_yticks(range(len(loadings_filtered)))
-    ax.set_yticklabels(loadings_filtered.index, fontsize=8)
-    ax.set_title(f"PCA Loadings (features with |loading| > {threshold})")
+    ax.set_yticklabels(loadings_filtered.index)
+    ax.set_title(f"PCA Loadings (features with |loading| > {threshold})", fontsize=14)
     fig.colorbar(im, ax=ax, label="Loading")
     fig.tight_layout()
     fig.savefig(out_path, dpi=180)
@@ -181,10 +187,10 @@ def plot_pc_homicide_correlation(corr_df: pd.DataFrame, out_path: Path) -> None:
     ordered = corr_df.sort_values("spearman_rho")
     colors = ["#bf616a" if r > 0 else "#5e81ac" for r in ordered["spearman_rho"]]
 
-    fig, ax = plt.subplots(figsize=(13, 6))
+    fig, ax = plt.subplots(figsize=(16, 5))
     ax.barh(ordered["component"], ordered["spearman_rho"], color=colors, edgecolor="white")
     ax.set_xlabel("Spearman ρ with Homicide")
-    ax.set_title("Principal Components vs Homicide Correlation (* = p < .05, ** = p < .01, *** = p < .001)")
+    ax.set_title("Principal Components vs Homicide Correlation (* = p < .05, ** = p < .01, *** = p < .001)", fontsize=14)
     ax.axvline(0, color="black", linewidth=0.8)
 
     # Annotate significance.
@@ -199,7 +205,7 @@ def plot_pc_homicide_correlation(corr_df: pd.DataFrame, out_path: Path) -> None:
         x_pos = row["spearman_rho"]
         offset = 0.01 if x_pos >= 0 else -0.01
         ha = "left" if x_pos >= 0 else "right"
-        ax.text(x_pos + offset, row["component"], f"{x_pos:.3f}{stars}", va="center", ha=ha, fontsize=8)
+        ax.text(x_pos + offset, row["component"], f"{x_pos:.3f}{stars}", va="center", ha=ha, fontsize=10)
 
     fig.tight_layout()
     fig.savefig(out_path, dpi=180)
@@ -223,12 +229,12 @@ def plot_top_loadings_per_pc(
         ordered = loadings[top.index].sort_values()
         colors = ["#bf616a" if v > 0 else "#5e81ac" for v in ordered]
 
-        fig, ax = plt.subplots(figsize=(11, 6))
+        fig, ax = plt.subplots(figsize=(14, 5))
         ax.barh(ordered.index, ordered.values, color=colors, edgecolor="white")
         var_pct = pca.explained_variance_ratio_[i] * 100
         ax.set_title(
             f"PC{i+1} — Top {n_top} Feature Loadings ({var_pct:.1f}% variance explained)",
-            fontsize=13,
+            fontsize=14,
         )
         ax.set_xlabel("Loading")
         ax.axvline(0, color="black", linewidth=0.6)
@@ -237,7 +243,7 @@ def plot_top_loadings_per_pc(
         for idx_name, val in ordered.items():
             offset = 0.005 if val >= 0 else -0.005
             ha = "left" if val >= 0 else "right"
-            ax.text(val + offset, idx_name, f"{val:.3f}", va="center", ha=ha, fontsize=9)
+            ax.text(val + offset, idx_name, f"{val:.3f}", va="center", ha=ha, fontsize=10)
 
         fig.tight_layout()
         out_path = out_dir / f"pca_top_loadings_pc{i+1}.png"
@@ -255,7 +261,7 @@ def plot_biplot(
     n_arrows: int = 15,
 ) -> None:
     """Biplot of PC1 vs PC2, colored by homicide count, with top-N loading arrows."""
-    fig, ax = plt.subplots(figsize=(12, 9))
+    fig, ax = plt.subplots(figsize=(14, 8))
 
     # Scatter: each hex, colored by log1p(homicide).
     hom_log = np.log1p(homicide)
@@ -284,7 +290,7 @@ def plot_biplot(
             xy=(loadings[i, 0] * scale, loadings[i, 1] * scale),
             xytext=(0, 0),
             arrowprops=dict(arrowstyle="->", color="#2e3440", lw=1.2),
-            fontsize=7,
+            fontsize=9,
             color="#2e3440",
             ha="center",
             va="center",
@@ -292,7 +298,7 @@ def plot_biplot(
 
     ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}%)")
     ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}%)")
-    ax.set_title("PCA Biplot — Hexagons Colored by Homicide Count")
+    ax.set_title("PCA Biplot — Hexagons Colored by Homicide Count", fontsize=14)
     ax.axhline(0, color="gray", linewidth=0.5, linestyle="--")
     ax.axvline(0, color="gray", linewidth=0.5, linestyle="--")
 
