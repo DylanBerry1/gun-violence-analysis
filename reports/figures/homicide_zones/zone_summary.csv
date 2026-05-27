@@ -1,0 +1,4 @@
+zone_id,zone_label,hex_count,total_homicides,mean_count,max_count,centroid_lat,centroid_lon,zone_rank
+1,West Englewood / Greater Grand Crossing,130,3729,28.7,97,41.770430623824,-87.62972405451865,1
+2,Austin / North Lawndale,92,3206,34.8,93,41.8784533440186,-87.73068556051562,2
+3,Roseland / West Pullman,13,370,28.5,37,41.69114798831017,-87.62536071184606,3
